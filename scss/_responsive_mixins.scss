@@ -1,0 +1,15 @@
+
+// laptop
+
+@mixin responsive_laptop() {
+  @media only screen and (min-width: 1024px ){
+    @content
+  }
+}
+
+//computer
+@mixin responsive_computer() {
+  @media only screen and (min-width: 1600px ){
+    @content
+  }
+}

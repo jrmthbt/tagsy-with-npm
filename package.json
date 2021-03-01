@@ -1,0 +1,23 @@
+{
+  "author": "Jérémie Thibaut",
+  "name": "tagsy-project",
+  "license": "Jaccorde.com",
+  "version": "2.0.0",
+  "description": "Tagsy l'éditeur de tags d'exercice de j'accorde",
+  "main": "js/app.js",
+  "private": "true",
+  "scripts": {
+    "sass": "sass scss/main.scss dist/css/main.css",
+    "scss": "npm run sass",
+    "build": "rollup --config",
+    "reload": "reload -b",
+    "startReload": " npm run reload"
+  },
+  "dependencies": {
+    "reload": "^3.1.1",
+    "sass": "^1.32.8"
+  },
+  "devDependencies": {
+    "rollup": "^2.40.0"
+  }
+}

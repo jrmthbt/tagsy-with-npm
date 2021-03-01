@@ -1,0 +1,61 @@
+// floraless Regular
+
+.floraless {
+  font-family: floralessregular, sans-serif;
+  font-size: 20px;
+  color: $purple;
+}
+
+// Lato regulat
+
+.lato_regular_base {
+  font-family: latoregular, sans-serif;
+}
+
+.regular_10{
+  @extend .lato_regular_base;
+  font-size: 10px;
+}
+
+.regular_15{
+  @extend .lato_regular_base;
+  font-size: 15px;
+}
+
+.regular_20{
+  @extend .lato_regular_base;
+  font-size: 20px;
+}
+
+// lato bold
+
+.lato_bold_base {
+  font-family: latobold, sans-serif;
+}
+
+.bold_15{
+  @extend .lato_bold_base;
+  font-size: 15px;
+}
+
+.bold_20{
+  @extend .lato_bold_base;
+  font-size: 20px;
+}
+
+.bold_25{
+  @extend .lato_bold_base;
+  font-size: 25px;
+}
+
+.bold_30{
+  @extend .lato_bold_base;
+  font-size: 30px;
+}
+
+//lato light
+
+.lato_light_15 {
+  font-family: latolight, sans-serif;
+  font-size: 15px;
+}

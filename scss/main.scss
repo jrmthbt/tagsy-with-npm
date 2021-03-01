@@ -1,0 +1,20 @@
+// commons imports
+
+@import './responsive_mixins';
+@import './color';
+@import './fonts';
+@import './typography';
+
+$border-radius : 3px;
+
+body {
+  background-color: $purple;
+  @include responsive_laptop() {
+    background-color: $blue;
+  }
+
+  @include responsive_computer(){
+    background-color: $dark_gray;
+  }
+
+}
