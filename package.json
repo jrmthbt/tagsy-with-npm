@@ -1,5 +1,5 @@
 {
-  "author": "Jérémie Thibaut",
+  "author": "Jérémie Thibaut (stage pour jaccorde.com) responsable Antoine Van Eetvelde",
   "name": "tagsy-project",
   "license": "Jaccorde.com",
   "version": "2.0.0",
@@ -7,8 +7,9 @@
   "main": "js/app.js",
   "private": "true",
   "scripts": {
-    "sass": "sass scss/main.scss dist/css/main.css && sass --watch --style=compressed scss/main.scss dist/min/css/main.min.css",
-    "scss": "npm run sass",
+    "sass": "sass --watch scss/main.scss dist/css/main.css",
+    "sassMin" : "sass --watch --style=compressed scss/main.scss dist/min/css/main.min.css",
+    "scss": "npm run sass && npm run sassMin",
     "build": "rollup --config",
     "reload": "reload -b",
     "startReload": " npm run reload"
