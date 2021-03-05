@@ -4,57 +4,126 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link rel="stylesheet" href="dist/css/main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="icon" href="img/favicon.png">
     <title>Tagsy - l'éditeur de tags pour exercices de j'accorde</title>
+    <script defer src="/node_modules/@fortawesome/fontawesome-free/js/brands.js"></script>
+    <script defer src="/node_modules/@fortawesome/fontawesome-free/js/solid.js"></script>
+    <script defer src="/node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"></script>
 </head>
 <body>
-<section class="container mt-1">
-    <div id="content">
-        <h1 class="text-center">Questions créées</h1>
-        <table class="table table-bordered">
-            <thead class="thead-light text-center">
-            <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Enoncer</th>
-                <th scope="col">choix</th>
-                <th scope="col">bonne réponse</th>
-                <th scope="col">explication</th>
-                <th scope="col" class="w-25 p-3">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+<header>
+    <div class="container">
+        <!-- Logo, title & help btn-->
+        <img id="logo" alt="jaccorde" src="img/jaccorde-main-logo.png">
+        <h1 class="floraless">J'accorde</h1>
+        <p id="time-save" class="bold_10"></p>
+        <p class="help-link regular_20 help">Aide</p>
     </div>
+</header>
+<main>
+    <div class="container">
+        <!-- title -->
+        <h2 class="bold_25">Tagsy</h2>
+        <h3 class="lato_light_15">L'éditeur de tags pour exercices de j'accorde.</h3>
+        <h4 class="lato_light_10">Des questions? Cliquez sur "<span class="help">Aide</span>"</h4>
 
-    <button class="btn btn-outline-primary" id="form-add">Ajouter une question</button>
-    <form action="javascript:void(0);" id="form" class="mt-4">
-        <div class="form-group">
-            <label for="type">type</label>
-            <input type="text" name="type" id="type" class="form-control" required />
+    <!-- toolbars -->
+
+        <div id="toolbars">
+            <div class="tools">
+                <i class="fas fa-undo" id="undo"></i>
+             </div>
+            <hr>
+            <div class="tools">
+                <i class="fas fa-redo" id="redo"></i>
+            </div>
+            <hr>
+            <div class="tools">
+                <p class="tags lato_bold_base" id="tag-r" >[%R]</p>
+            </div>
+            <hr>
+            <div class="tools">
+                <p class="tags lato_bold_base" id="tag-g" >[%G]</p>
+            </div>
+            <hr>
+            <div class="tools">
+                <p class="tags lato_bold_base" id="tag-i" >[%I]</p>
+            </div>
+            <hr>
+            <div class="counter lato_bold_base">
+                Compteur automatique
+                <input type="checkbox" id="counter" class="toggle-checkbox">
+                <label for="counter" class="toggle-checkbox-label"></label>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="enoncer">Enoncer</label>
-            <input type="text" name="enoncer" id="enoncer" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="choix">choix</label>
-            <input type="text" name="choix" id="choix" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="bonne-Reponse">Bonne Réponse</label>
-            <input type="text" name="bonne-Reponse" id="bonne-Reponse" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="explication">explication</label>
-            <input type="text" name="explication" id="explication" class="form-control" required />
-        </div>
-        <input type="hidden" id="hidden" />
-        <button class="btn btn-xs btn-primary" id="form-save">Enregistrer</button>
-        <button class="btn btn-xs btn-secondary" id="form-cancel">Annuler</button>
-    </form>
-</section>
+
+        <div class="clear"></div>
+
+        <!-- formulaire pour ajouter une question -->
+        <form action="javascript:void(0)">
+            <label class="bold_15" for="name-exercise">Nom de l'exercice : </label>
+            <input type="text" name="nom-exercice" id="name-exercise" class="regular_10">
+            <table>
+                <thead></thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+            </table>
+                <label class="bold_15" for="question-name">Question : </label>
+                <input type="text" name="question-name" id="question-name" class="regular_10">
+                <label for="qcm" class="bold_10 type-exercice">QCM :  <span></span></label>
+                <input type="radio" name="exercice" id="qcm" class="type-exercice">
+                <label for="identification" class="bold_10 type-exercice">Identification : </label>
+                <input type="radio" name="exercice" id="identification" class="type-exercice">
+                <label for="answer" class="bold_10 type-exercice">Réponse courte :</label>
+                <input type="radio" name="exercice" id="answer" class="type-exercice">
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="qcm-thead bold_15">Choix</th>
+                        <th scope="col" class="qcm-thead bold_15">Bonne réponse</th>
+                        <th scope="col" class="qcm-thead bold_15">Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <label for="choices-1"></label>
+                            <input type="text" id="choices-1" class="regular_10 choices" disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="good-answer-1" class="toggle-checkbox" checked="checked" >
+                            <label for="good-answer-1" class="toggle-checkbox-label good-answer-choice"></label>
+                        </td>
+                        <td>
+                            <button class="btn-secondary bold_10" id="answer-edit">Modifier</button>
+                            <button class="btn-tertiary bold_10" id="answer-delete">Supprimer</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <label for="choice"></label>
+                            <input type="text" id="choice" class="regular_10">
+                        </td>
+                        <td>
+                            <input type="checkbox" id="good-answer" class="toggle-checkbox">
+                            <label for="good-answer" class="toggle-checkbox-label good-answer"></label>
+                        </td>
+                        <td>
+                            <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <input type="checkbox" id="explication" class="toggle-checkbox explication">
+                <label for="explication" class="toggle-checkbox-label explication explication-check"></label>
+                <label for="explication-text" class="bold_15 explication">Texte explicatif : </label>
+                <input type="text" id="explication-text" class="regular_10 explication">
+            </form>
+        <button class="btn-primary bold_10" id="form-add">Ajouter la question</button>
+    </div>
+</main>
 </body>
 <script src="dist/js/app.js"></script>
 </html>

@@ -2,22 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/tagsy-project-dynamicV2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scss/composents/_fonts.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scss/composents/_variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/arrow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/api/localstorage.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/api/localstorage.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/function.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/function.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/magasin.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/magasin.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/main.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/main.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/validate.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/validate.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/magasin.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/magasin.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_fonts.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_responsive_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_responsive_mixins.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_typography.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_typography.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_typography.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_typography.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +32,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1p9T7YMPFAP4RmTK6mYUVi0Pbcz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -87,7 +88,8 @@
       <workItem from="1614594140565" duration="16421000" />
       <workItem from="1614620629539" duration="279000" />
       <workItem from="1614680666466" duration="702000" />
-      <workItem from="1614688690444" duration="9583000" />
+      <workItem from="1614688690444" duration="12303000" />
+      <workItem from="1614930924300" duration="21397000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>

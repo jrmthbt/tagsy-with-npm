@@ -8,7 +8,7 @@
   "private": "true",
   "scripts": {
     "sass": "sass --watch scss/main.scss dist/css/main.css",
-    "sassMin" : "sass --watch --style=compressed scss/main.scss dist/min/css/main.min.css",
+    "sassMin": "sass --watch --style=compressed scss/main.scss dist/min/css/main.min.css",
     "scss": "npm run sass && npm run sassMin",
     "build": "rollup --config",
     "reload": "reload -b",
@@ -19,6 +19,7 @@
     "sass": "^1.32.8"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "rollup": "^2.40.0",
     "rollup-plugin-terser": "^7.0.2"
   }

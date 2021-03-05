@@ -4,7 +4,7 @@ import './composents/magasin.mjs';
 import './composents/validate.mjs';
 import './composents/api/localstorage.mjs';*/
 
-import {questions} from "./composents/magasin.mjs";
+/*import {questions} from "./composents/magasin.mjs";
 
 console.table(questions);
 console.table(questions[0].choix);
@@ -18,6 +18,7 @@ let fetchAllQuestions = (questions) => {
     questions.forEach((q , index) => {
         data +=
             `<tr>
+      <td>${index+1}</td>
       <td>${q.type}</td>
       <td>${q.enonce}</td>
       <td>${q.choix}</td>
@@ -44,7 +45,7 @@ let fetchAllQuestions = (questions) => {
     });
 }
 
-fetchAllQuestions(questions);
+//fetchAllQuestions(questions);
 
 const elForm = document.getElementById("form");
 elForm.style.display = "none";
@@ -125,6 +126,6 @@ function editQuestion(index) {
 function deleteMovie(index) {
     if (confirm("Confirmez-vous la suppression de cette question ?")) {
         questions.splice(index, 1);
-        fetchAllQuestions(questions);
+        //fetchAllQuestions(questions);
     }
-}
+}*/

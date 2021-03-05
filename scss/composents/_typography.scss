@@ -6,7 +6,7 @@
   color: $purple;
 }
 
-// Lato regulat
+// Lato regular
 
 .lato_regular_base {
   font-family: latoregular, sans-serif;
@@ -33,6 +33,11 @@
   font-family: latobold, sans-serif;
 }
 
+.bold_10{
+  @extend .lato_bold_base;
+  font-size: 10px;
+}
+
 .bold_15{
   @extend .lato_bold_base;
   font-size: 15px;
@@ -54,8 +59,16 @@
 }
 
 //lato light
+.lato_light_base{
+  font-family: latolight, sans-serif;
+}
+
+.lato_light_10{
+  @extend .lato_light_base;
+  font-size: 10px;
+}
 
 .lato_light_15 {
-  font-family: latolight, sans-serif;
+  @extend .lato_light_base;
   font-size: 15px;
 }

@@ -1,6 +1,20 @@
-$border-radius_5 : 5px;
+// all variables
 
-$container_tablet: 600px;
-$container_laptop: 800px;
-$container_computer: 1200px;
-$container_margin: 0 auto;
+$border-radius_5 : 5px; // border radius de 5px
+
+$container_tablet_600: 600px; // format tablette
+$container_laptop_800: 800px; // format laptop
+$container_computer_1200: 1200px; // format ordinateur grande résolution
+$container_margin: 0 auto; // centrer le container
+
+$text_center : center; // centrer le texte
+$text_left : left; // texte justifié à gauche
+
+$trans_3 : all 0.3s; // transtion en 0.3s
+
+$choices_width : 180px; // width des inputs text du tableau
+$choices_height : 15px; // height des inputs text du tableau
+
+$padding5 : 5px; // padding global 5px
+
+$border_input_choices : 1px solid $gray; // border des inputs text des tableaux
