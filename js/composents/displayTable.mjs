@@ -1,5 +1,6 @@
 import {qcmAnswer} from "./response.mjs";
 import {editRow} from "./editRow.mjs";
+import {deleteRow} from "./deleteRow.mjs";
 
 
 export let displayTable = () => {
@@ -59,7 +60,7 @@ export let displayResponse = (qcmAnswer) => {
             </td>
             <td>
                 <button class="btn-secondary bold_10 edit" value="${index}" id="answer-edit">Modifier</button>
-                <button class="btn-tertiary bold_10 delete" id="answer-delete">Supprimer</button>
+                <button class="btn-tertiary bold_10 delete" value="${index}" id="answer-delete">Supprimer</button>
             </td>
         </tr>`
     });
@@ -70,6 +71,13 @@ export let displayResponse = (qcmAnswer) => {
     document.querySelectorAll(".edit").forEach(edit => {
         edit.addEventListener("click", function (){
             return editRow(this.value);
+        });
+    });
+
+    document.querySelectorAll(".delete").forEach(del => {
+        del.addEventListener("click", function (){
+            console.log(this.value);
+            return deleteRow(this.value);
         });
     });
 
