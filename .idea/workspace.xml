@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/scss/composents/_button.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_header.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_title.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_toggleCheck.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_toolbars.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/arrow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/magasin.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/magasin.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_typography.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_typography.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +40,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1p9T7YMPFAP4RmTK6mYUVi0Pbcz" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -53,6 +53,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowStructure.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
@@ -89,7 +90,8 @@
       <workItem from="1614620629539" duration="279000" />
       <workItem from="1614680666466" duration="702000" />
       <workItem from="1614688690444" duration="12303000" />
-      <workItem from="1614930924300" duration="21397000" />
+      <workItem from="1614930924300" duration="21835000" />
+      <workItem from="1615189066352" duration="1373000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>

@@ -1,0 +1,57 @@
+@import "color";
+@import "variables";
+
+/* ------ toolsbar ------- */
+
+#toolbars {
+  text-align: $text-center;
+  width: $container_tablet_600;
+  height: 50px;
+  background-color: $gray;
+  border: solid 1px $gray;
+  position: sticky;
+  z-index: 100;
+  top: 50px;
+  margin-top: 20px;
+  border-radius: $border-radius_5;
+
+  .tools {
+    width: 50px;
+    height: 50px;
+    color: $purple;
+    cursor: pointer;
+    margin-right: 20px;
+    float: left;
+    border-radius: $border_radius_5;
+    transition: $trans_3;
+
+    &:hover {
+      color: #fff;
+      background-color: #6468da;
+    }
+
+    #undo, #redo, {
+      margin-top: 17px;
+    }
+
+    .tags {
+      margin-top: 15px;
+    }
+  }
+
+  hr {
+    height: 25px;
+    width: 2px;
+    border: none;
+    background-color: $purple;
+    float: left;
+    margin: 12px 0 0 -10px;
+  }
+
+
+  .counter {
+    color: $purple;
+    margin: 16px 65px 0 0;
+
+  }
+}

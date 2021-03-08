@@ -1,0 +1,106 @@
+@import "color";
+@import "variables";
+
+// style form
+form{
+  color: $purple;
+  position: relative;
+  margin-top: 20px;
+  text-align: left;
+  label{
+    margin-top: 20px;
+  }
+
+  input[type="text"]{
+    border-radius: $border_radius_5;
+    border: 1px solid $purple;
+    width: 600px;
+    height: 25px;
+    margin: 10px 0;
+    padding: 5px;
+  }
+
+  input[type="radio"]{
+    top: -75px;
+    margin-right: 10px;
+  }
+
+  .type-exercice{
+    position: relative;
+    top: -77px;
+    left: 75px;
+  }
+
+
+  table{
+    width: $container_tablet_600;
+    height: auto;
+    border-radius: $border-radius_5;
+    margin: -10px 0 30px;
+
+    thead{
+      background-color: $light_gray;
+      tr{
+
+        text-align: $text_center;
+        th{
+          width: ($container_tablet_600)/3;
+          border: 1px solid $light_gray;
+          border-radius: $border-radius_5;
+        }
+      }
+    }
+
+    tbody{
+      text-align: $text_center;
+      background-color: $gray;
+      padding: 5px;
+      tr{
+        td{
+          border-radius: $border-radius_5;
+          input.choices{
+            width: $choices_width;
+            height: $choices_height;
+            padding: $padding5;
+            border: $border_input_choices;
+          }
+          .good-answer-choice{
+            top: -10px;
+            left: 75px;
+          }
+        }
+      }
+    }
+
+    tfoot{
+      background-color: $light_gray;
+      tr{
+
+        text-align: $text_center;
+        td{
+          border-radius: $border-radius_5;
+          width: ($container_tablet_600)/3;
+          text-align: center;
+          input#choice{
+            width: $choices_width;
+            height: $choices_height;
+            padding: $padding5;
+            border: $border_input_choices;
+          }
+          .good-answer{
+            top: -10px;
+            left: 75px;
+          }
+        }
+      }
+    }
+  }
+  .explication{
+    margin-top: -35px;
+  }
+
+  .explication-check{
+    top: 20px !important;
+    left: 115px!important;
+  }
+}

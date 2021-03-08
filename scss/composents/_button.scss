@@ -1,0 +1,50 @@
+@import "variables";
+@import "color";
+
+// style of button
+
+  button {
+    text-align: left;
+    cursor: pointer;
+    border-radius: $border-radius_5;
+    padding: 5px;
+  }
+
+  .btn-primary {
+    background-color: $white;
+    color: $purple;
+    border: 1px solid $purple;
+    transition: $trans_3;
+
+    &:hover {
+      background-color: $purple;
+      color: $white;
+      border: 1px solid $white;
+    }
+  }
+
+  .btn-secondary {
+    background-color: $white;
+    color: $blue;
+    border: 1px solid $blue;
+    transition: $trans_3;
+
+    &:hover {
+      background-color: $blue;
+      color: $white;
+      border: 1px solid $blue;
+    }
+  }
+
+  .btn-tertiary {
+    background-color: $white;
+    color: $red;
+    border: 1px solid $red;
+    transition: $trans_3;
+
+    &:hover {
+      background-color: $red;
+      color: $white;
+      border: 1px solid $red;
+    }
+  }
