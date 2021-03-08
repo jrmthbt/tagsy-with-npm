@@ -77,45 +77,8 @@
                 <label for="answer" class="bold_10 type-exercice">Réponse courte :</label>
                 <input type="radio" name="exercice" id="answer" class="type-exercice">
                 <table>
-                    <thead>
-                    <tr>
-                        <th scope="col" class="qcm-thead bold_15">Choix</th>
-                        <th scope="col" class="qcm-thead bold_15">Bonne réponse</th>
-                        <th scope="col" class="qcm-thead bold_15">Options</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label for="choices-1"></label>
-                            <input type="text" id="choices-1" class="regular_10 choices" disabled>
-                        </td>
-                        <td>
-                            <input type="checkbox" id="good-answer-1" class="toggle-checkbox" checked="checked" >
-                            <label for="good-answer-1" class="toggle-checkbox-label good-answer-choice"></label>
-                        </td>
-                        <td>
-                            <button class="btn-secondary bold_10" id="answer-edit">Modifier</button>
-                            <button class="btn-tertiary bold_10" id="answer-delete">Supprimer</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td>
-                            <label for="choice"></label>
-                            <input type="text" id="choice" class="regular_10">
-                        </td>
-                        <td>
-                            <input type="checkbox" id="good-answer" class="toggle-checkbox">
-                            <label for="good-answer" class="toggle-checkbox-label good-answer"></label>
-                        </td>
-                        <td>
-                            <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
-                        </td>
-                    </tr>
-                    </tfoot>
                 </table>
+                <input type="hidden" id="hidden">
                 <input type="checkbox" id="explication" class="toggle-checkbox explication">
                 <label for="explication" class="toggle-checkbox-label explication explication-check"></label>
                 <label for="explication-text" class="bold_15 explication">Texte explicatif : </label>

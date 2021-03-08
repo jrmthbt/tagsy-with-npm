@@ -3,14 +3,15 @@
 @import 'composents/responsive_mixins';
 @import 'composents/color';
 @import 'composents/variables';
-@import "composents/header";
-@import "composents/toolbars";
 @import 'composents/fonts';
 @import 'composents/typography';
+@import "composents/title";
+@import "composents/header";
+@import "composents/toolbars";
 @import "composents/form";
 @import "composents/button";
 @import "composents/toggleCheck";
-@import "composents/title";
+@import "composents/img";
 
 
 /*------- initalisation de la page ------ */
@@ -31,6 +32,10 @@
 
 .clear{
   clear: both;
+}
+
+.text-center {
+  text-align: $text_center;
 }
 
 
