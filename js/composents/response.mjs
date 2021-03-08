@@ -14,5 +14,13 @@ export const qcmAnswer = [
 ]
 
 export const shortAnswer = [
-
+    {
+        "choix" : "suis",
+    },{
+        "choix" : "es",
+    },{
+        "choix" : "est",
+    },{
+        "choix" : "somme",
+    },
 ]

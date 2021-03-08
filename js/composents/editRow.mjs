@@ -1,19 +1,31 @@
-import {qcmAnswer} from "./response.mjs";
+import {qcmAnswer, shortAnswer} from "./response.mjs";
 
 
 export let editRow = (index) => {
-    const answer = qcmAnswer.find((qcmChoices,i) => {
-        return i == index;
+    if (document.getElementById("good-answer")) {
+        var qcmAnswerEdit = qcmAnswer.find((qcmChoices, i) => {
+            return i == index;
 
-    });
+        });
+
+    }else {
+        var answerEdit = shortAnswer.find((qcmChoices, i) => {
+            return i == index;
+        });
+    }
 
     console.log(index);
 
     document.getElementsByTagName("tr")[parseInt(index)+1].style.backgroundColor = "rgba(100,100,100, 0.5)";
 
-    document.getElementById("choice").value = answer.choix;
-    document.getElementById("good-answer").checked = answer.checked;
-    document.getElementById("hidden").value = index;
+    if (document.getElementById("good-answer")) {
+        document.getElementById("choice").value = qcmAnswerEdit.choix;
+        document.getElementById("good-answer").checked = qcmAnswerEdit.checked;
+        document.getElementById("hidden").value = index;
+    }else{
+        document.getElementById("choice").value = answerEdit.choix;
+        document.getElementById("hidden").value = index;
+    }
 
 }
 

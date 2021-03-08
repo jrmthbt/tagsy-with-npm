@@ -1,12 +1,11 @@
 // is checked function
 
 import {displayResponse, displayTable} from "./displayTable.mjs";
-import {qcmAnswer} from "./response.mjs";
+import {qcmAnswer, shortAnswer} from "./response.mjs";
 
 export let isChecked = (e) =>{
     if (e.target.id === "qcm"){
-        console.log("qcm exercice");
-        displayTable();
+        displayTable(e.target);
         displayResponse(qcmAnswer);
 
     }
@@ -14,6 +13,7 @@ export let isChecked = (e) =>{
         console.log("identification exercice");
     }
     if (e.target.id === "answer"){
-        console.log("reonse courte exercice");
+        displayTable(e.target);
+        displayResponse(shortAnswer);
     }
 }
