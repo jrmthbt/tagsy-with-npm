@@ -12,7 +12,7 @@
     "scss": "npm run sass && npm run sassMin",
     "build": "rollup --config",
     "reload": "reload -b",
-    "startReload": " npm run reload"
+    "serv": " npm run reload"
   },
   "dependencies": {
     "reload": "^3.1.1",
