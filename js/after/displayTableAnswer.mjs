@@ -75,7 +75,7 @@ export let displayResponse = (response) => {
             data += `
         <tr>
             <td>
-            <label for="choices-${row}"></label>
+            <label for="choices"></label>
             <input type="text"  class="regular_10 choices text-center choices" value="${choix.choix}" disabled>
             </td>
             <td>

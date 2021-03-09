@@ -63,11 +63,6 @@
         <form action="javascript:void(0)">
             <label class="bold_15" for="name-exercise">Nom de l'exercice : </label>
             <input type="text" name="nom-exercice" id="name-exercise" class="regular_10" placeholder="Entrez le nom de l'exercice">
-            <table>
-                <thead></thead>
-                <tbody></tbody>
-                <tfoot></tfoot>
-            </table>
                 <label class="bold_15" for="question-name">Question : </label>
                 <label for="qcm" class="bold_10 type-exercice label-name">QCM :  <span></span></label>
                 <input type="radio" name="exercice" id="qcm" class="type-exercice">
@@ -78,7 +73,7 @@
             <button id="change" class="btn btn-secondary btn-change display-none">Changer le type d'exercice</button>
                  <input type="text" name="question-name" id="question-name" class="regular_10" placeholder="Entrez l'énoncer">
                  <div class="clear"></div>
-                <table>
+                <table id="app">
                 </table>
                 <input type="hidden" id="hidden">
                 <input type="checkbox" id="explication" class="toggle-checkbox explication">
@@ -89,12 +84,6 @@
         <button class="btn-primary bold_10" id="form-add">Ajouter la question</button>
     </div>
     <img src="img/gizmo-greet.png" alt="guizmo" id="guizmo-greet">
-    <div id="confirmBox" class="display-none">
-    <i class="fas fa-comment"></i>
-    <p class="regular_10 text-center" id="confirm-text"></p>
-    <button class="btn btn-primary btn-confirm ">Oui</button>
-    <button class="btn btn-secondary btn-cancel">non</button>
-    </div>
 </main>
 <footer>
 </footer>
