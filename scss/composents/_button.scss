@@ -19,7 +19,7 @@
     &:hover {
       background-color: $purple;
       color: $white;
-      border: 1px solid $white;
+      border: 1px solid $purple;
     }
   }
 
@@ -47,4 +47,11 @@
       color: $white;
       border: 1px solid $red;
     }
+  }
+
+  .btn-change{
+  position: relative;
+    top: 30px;
+    left: -325px;
+    margin-bottom: 35px;
   }

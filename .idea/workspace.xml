@@ -2,12 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/js/composents/render.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/composents/ConfirmBox.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/composents/toogleDisplay.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/SpeechBubble.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/speechBubbleSquare.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/speechBubbleSquare.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/speechBubbleSquare2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/addRow.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/addRow.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/deleteRow.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/displayTable.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/displayTableAnswer.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/editRow.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/editRow.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/isChecked.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/isChecked.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/response.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/response.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/unused.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/hideTable.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/isClicked.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/isClicked.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/noDropCursor.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/noDropCursor.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_button.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_button.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_img.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_img.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +34,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -89,7 +102,8 @@
       <workItem from="1614680666466" duration="702000" />
       <workItem from="1614688690444" duration="12303000" />
       <workItem from="1614930924300" duration="21835000" />
-      <workItem from="1615189066352" duration="24513000" />
+      <workItem from="1615189066352" duration="24964000" />
+      <workItem from="1615275506749" duration="11949000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>

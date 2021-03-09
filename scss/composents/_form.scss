@@ -21,15 +21,15 @@ form{
   }
 
   input[type="radio"]{
-    top: -75px;
-    margin-right: 10px;
+    top: 0;
+    margin: 0 5px;
     cursor: pointer;
   }
 
   .type-exercice{
     position: relative;
-    top: -77px;
-    left: 75px;
+    top: 0;
+    left: 0;
   }
 
 
@@ -37,7 +37,7 @@ form{
     width: $container_tablet_600;
     height: auto;
     border-radius: $border-radius_5;
-    margin: -10px 0 30px;
+    margin: 10px 0 30px;
 
     thead{
       background-color: $light_gray;
@@ -105,3 +105,4 @@ form{
     left: 115px!important;
   }
 }
+

@@ -1,8 +1,8 @@
 import {editRow} from "./editRow.mjs";
-import {deleteRow} from "./deleteRow.mjs";
+import {qcmAnswer, shortAnswer} from "./response.mjs";
 
 
-export let displayTable = (target) => {
+export let displayTableAnswer = (target) => {
 
     if (target.id === "qcm") {
 
@@ -140,3 +140,16 @@ export let displayResponse = (response) => {
     }
 }
 
+// delete from table
+
+export let deleteRow = index => {
+    if (document.getElementById("good-answer")){
+        console.log(index)
+        qcmAnswer.splice(index,1);
+        displayResponse(qcmAnswer);
+    }else {
+        console.log(index)
+        shortAnswer.splice(index, 1);
+        displayResponse(shortAnswer);
+    }
+}

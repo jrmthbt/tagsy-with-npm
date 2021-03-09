@@ -12,6 +12,7 @@
 @import "composents/button";
 @import "composents/toggleCheck";
 @import "composents/img";
+@import "composents/confirmBox";
 
 
 /*------- initalisation de la page ------ */
@@ -22,10 +23,18 @@
   height: auto;
 }
 
+body {
+  height: 100vh;
+  overflow: scroll;
+}
 /*----- container tablet ----- */
 .container {
   width: $container_tablet_600;
   margin: $container_margin;
+
+  #form-add{
+    margin-top: 10px;
+  }
 }
 
 /* ------- suppresion du flottement ------------ */
@@ -36,6 +45,10 @@
 
 .text-center {
   text-align: $text_center;
+}
+
+.display-none{
+  display: none;
 }
 
 

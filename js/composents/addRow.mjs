@@ -1,5 +1,5 @@
 import {qcmAnswer, shortAnswer} from "./response.mjs";
-import {displayResponse} from "./displayTable.mjs";
+import {displayResponse} from "./displayTableAnswer.mjs";
 
 export let addRow = () =>{
     const choix = document.getElementById("choice").value;
