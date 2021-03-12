@@ -3,9 +3,8 @@
 export class View {
     constructor() {
 
-        if (document.getElementById('qcm')) {
-            document.getElementById('qcm').addEventListener("change", function () {
-                this.app = document.getElementById('app');
+
+                this.app = document.getElementById('root');
                 this.app.innerHTML = ` <thead>
                <tr>
                   <th scope="col" class="qcm-thead bold_15">Choix</th>
@@ -30,29 +29,6 @@ export class View {
                         </td>
                     </tr>
                     </tfoot>`
-            })
-        }
-        if (document.getElementById('answer')) {
-            document.getElementById('answer').addEventListener("change", function () {
-                this.app = document.getElementById('app');
-                this.app.innerHTML = `<thead>
-                     <th scope="col" class="answer-thead bold_15">Choix</th>
-                        <th scope="col" class="answer-thead bold_15">Options</th>
-                        </thead>
-                        <tbody></tbody>
-                         <tfoot>
-                                 <tr>
-                                     <td>
-                                         <label for="choice"></label>
-                                         <input type="text" id="choice" class="regular_10 text-center" name="answer">
-                                     </td>
-                                      <td>
-                                         <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
-                        </td>
-                    </tr>
-                    </tfoot>`
-            })
-        }
     }
 
     createElement(tag, className) {
@@ -72,43 +48,83 @@ export class View {
       return this.getElement('#choice').value;
     }
 
-    _resetInput () {
-        this.getElement('#choice').value = "";
+    get _checkValue(){
+        return this.getElement('#good-answer').checked;
     }
 
-    displayTableQcm (qcmAnswers) {
-        while (this.getElement('tbody').firstChild) {
-            this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
-        }
+    _resetInput () {
+        this.getElement('#choice').value = "";
+        this.getElement('#good-answer').checked = false;
+    }
+
+    displayTableQcm(qcmAnswers) {
+
+
+            while (this.getElement('tbody').firstChild) {
+                this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+            }
+
+
        qcmAnswers.forEach(answer => {
            const tr = this.createElement('tr');
 
            const tdinput = this.createElement('td');
            const input = this.createElement('input', 'regular_10');
            input.type = "text";
+           input.className ="choices text-center";
            input.value = answer.choix;
 
            const tdCheck = this.createElement('td');
-           const check = this.createElement('input', 'toggle-checkbox-label')
+           const labelToggle = this.createElement('label');
+           labelToggle.className = "good-answer-choice toggle-checkbox-label";
+           const check = this.createElement('input', 'toggle-checkbox')
            check.type = "checkbox";
-           check.checked = answer.goodAnswer;
+           if (answer.goodAnswer === "checked") {
+               check.setAttribute("checked", answer.goodAnswer);
+           }
+           console.log(answer.goodAnswer);
 
            const tdOption = this.createElement("td");
-           const editButton = this.createElement("button", "btn-primary")
-           editButton.id = "edit";
+           const editButton = this.createElement("button")
+           editButton.className = "btn-secondary edit";
            editButton.innerHTML = "Modifier"
 
-           const deleteButton = this.createElement("button", "btn-secondary")
-           deleteButton.id = "delete"
+           const deleteButton = this.createElement("button")
+           deleteButton.className = "btn-tertiary delete";
            deleteButton.innerHTML = "Supprimer";
 
            tdinput.appendChild(input);
-           tdCheck.appendChild(check);
+           tdCheck.append(check, labelToggle);
            tdOption.append(editButton, deleteButton);
 
            tr.append(tdinput, tdCheck, tdOption)
 
-           this.getElement('tbody').append (tr);
+           this.getElement('tbody').append(tr);
        })
+    }
+
+    bindAddAnswer(handler) {
+        this.getElement("#answer-add").addEventListener('submit', event => {
+            event.preventDefault()
+
+            if (this._answerText){
+                handler(this._answerText && this._checkValue);
+                this._resetInput()
+            }
+        })
+    }
+
+    binEditAnswer (handler){
+
+    }
+
+    binDeleteAnswer (handler) {
+        this.getElement('tbody').addEventListener('click', event =>{
+            if (event.target.className ==='delete'){
+                const id = parseInt(event.target.parentElement.id)
+
+                handler(id);
+            }
+        })
     }
 }

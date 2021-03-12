@@ -2,24 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/ConfirmBox.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/ConfirmBox.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/addRow.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/addRow.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/convertToArray.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/convertToArray.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/displayTableAnswer.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/displayTableAnswer.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/editRow.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/editRow.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/hideTable.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/hideTable.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/isChecked.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/isChecked.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/isClicked.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/isClicked.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/noDropCursor.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/noDropCursor.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/render.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/render.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/response.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/response.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/toogleDisplay.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/after/toogleDisplay.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_button.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_button.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +25,7 @@
         <option value="HTML File" />
         <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="tsconfig.json" />
       </list>
     </option>
   </component>
@@ -89,6 +80,16 @@
       <recent name="$PROJECT_DIR$/dist" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/dist/js/app.js" working-dir="$PROJECT_DIR$/js">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.app.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -104,6 +105,8 @@
       <workItem from="1614930924300" duration="21835000" />
       <workItem from="1615189066352" duration="24964000" />
       <workItem from="1615275506749" duration="21006000" />
+      <workItem from="1615468463177" duration="701000" />
+      <workItem from="1615535238439" duration="13215000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>

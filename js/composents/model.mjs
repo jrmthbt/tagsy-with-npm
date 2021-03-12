@@ -1,41 +1,35 @@
+
 // MVC - model
 
 export class Model {
     constructor() {
         this.qcmAnswers = [
             {
-                "id" : 1,
-                "choix" : "suis",
-                "goodAnswer" : true,
+                "id": 1,
+                "choix": "suis",
+                "goodAnswer": false,
             },
             {
-                "id" : 2,
-                "choix" : "es",
-                "goodAnswer" : false,
+                "id": 2,
+                "choix": "es",
+                "goodAnswer": false,
             },
             {
-                "id" : 3,
-                "choix" : "est",
-                "goodAnswer" : false,
+                "id": 3,
+                "choix": "est",
+                "goodAnswer": "checked",
             },
         ]
-        this.shortAnswers = [
-            {
-                "id" : 1,
-                "choix" : "sommes",
-            },
-            {
-                "id" : 2,
-                "choix" : "êtes",
-            },
-            {
-                "id" : 3,
-                "choix" : "sont",
-            },
-        ]
+
+
     }
 
-    addAnswerQcm( inputAnswer, inputChecked) {
+    bindChangeQcmAnswer(callback){
+        this.onChangeQcm = callback;
+    }
+
+
+    addAnswerQcm(inputAnswer, inputChecked) {
         const answer = {
             "id": this.qcmAnswers.length > 0 ? this.qcmAnswers[this.qcmAnswers.length - 1].id + 1 : 1,
             "choix": inputAnswer,
@@ -43,36 +37,23 @@ export class Model {
         }
 
         this.qcmAnswers.push(answer);
+        this.onChangeQcm(this.qcmAnswers)
     }
 
-    addAnswerShort (inputAnswer){
-           const answer = {
-               "id" : this.shortAnswers.length > 0 ? this.shortAnswers[this.shortAnswers.length - 1].id +1 : 1,
-               "choix": inputAnswer
-           }
 
-           this.shortAnswers.push(answer)
-       }
-
-
-    editAnswerQcm ( id, updatedAnswer, updateChecked) {
-            this.qcmAnswers = this.qcmAnswers.map((answer) =>
+    editAnswerQcm(id, updatedAnswer, updateChecked) {
+        this.qcmAnswers = this.qcmAnswers.map((answer) =>
             answer.id === id ? {id: answer.id, choix: updatedAnswer, goodAnswer: updateChecked} : answer,
-                )
-    }
-
-    editAnswerShort (id, updateAnswer){
-            this.shortAnswers = this.shortAnswers.map((answer) =>
-                answer.id === id ? {id: answer.id, choix: updatedAnswer} : answer,
-            )
+        )
+        this.onChangeQcm(this.qcmAnswers)
     }
 
 
-    deleteAnswerQcm (id) {
-            this.qcmAnswers = this.qcmAnswers.filter((answer) => answer.id !== id)
+    deleteAnswerQcm(id) {
+        this.qcmAnswers = this.qcmAnswers.filter((answer) => answer.id !== id)
+
+        this.onChangeQcm(this.qcmAnswers)
     }
 
-    deleteAnswerShort (id){
-            this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
-        }
-    }
+
+}
