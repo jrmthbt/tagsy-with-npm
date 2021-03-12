@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/ConfirmBox.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/addRow.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/convertToArray.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/displayTableAnswer.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/editRow.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/hideTable.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/isChecked.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/isClicked.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/noDropCursor.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/render.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/response.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/after/toogleDisplay.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/api/localstorage.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
-    </list>
+    <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +97,7 @@
       <workItem from="1615189066352" duration="24964000" />
       <workItem from="1615275506749" duration="21006000" />
       <workItem from="1615468463177" duration="701000" />
-      <workItem from="1615535238439" duration="17546000" />
+      <workItem from="1615535238439" duration="17859000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>

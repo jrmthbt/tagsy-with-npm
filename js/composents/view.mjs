@@ -45,7 +45,6 @@ export class View {
     }
 
     get _answerText(){
-        console.log(this.getElement("#choice").value)
       return this.getElement('#choice').value;
 
     }
@@ -53,6 +52,8 @@ export class View {
     get _checkValue(){
         if(this.getElement("#good-answer").checked) {
             return this.getElement('#good-answer').value = "checked";
+        }else{
+            return this.getElement('#good-answer').value = false;
         }
     }
 
@@ -109,7 +110,6 @@ export class View {
     bindAddAnswer(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
             event.preventDefault()
-            console.log("add done");
 
             if (this._answerText){
                 handler(this._answerText, this._checkValue);
