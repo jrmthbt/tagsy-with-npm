@@ -51,9 +51,10 @@ export class Model {
 
 
     deleteAnswerQcm(id) {
-        this.qcmAnswers = this.qcmAnswers.filter((answer) => answer.id !== id)
-console.log(id)
+        this.qcmAnswers = this.qcmAnswers.filter(( answer) => answer.id !== id)
+        console.log(`model : ${id}`)
         this.onChangeQcm(this.qcmAnswers)
+        console.table(this.qcmAnswers)
     }
 
 

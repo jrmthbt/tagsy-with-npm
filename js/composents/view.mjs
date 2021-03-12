@@ -71,7 +71,8 @@ export class View {
 
 
        qcmAnswers.forEach(answer => {
-           const tr = this.createElement('tr');
+           const tr = this.createElement('tr')
+           tr.id = answer.id;
 
            const tdinput = this.createElement('td');
            const input = this.createElement('input', 'regular_10');
@@ -126,8 +127,8 @@ export class View {
         this.getElement('tbody').addEventListener('click', event =>{
             if (event.target.classList.contains("delete")){
                 console.log("delete");
-                const id = parseInt(event.target.parentElement.id)
-                console.log(event.target.parentElement.parentElement.parentElement);
+                const id = parseInt(event.target.parentElement.parentElement.id)
+                console.log(`view : ${id}`)
 
                 handler(id);
             }
