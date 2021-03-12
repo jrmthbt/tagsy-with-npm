@@ -45,11 +45,15 @@ export class View {
     }
 
     get _answerText(){
+        console.log(this.getElement("#choice").value)
       return this.getElement('#choice').value;
+
     }
 
     get _checkValue(){
-        return this.getElement('#good-answer').checked;
+        if(this.getElement("#good-answer").checked) {
+            return this.getElement('#good-answer').value = "checked";
+        }
     }
 
     _resetInput () {
@@ -82,7 +86,6 @@ export class View {
            if (answer.goodAnswer === "checked") {
                check.setAttribute("checked", answer.goodAnswer);
            }
-           console.log(answer.goodAnswer);
 
            const tdOption = this.createElement("td");
            const editButton = this.createElement("button")
@@ -104,11 +107,12 @@ export class View {
     }
 
     bindAddAnswer(handler) {
-        this.getElement("#answer-add").addEventListener('submit', event => {
+        this.getElement("#answer-add").addEventListener('click', event => {
             event.preventDefault()
+            console.log("add done");
 
             if (this._answerText){
-                handler(this._answerText && this._checkValue);
+                handler(this._answerText, this._checkValue);
                 this._resetInput()
             }
         })
@@ -120,8 +124,10 @@ export class View {
 
     binDeleteAnswer (handler) {
         this.getElement('tbody').addEventListener('click', event =>{
-            if (event.target.className ==='delete'){
+            if (event.target.classList.contains("delete")){
+                console.log("delete");
                 const id = parseInt(event.target.parentElement.id)
+                console.log(event.target.parentElement.parentElement.parentElement);
 
                 handler(id);
             }

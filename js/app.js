@@ -5,6 +5,3 @@ import {Controller} from "./composents/controller.mjs";
 
 let app = new Controller(new Model(), new View());
 
-
-app.model.addAnswerQcm("nous sommes", "checked");
-console.table(app.model.qcmAnswers)

@@ -35,8 +35,9 @@ export class Model {
             "choix": inputAnswer,
             "goodAnswer": inputChecked,
         }
-
+    console.log(answer);
         this.qcmAnswers.push(answer);
+        console.table(this.qcmAnswers)
         this.onChangeQcm(this.qcmAnswers)
     }
 
@@ -51,7 +52,7 @@ export class Model {
 
     deleteAnswerQcm(id) {
         this.qcmAnswers = this.qcmAnswers.filter((answer) => answer.id !== id)
-
+console.log(id)
         this.onChangeQcm(this.qcmAnswers)
     }
 
