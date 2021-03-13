@@ -3,29 +3,16 @@
 
 export class Model {
     constructor() {
-        this.qcmAnswers = [
-            {
-                "id": 1,
-                "choix": "suis",
-                "goodAnswer": false,
-            },
-            {
-                "id": 2,
-                "choix": "es",
-                "goodAnswer": false,
-            },
-            {
-                "id": 3,
-                "choix": "est",
-                "goodAnswer": "checked",
-            },
-        ]
-
-
+        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswer')) || []
     }
 
     bindChangeQcmAnswer(callback){
         this.onChangeQcm = callback;
+    }
+
+    _commit(qcmAnswers) {
+        this.onChangeQcm(qcmAnswers)
+        localStorage.setItem('QcmAnswer', JSON.stringify(qcmAnswers))
     }
 
 
@@ -37,8 +24,8 @@ export class Model {
         }
     console.log(answer);
         this.qcmAnswers.push(answer);
-        console.table(this.qcmAnswers)
-        this.onChangeQcm(this.qcmAnswers)
+
+        this._commit(this.qcmAnswers)
     }
 
 
@@ -46,15 +33,13 @@ export class Model {
         this.qcmAnswers = this.qcmAnswers.map((answer) =>
             answer.id === id ? {id: answer.id, choix: updatedAnswer, goodAnswer: updateChecked} : answer,
         )
-        this.onChangeQcm(this.qcmAnswers)
+        this._commit(this.qcmAnswers)
     }
 
 
     deleteAnswerQcm(id) {
         this.qcmAnswers = this.qcmAnswers.filter(( answer) => answer.id !== id)
-        console.log(`model : ${id}`)
-        this.onChangeQcm(this.qcmAnswers)
-        console.table(this.qcmAnswers)
+        this._commit(this.qcmAnswers)
     }
 
 

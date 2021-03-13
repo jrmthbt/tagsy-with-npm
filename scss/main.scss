@@ -51,6 +51,13 @@ body {
   display: none;
 }
 
+.disabled{
+  pointer-events: none !important;
+  color: $dark_gray;
+  border: 1px solid $dark_gray;
+  background-color: $medium_light_gray;
+}
+
 
 
 

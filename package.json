@@ -13,7 +13,9 @@
     "build": "rollup --config",
     "reload": "reload -b",
     "serv": " npm run reload",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "commit": "git commit -a -m",
+    "push" : "git push origin main"
   },
   "dependencies": {
     "reload": "^3.1.1",

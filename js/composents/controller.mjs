@@ -31,7 +31,6 @@ export class Controller {
 
     handleDeleteAnswer = (id) => {
         this.model.deleteAnswerQcm(id)
-        console.log(`controller : ${id}`)
     }
 
 

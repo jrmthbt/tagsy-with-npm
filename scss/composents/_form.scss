@@ -57,6 +57,10 @@ form{
       background-color: $gray;
       padding: 5px;
       tr{
+        &.focus{
+          background-color: rgba($blue,0.5);
+
+        }
         td{
           border-radius: $border-radius_5;
           input.choices{
@@ -105,4 +109,5 @@ form{
     left: 115px!important;
   }
 }
+
 

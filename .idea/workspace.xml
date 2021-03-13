@@ -6,6 +6,10 @@
       <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +106,8 @@
       <workItem from="1615189066352" duration="24964000" />
       <workItem from="1615275506749" duration="21006000" />
       <workItem from="1615468463177" duration="701000" />
-      <workItem from="1615535238439" duration="18871000" />
+      <workItem from="1615535238439" duration="26039000" />
+      <workItem from="1615647014933" duration="295000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>
