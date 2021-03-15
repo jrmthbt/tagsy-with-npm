@@ -3,12 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_color.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_color.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +48,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -107,7 +105,10 @@
       <workItem from="1615275506749" duration="21006000" />
       <workItem from="1615468463177" duration="701000" />
       <workItem from="1615535238439" duration="26039000" />
-      <workItem from="1615647014933" duration="295000" />
+      <workItem from="1615647014933" duration="633000" />
+      <workItem from="1615664727848" duration="4208000" />
+      <workItem from="1615670842579" duration="180000" />
+      <workItem from="1615793810352" duration="4093000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>
