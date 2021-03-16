@@ -5,6 +5,7 @@ export class View {
 
 
         this.app = document.getElementById('root');
+        // affiche le tableau Qcm
         this.app.innerHTML = ` <thead>
                <tr>
                   <th scope="col" class="qcm-thead bold_15">Choix</th>
@@ -30,11 +31,14 @@ export class View {
                     </tr>
                     </tfoot>`
 
+        // counter de click
         this._countClick = 0
+        // si executed
         this._executed = false
 
     }
 
+    // create un elem HTML
     createElement(tag, className) {
         const element = document.createElement(tag)
         if (className) element.classList.add(className)
@@ -42,17 +46,20 @@ export class View {
         return element
     }
 
+    // get un element html
     getElement(selector) {
         const element = document.querySelector(selector)
 
         return element
     }
 
+    // get une reponse qcm entrée par l'utilisateur
     get _answerText() {
         return this.getElement('#choice').value;
 
     }
 
+    // get la valeur du check entreée par l'utilisateur
     get _checkValue() {
         if (this.getElement("#good-answer").checked) {
             console.log(this.getElement("#good-answer").checked)
@@ -64,11 +71,13 @@ export class View {
         }
     }
 
+    // reset les champs d'ajout
     _resetInput() {
         this.getElement('#choice').value = "";
         this.getElement('#good-answer').checked = false;
     }
 
+    // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
 
 
@@ -116,6 +125,7 @@ export class View {
         })
     }
 
+    // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
     bindAddAnswer(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
             event.preventDefault()
@@ -127,7 +137,7 @@ export class View {
         })
     }
 
-
+// recuper les infos qcm éditées par l'utilisateur pour diffuser au controller
     binEditAnswer = (handler) => {
         this.getElement('tbody').addEventListener('click',event=> {
             if (event.target.classList.contains('edit')){
@@ -207,7 +217,7 @@ export class View {
 
     }
 
-
+// recupere les infos supprimer par l'utilisateur pour diffuser au controller
     binDeleteAnswer = handler => {
         this.getElement('tbody').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
@@ -237,6 +247,7 @@ export class View {
         })
     }
 
+    // fonction qui permet l'edition du checkbox en mode modification
     _toggleSwitch = (executed) =>{
         this.getElement('tbody').addEventListener("click", (event) => {
             if (event.target.id === "check-edit"){
@@ -255,6 +266,7 @@ export class View {
         })
     }
 
+    // function pour faire apparaitre la validation pour l'édition ou suppression
     _guizmoSpeak =(message) => {
 
 
