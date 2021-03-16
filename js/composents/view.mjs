@@ -194,16 +194,7 @@ export class View {
                         }
                         if (el.target.classList.contains("btn-cancel")){
                             console.log(`annule`)
-                            document.getElementById("caution").innerHTML="";
-                            document.getElementById("message").classList.add("display-none");
-                            document.body.style.overflow = "initial"
-                            document.querySelector("form").style.opacity = "initial"
-                            document.querySelectorAll("input").forEach(input => {
-                                input.classList.remove("disabled")
-                            })
-                            document.querySelectorAll("button").forEach(btn => {
-                                btn.classList.remove("disabled")
-                            })
+                            that._removeguizmoSpeech()
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
                         }
@@ -237,6 +228,7 @@ export class View {
         this.getElement('tbody').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
                 this._guizmoSpeak("Voulez-vous supprimer la ligne?")
+                let that = this
                 document.getElementById("message").addEventListener("click", function confirmDel (el) {
                     if (el.target.classList.contains("btn-confirm")){
                         console.log("delete");
@@ -245,30 +237,12 @@ export class View {
 
                         handler(id);
 
-                        document.getElementById("caution").innerHTML="";
-                        document.getElementById("message").classList.add("display-none");
-                        document.body.style.overflow= "initial"
-                        document.querySelector("form").style.opacity= "initial"
-                        document.querySelectorAll("input").forEach(input => {
-                            input.classList.remove("disabled")
-                        })
-                        document.querySelectorAll("button").forEach(btn => {
-                            btn.classList.remove("disabled")
-                        })
+                        that._removeguizmoSpeech()
                         this.removeEventListener("click", confirmDel)
                     }
                     if (el.target.classList.contains("btn-cancel")){
                         console.log(`annule`)
-                        document.getElementById("caution").innerHTML="";
-                        document.getElementById("message").classList.add("display-none");
-                        document.body.style.overflow= "initial"
-                        document.querySelector("form").style.opacity= "initial"
-                        document.querySelectorAll("input").forEach(input => {
-                            input.classList.remove("disabled")
-                        })
-                        document.querySelectorAll("button").forEach(btn => {
-                            btn.classList.remove("disabled")
-                        })
+                        that._removeguizmoSpeech()
                         this.removeEventListener("click", confirmDel)
                     }
                 })
@@ -313,8 +287,21 @@ export class View {
             document.getElementsByClassName("btn-confirm")[0].classList.remove("disabled")
             document.getElementsByClassName("btn-cancel")[0].classList.remove("disabled")
 
+}
 
 
+
+_removeguizmoSpeech = () => {
+    document.getElementById("caution").innerHTML="";
+    document.getElementById("message").classList.add("display-none");
+    document.body.style.overflow= "initial"
+    document.querySelector("form").style.opacity= "initial"
+    document.querySelectorAll("input").forEach(input => {
+        input.classList.remove("disabled")
+    })
+    document.querySelectorAll("button").forEach(btn => {
+        btn.classList.remove("disabled")
+    })
 }
 
 }
