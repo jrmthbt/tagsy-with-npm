@@ -177,18 +177,27 @@ export class View {
                                 console.log(that._countClick);
                                 that._toggleSwitch(that._executed);
                                 that._executed = true
-                                this.removeEventListener("click", confirmEdit)
 
                             }
 
                             document.getElementById("caution").innerHTML="";
                             document.getElementById("message").classList.add("display-none");
+                            document.body.style.overflow = "initial"
+                            document.querySelector("form").style.opacity = "initial"
+                            document.querySelectorAll("input").forEach(input => {
+                                input.classList.remove("disabled")
+                            })
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
                             console.log(`annule`)
                             document.getElementById("caution").innerHTML="";
                             document.getElementById("message").classList.add("display-none");
+                            document.body.style.overflow = "initial"
+                            document.querySelector("form").style.opacity = "initial"
+                            document.querySelectorAll("input").forEach(input => {
+                                input.classList.remove("disabled")
+                            })
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
                         }
@@ -232,12 +241,22 @@ export class View {
 
                         document.getElementById("caution").innerHTML="";
                         document.getElementById("message").classList.add("display-none");
+                        document.body.style.overflow= "initial"
+                        document.querySelector("form").style.opacity= "initial"
+                        document.querySelectorAll("input").forEach(input => {
+                            input.classList.remove("disabled")
+                        })
                         this.removeEventListener("click", confirmDel)
                     }
                     if (el.target.classList.contains("btn-cancel")){
                         console.log(`annule`)
                         document.getElementById("caution").innerHTML="";
                         document.getElementById("message").classList.add("display-none");
+                        document.body.style.overflow= "initial"
+                        document.querySelector("form").style.opacity= "initial"
+                        document.querySelectorAll("input").forEach(input => {
+                            input.classList.remove("disabled")
+                        })
                         this.removeEventListener("click", confirmDel)
                     }
                 })
@@ -269,9 +288,14 @@ export class View {
     // function pour faire apparaitre la validation pour l'édition ou suppression
     _guizmoSpeak =(message) => {
 
-
+                    document.body.style.overflow = "hidden";
+                    this.getElement("form").style.opacity = "50%";
                    document.getElementById("message").classList.remove("display-none")
                    document.getElementById("caution").innerHTML=message
+        document.querySelectorAll("input").forEach(input => {
+            input.classList.add("disabled")
+        })
+
 }
 
 }
