@@ -143,7 +143,7 @@ export class View {
             if (event.target.classList.contains('edit')){
                 let that = this
                 if (this._countClick === 0){
-                    this._guizmoSpeak("Voulez-vous modifier la ligne?", this._executed, "edit")
+                    this._guizmoSpeak("Voulez-vous modifier la ligne?",  "input", "button")
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
                         if (el.target.classList.contains("btn-confirm")){
@@ -187,6 +187,9 @@ export class View {
                             document.querySelectorAll("input").forEach(input => {
                                 input.classList.remove("disabled")
                             })
+                            if (event.target.parentElement.parentElement.classList.contains("focus")){
+                                event.target.classList.remove("disabled")
+                            }
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
@@ -197,6 +200,9 @@ export class View {
                             document.querySelector("form").style.opacity = "initial"
                             document.querySelectorAll("input").forEach(input => {
                                 input.classList.remove("disabled")
+                            })
+                            document.querySelectorAll("button").forEach(btn => {
+                                btn.classList.remove("disabled")
                             })
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
@@ -246,6 +252,9 @@ export class View {
                         document.querySelectorAll("input").forEach(input => {
                             input.classList.remove("disabled")
                         })
+                        document.querySelectorAll("button").forEach(btn => {
+                            btn.classList.remove("disabled")
+                        })
                         this.removeEventListener("click", confirmDel)
                     }
                     if (el.target.classList.contains("btn-cancel")){
@@ -256,6 +265,9 @@ export class View {
                         document.querySelector("form").style.opacity= "initial"
                         document.querySelectorAll("input").forEach(input => {
                             input.classList.remove("disabled")
+                        })
+                        document.querySelectorAll("button").forEach(btn => {
+                            btn.classList.remove("disabled")
                         })
                         this.removeEventListener("click", confirmDel)
                     }
@@ -295,6 +307,13 @@ export class View {
         document.querySelectorAll("input").forEach(input => {
             input.classList.add("disabled")
         })
+        document.querySelectorAll("button").forEach(btn => {
+            btn.classList.add("disabled")
+        })
+            document.getElementsByClassName("btn-confirm")[0].classList.remove("disabled")
+            document.getElementsByClassName("btn-cancel")[0].classList.remove("disabled")
+
+
 
 }
 
