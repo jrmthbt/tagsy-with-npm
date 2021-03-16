@@ -30,11 +30,8 @@ export class View {
                     </tr>
                     </tfoot>`
 
-        this._temporaryAnswerText
-        this._temporaryInputCheck
-        this._initLocalListeners()
-        this._focusRow()
-        this._toggleSwitch()
+        this._countClick = 0
+
     }
 
     createElement(tag, className) {
@@ -58,7 +55,7 @@ export class View {
     get _checkValue() {
         if (this.getElement("#good-answer").checked) {
             console.log(this.getElement("#good-answer").checked)
-            return this.getElement('#good-answer').value = checked
+            return this.getElement('#good-answer').value = "checked"
         } else {
             console.log(this.getElement("#good-answer").checked)
             return this.getElement('#good-answer').checked = false;
@@ -88,7 +85,7 @@ export class View {
             input.type = "text";
             input.className = "choices text-center";
             input.value = answer.choix;
-            //input.disabled = true;
+            input.disabled = true;
 
             const tdCheck = this.createElement('td');
             const labelToggle = this.createElement('label');
@@ -129,19 +126,59 @@ export class View {
         })
     }
 
-    binEditAnswer(handler) {
-        this.getElement('tbody').addEventListener('"click"', event => {
-            if (this._temporaryAnswerText && this._temporaryInputCheck) {
-                const id = parseInt(event.target.parentElement.parentElement.id)
-                console.log(id);
-                handler(id, this._temporaryAnswerText, this._temporaryInputCheck)
-                this._temporaryAnswerText = ''
-                this._temporaryInputCheck = false
+
+    binEditAnswer = (handler) => {
+        this.getElement('tbody').addEventListener('click',event=> {
+            if (event.target.classList.contains('edit')){
+                this._countClick++;
+                console.log(this._countClick)
+                if (this._countClick === 1){
+                    console.log("select row to edit")
+                  event.target.parentElement.parentElement.classList.add('focus');
+                  event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
+                  event.target.parentElement.parentElement.children[1].children[0].nextSibling.id="check-edit";
+
+
+                  document.querySelectorAll('.edit').forEach(edit => {
+                      edit.classList.add("disabled");
+                  })
+                  document.querySelectorAll('.delete').forEach(del => {
+                      del.classList.add("disabled");
+                  })
+
+                    if (event.target.parentElement.parentElement.classList.contains("focus")){
+                        event.target.classList.remove("disabled")
+                    }
+                    document.getElementById("input-edit").disabled = false
+                    document.getElementById("check-edit").disabled = false
+                    document.getElementById("choice").disabled = true
+                    document.getElementById("good-answer").disabled = true
+                    document.getElementById("answer-add").classList.add("disabled");
+                    console.log("toggle");
+                    this._toggleSwitch(false);
+
+                }
+                if (this._countClick > 1){
+                    let  id =parseInt( event.target.parentElement.parentElement.id)
+                    let temporaryAnswerText = document.getElementById("input-edit").value
+                    if (document.getElementById("check-edit").parentElement.firstChild.checked)
+                        var temporaryInputCheck = "checked"
+                    else{
+                        var  temporaryInputCheck = false
+                    }
+                   handler(id, temporaryAnswerText, temporaryInputCheck);
+                    console.log("edit model")
+                    this._countClick = 0;
+                }
+
+
             }
         })
+
     }
 
-    binDeleteAnswer(handler) {
+
+    binDeleteAnswer = handler => {
         this.getElement('tbody').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
                 console.log("delete");
@@ -153,67 +190,22 @@ export class View {
         })
     }
 
-    _initLocalListeners() {
-       /* this.getElement('tbody').addEventListener("click", event => {
-            if (event.target.classList.contains("edit")) {
-                this._temporaryAnswerText = event.target.parentElement.parentElement.firstChild.firstChild.value;
-                if (event.target.parentElement.parentElement.children[1].firstChild.checked){
-                    this._temporaryInputCheck = "checked"
-                }else{this._temporaryInputCheck = false}
+    _toggleSwitch = (executed) =>{
+        this.getElement('tbody').addEventListener("click", (event) => {
+            if (event.target.id === "check-edit"){
+                if (executed === false) {
 
 
-                console.log(this._temporaryAnswerText);
-                console.log(this._temporaryInputCheck);
-
-            }
-        })*/
-    }
-
-    _selectRow = event => {
-        if (event.target.classList.contains("edit")) {
-
-            console.log("click modif 1")
-
-            event.target.parentElement.parentElement.classList.add("focus");
-            event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
-            event.target.parentElement.parentElement.children[1].firstChild.nextSibling.id="check-edit";
-
-            document.querySelectorAll('.edit').forEach (edit => {
-                edit.classList.add("disabled")
-            })
-
-            if ( event.target.parentElement.parentElement.classList.contains("focus")){
-                event.target.classList.remove("disabled");
-
-                console.log(event.target.parentElement.parentElement.children[1].children[0].nextSibling)
-                console.log(event.target.parentElement.parentElement.children[1].children[0])
-            }
-
-            document.querySelectorAll('.delete').forEach (del => {
-                del.classList.add("disabled")
-            })
-
-            this.getElement('tbody').removeEventListener("click", this._selectRow)
-            console.log("remove Event");
-
-        }
-    }
-
-    _focusRow(){
-        this.getElement('tbody').addEventListener("click", this._selectRow)
-
-    }
-
-    _toggleSwitch(){
-        this.getElement('tbody').addEventListener("click", el => {
-            if (el.target.id === "check-edit"){
-                console.log("toggle edit");
-                if (el.target.parentElement.firstChild.checked === false){
-                    el.target.parentElement.firstChild.checked = "checked"
-                }else {
-                    el.target.parentElement.firstChild.checked = false;
+                    console.log("click-toggle")
+                    if (event.target.parentElement.firstChild.checked) {
+                        event.target.parentElement.firstChild.checked = false
+                    } else {
+                        event.target.parentElement.firstChild.checked = "checked";
+                    }
+                executed = true;
                 }
             }
+
         })
     }
 

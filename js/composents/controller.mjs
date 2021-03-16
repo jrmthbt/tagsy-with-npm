@@ -27,6 +27,7 @@ export class Controller {
 
     handleEditAnswer = (id, answerText, answerCheck) => {
         this.model.editAnswerQcm(id, answerText, answerCheck)
+
     }
 
     handleDeleteAnswer = (id) => {

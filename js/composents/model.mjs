@@ -30,9 +30,15 @@ export class Model {
 
 
     editAnswerQcm(id, updatedAnswer, updateChecked) {
-        this.qcmAnswers = this.qcmAnswers.map((answer) =>
-            answer.id === id ? {id: answer.id, choix: updatedAnswer, goodAnswer: updateChecked} : answer,
-        )
+        this.qcmAnswers.forEach(answer =>{
+            if (answer.id === id){
+                answer.id = id
+                answer.choix = updatedAnswer
+                answer.goodAnswer = updateChecked
+            }
+
+        })
+
         this._commit(this.qcmAnswers)
     }
 
