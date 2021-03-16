@@ -1,34 +1,38 @@
 @import "color";
-
-#confirmBox {
-  position: fixed;
-  width: 200px;
-  height: 200px;
-  bottom: 0;
-  right: 0;
-
-  .fa-comment {
-    color: $dark_gray;
-    opacity: 100%;
-    font-size: 145px;
+  #message {
     position: fixed;
-    bottom: 50px;
-    right: 90px;
-    transform: rotateY(180deg);
-  }
-  p{
-    color: $white;
-    width: 75px;
-    position: absolute;
-    top: 35px;
+    bottom: 102px;
+    right: 40px;
+    width: 135px;
+    height: 108px;
+    padding: 5px;
 
-  }
+    .fa-comment-alt {
+      color: $dark_gray;
+      opacity: 100%;
+      font-size: 145px;
+      position: fixed;
+      bottom: 75px;
+      right: 40px;
+      transform: rotateY(180deg);
+    }
 
-  button{
-    position: relative;
-    z-index: 100;
-    top: 85px;
-    left: 5px;
+    p#caution {
+      color: $white;
+      position: absolute;
+      top: 25px;
+      left: 5px;
+      right: 5px;
+      width: auto;
+      z-index: 100;
 
+    }
+
+    button {
+      position: relative;
+      z-index: 100;
+      top: 65px;
+      left: 34px;
+
+    }
   }
-}

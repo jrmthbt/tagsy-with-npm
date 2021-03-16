@@ -31,6 +31,7 @@ export class View {
                     </tfoot>`
 
         this._countClick = 0
+        this._executed = false
 
     }
 
@@ -130,35 +131,64 @@ export class View {
     binEditAnswer = (handler) => {
         this.getElement('tbody').addEventListener('click',event=> {
             if (event.target.classList.contains('edit')){
-                this._countClick++;
-                console.log(this._countClick)
-                if (this._countClick === 1){
-                    console.log("select row to edit")
-                  event.target.parentElement.parentElement.classList.add('focus');
-                  event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
-                  event.target.parentElement.parentElement.children[1].children[0].nextSibling.id="check-edit";
+                let that = this
+                if (this._countClick === 0){
+                    this._guizmoSpeak("Voulez-vous modifier la ligne?", this._executed, "edit")
+                    document.getElementById("message").addEventListener("click", function confirmEdit(el) {
+
+                        if (el.target.classList.contains("btn-confirm")){
+                            console.log("je modif");
+                            that._countClick++;
+                            console.log(that._countClick)
+                            if (that._countClick === 1){
+                                console.log("select row to edit")
+                                event.target.parentElement.parentElement.classList.add('focus');
+                                event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
+                                event.target.parentElement.parentElement.children[1].children[0].nextSibling.id="check-edit";
 
 
-                  document.querySelectorAll('.edit').forEach(edit => {
-                      edit.classList.add("disabled");
-                  })
-                  document.querySelectorAll('.delete').forEach(del => {
-                      del.classList.add("disabled");
-                  })
+                                document.querySelectorAll('.edit').forEach(edit => {
+                                    edit.classList.add("disabled");
+                                })
+                                document.querySelectorAll('.delete').forEach(del => {
+                                    del.classList.add("disabled");
+                                })
 
-                    if (event.target.parentElement.parentElement.classList.contains("focus")){
-                        event.target.classList.remove("disabled")
-                    }
-                    document.getElementById("input-edit").disabled = false
-                    document.getElementById("check-edit").disabled = false
-                    document.getElementById("choice").disabled = true
-                    document.getElementById("good-answer").disabled = true
-                    document.getElementById("answer-add").classList.add("disabled");
-                    console.log("toggle");
-                    this._toggleSwitch(false);
+                                if (event.target.parentElement.parentElement.classList.contains("focus")){
+                                    event.target.classList.remove("disabled")
+                                }
+                                document.getElementById("input-edit").disabled = false
+                                document.getElementById("check-edit").disabled = false
+                                document.getElementById("choice").disabled = true
+                                document.getElementById("good-answer").disabled = true
+                                document.getElementById("answer-add").classList.add("disabled");
+                                console.log("toggle");
+                                that._countClick++
+                                console.log(that._countClick);
+                                that._toggleSwitch(that._executed);
+                                that._executed = true
+                                this.removeEventListener("click", confirmEdit)
 
+                            }
+
+                            document.getElementById("caution").innerHTML="";
+                            document.getElementById("message").classList.add("display-none");
+                            this.removeEventListener("click", confirmEdit)
+                        }
+                        if (el.target.classList.contains("btn-cancel")){
+                            console.log(`annule`)
+                            document.getElementById("caution").innerHTML="";
+                            document.getElementById("message").classList.add("display-none");
+                            that._countClick = 0;
+                            this.removeEventListener("click", confirmEdit)
+                        }
+
+
+                    })
                 }
+
                 if (this._countClick > 1){
+                    console.log("j'ai édit")
                     let  id =parseInt( event.target.parentElement.parentElement.id)
                     let temporaryAnswerText = document.getElementById("input-edit").value
                     if (document.getElementById("check-edit").parentElement.firstChild.checked)
@@ -166,12 +196,12 @@ export class View {
                     else{
                         var  temporaryInputCheck = false
                     }
-                   handler(id, temporaryAnswerText, temporaryInputCheck);
-                    console.log("edit model")
+                     handler(id, temporaryAnswerText, temporaryInputCheck);
+                    document.getElementById("choice").disabled = false
+                    document.getElementById("good-answer").disabled = false
+                    document.getElementById("answer-add").classList.remove("disabled");
                     this._countClick = 0;
                 }
-
-
             }
         })
 
@@ -181,11 +211,28 @@ export class View {
     binDeleteAnswer = handler => {
         this.getElement('tbody').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
-                console.log("delete");
-                const id = parseInt(event.target.parentElement.parentElement.id)
-                console.log(`view : ${id}`)
+                this._guizmoSpeak("Voulez-vous supprimer la ligne?")
+                document.getElementById("message").addEventListener("click", function confirmDel (el) {
+                    if (el.target.classList.contains("btn-confirm")){
+                        console.log("delete");
+                        var id = parseInt(event.target.parentElement.parentElement.id)
+                        console.log(`view : ${id}`)
 
-                handler(id);
+                        handler(id);
+
+                        document.getElementById("caution").innerHTML="";
+                        document.getElementById("message").classList.add("display-none");
+                        this.removeEventListener("click", confirmDel)
+                    }
+                    if (el.target.classList.contains("btn-cancel")){
+                        console.log(`annule`)
+                        document.getElementById("caution").innerHTML="";
+                        document.getElementById("message").classList.add("display-none");
+                        this.removeEventListener("click", confirmDel)
+                    }
+                })
+
+
             }
         })
     }
@@ -202,11 +249,17 @@ export class View {
                     } else {
                         event.target.parentElement.firstChild.checked = "checked";
                     }
-                executed = true;
                 }
             }
 
         })
     }
+
+    _guizmoSpeak =(message) => {
+
+
+                   document.getElementById("message").classList.remove("display-none")
+                   document.getElementById("caution").innerHTML=message
+}
 
 }
