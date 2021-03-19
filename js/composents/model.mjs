@@ -6,17 +6,30 @@ export class Model {
     // recupere dans le local storage
     constructor() {
         this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswer')) || []
+        this.shortAnswers = [
+            {"id": 1, "answer":"suis"},
+            {"id": 2, "answer":"es"},
+            {"id": 3, "answer":"sommes"},
+            {"id": 4, "answer":"êtes"},
+        ]
     }
 
     // crud fonction read
-    bindChangeQcmAnswer(callback){
-        this.onChangeQcm = callback;
+    bindChangeAnswer(callback){
+        this.onChange = callback;
     }
 
+
     // ajoute dans le localstorage
-    _commit(qcmAnswers) {
-        this.onChangeQcm(qcmAnswers)
-        localStorage.setItem('QcmAnswer', JSON.stringify(qcmAnswers))
+    _commit(qcmAnswers, shortAnswers) {
+        if (this.qcmAnswers) {
+            this.onChange(qcmAnswers)
+            localStorage.setItem('QcmAnswer', JSON.stringify(qcmAnswers))
+        }
+        if (this.shortAnswers){
+            this.onChange(shortAnswers)
+
+        }
     }
 
 
@@ -31,6 +44,14 @@ export class Model {
         this.qcmAnswers.push(answer);
 
         this._commit(this.qcmAnswers)
+    }
+
+    addshortAnswer(inputAnswer){
+        const answer = {
+            "id" : this.shortAnswers.length > 0 ? this.shortAnswers[this.shortAnswers.length - 1].id + 1 : 1,
+            "answer" : inputAnswer,
+        }
+        this.shortAnswers.push(answer);
     }
 
     // crud fonction update
