@@ -6,19 +6,34 @@ export class Controller {
         this.model = model;
         this.view = view;
 
-        this.model.bindChangeQcmAnswer(this.onChangeQcm)
 
-        this.view.bindAddAnswer(this.handleAddAnswer)
-        this.view.binDeleteAnswer(this.handleDeleteAnswer)
-        this.view.binEditAnswer(this.handleEditAnswer)
+        document.querySelector("body").addEventListener("change", event =>{
+            switch (event.target.id){
+                case (event.target.id = "qcm") :
+                    console.log("je suis qcm controller");
+                    this.model.bindChangeQcmAnswer(this.onChange)
+                    this.onChange(this.model.qcmAnswers)
+                    this.view.bindAddAnswer(this.handleAddAnswer)
+                    this.view.binDeleteAnswer(this.handleDeleteAnswer)
+                    this.view.binEditAnswer(this.handleEditAnswer)
+                    break;
+               case (event.target.id = "identification") :
+                    console.log("je suis identification controller");
+                    break;
+                case (event.target.id = "answer") :
+                    console.log("je suis answer controller");
+                    break;
+                default :
+                    console.log(event.target)
+            }
+        })
 
-        this.onChangeQcm(this.model.qcmAnswers)
 
 
     }
     // function pour afficher le tableau quand model est modifier
-     onChangeQcm = (qcmAnswer) => {
-        this.view.displayTableQcm(qcmAnswer)
+     onChange = (qcmAnswer) => {
+                this.view.displayTableQcm(qcmAnswer);
     }
    // controller qui ajoute au model
     handleAddAnswer = (answerText, answerCheck) => {
@@ -33,6 +48,8 @@ export class Controller {
     handleDeleteAnswer = (id) => {
         this.model.deleteAnswerQcm(id)
     }
+
+
 
 
 }
