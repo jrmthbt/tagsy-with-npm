@@ -13,7 +13,7 @@ export class View {
                 case (event.target.id = "identification") :
                     this._lockExercice();
                     break;
-                case (event.target.id = "answer") :
+                case (event.target.id = "short-answer") :
                     this.answerTable();
                     this._lockExercice();
                     break;
@@ -49,7 +49,7 @@ export class View {
                     <tr>
                         <td>
                             <label for="choice"></label>
-                            <input type="text" id="choice" class="regular_10 text-center" name="answer">
+                            <input type="text" id="choice" class="regular_10 text-center">
                         </td>
                         <td>
                             <input type="checkbox" id="good-answer" class="toggle-checkbox" name="answer-check">
@@ -75,7 +75,7 @@ export class View {
                     <tr>
                         <td>
                             <label for="choice"></label>
-                            <input type="text" id="choice" class="regular_10 text-center" name="answer">
+                            <input type="text" id="choice" class="regular_10 text-center">
                         </td>
                         <td>
                             <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
@@ -123,10 +123,12 @@ export class View {
     }
 
     // affiche le tableau qcm
-    displayTable(qcmAnswers, shortAnswers) {
-        while (this.getElement('tbody').firstChild) {
-            this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
-        }
+    displayTable(qcmAnswers) {
+        console.log(this.getElement('tbody'));
+           //while (this.getElement('tbody').firstChild) {
+              // this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+           //}
+
 
         if (this.getElement('#qcm').checked) {
              qcmAnswers.forEach(answer => {
@@ -167,7 +169,7 @@ export class View {
                  this.getElement('tbody').append(tr);
              })
         }
-        if (this.getElement('#answer').checked) {
+        /*if (this.getElement('#short-answer').checked) {
             console.log(shortAnswers)
             shortAnswers.forEach(answer => {
                 const tr = this.createElement('tr')
@@ -197,7 +199,7 @@ export class View {
 
                 this.getElement('tbody').append(tr);
             })
-        }
+        }*/
     }
 
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
