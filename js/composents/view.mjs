@@ -7,17 +7,24 @@ export class View {
         document.querySelector("body").addEventListener("change", event =>{
             switch (event.target.id){
                 case (event.target.id = "qcm") :
+                    console.log("je suis qcm");
                     this.qcmTable()
-                    this._lockExercice();
+                    this._lockExercice(this.getElement("#identification"), this.getElement("#answer"));
+                    this._unlockExercice();
                     break;
                 case (event.target.id = "identification") :
-                    this._lockExercice();
+                    console.log("je suis identification");
+                    this._lockExercice(this.getElement("#qcm"), this.getElement("#answer"));
+                    this._unlockExercice();
                     break;
                 case (event.target.id = "answer") :
+                    console.log("je suis answer");
                     this.answerTable();
-                    this._lockExercice();
+                    this._lockExercice(this.getElement("#identification"), this.getElement("#qcm"));
+                    this._unlockExercice();
                     break;
                 default :
+                    console.log(event.target)
             }
         })
 
@@ -109,8 +116,10 @@ export class View {
     // get la valeur du check entreée par l'utilisateur
     get _checkValue() {
         if (this.getElement("#good-answer").checked) {
+            console.log(this.getElement("#good-answer").checked)
             return this.getElement('#good-answer').value = "checked"
         } else {
+            console.log(this.getElement("#good-answer").checked)
             return this.getElement('#good-answer').checked = false;
 
         }
@@ -123,81 +132,51 @@ export class View {
     }
 
     // affiche le tableau qcm
-    displayTable(qcmAnswers, shortAnswers) {
+    displayTableQcm(qcmAnswers) {
+
+
         while (this.getElement('tbody').firstChild) {
             this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
         }
 
-        if (this.getElement('#qcm').checked) {
-             qcmAnswers.forEach(answer => {
-                 const tr = this.createElement('tr')
-                 tr.id = answer.id;
 
-                 const tdinput = this.createElement('td');
-                 const input = this.createElement('input', 'regular_10');
-                 input.type = "text";
-                 input.className = "choices text-center";
-                 input.value = answer.choix;
-                 input.disabled = true;
+        qcmAnswers.forEach(answer => {
+            const tr = this.createElement('tr')
+            tr.id = answer.id;
 
-                 const tdCheck = this.createElement('td');
-                 const labelToggle = this.createElement('label');
-                 labelToggle.className = "good-answer-choice toggle-checkbox-label";
-                 const check = this.createElement('input', 'toggle-checkbox')
-                 check.type = "checkbox";
-                 if (answer.goodAnswer === "checked") {
-                     check.checked = answer.goodAnswer
-                 }
+            const tdinput = this.createElement('td');
+            const input = this.createElement('input', 'regular_10');
+            input.type = "text";
+            input.className = "choices text-center";
+            input.value = answer.choix;
+            input.disabled = true;
 
-                 const tdOption = this.createElement("td");
-                 const editButton = this.createElement("button")
-                 editButton.className = "btn-secondary edit";
-                 editButton.innerHTML = "Modifier"
+            const tdCheck = this.createElement('td');
+            const labelToggle = this.createElement('label');
+            labelToggle.className = "good-answer-choice toggle-checkbox-label";
+            const check = this.createElement('input', 'toggle-checkbox')
+            check.type = "checkbox";
+            if (answer.goodAnswer === "checked") {
+                check.checked = answer.goodAnswer
+            }
 
-                 const deleteButton = this.createElement("button")
-                 deleteButton.className = "btn-tertiary delete";
-                 deleteButton.innerHTML = "Supprimer";
+            const tdOption = this.createElement("td");
+            const editButton = this.createElement("button")
+            editButton.className = "btn-secondary edit";
+            editButton.innerHTML = "Modifier"
 
-                 tdinput.appendChild(input);
-                 tdCheck.append(check, labelToggle);
-                 tdOption.append(editButton, deleteButton);
+            const deleteButton = this.createElement("button")
+            deleteButton.className = "btn-tertiary delete";
+            deleteButton.innerHTML = "Supprimer";
 
-                 tr.append(tdinput, tdCheck, tdOption)
+            tdinput.appendChild(input);
+            tdCheck.append(check, labelToggle);
+            tdOption.append(editButton, deleteButton);
 
-                 this.getElement('tbody').append(tr);
-             })
-        }
-        if (this.getElement('#answer').checked) {
-            console.log(shortAnswers)
-            shortAnswers.forEach(answer => {
-                const tr = this.createElement('tr')
-                tr.id = answer.id;
+            tr.append(tdinput, tdCheck, tdOption)
 
-                const tdinput = this.createElement('td');
-                const input = this.createElement('input', 'regular_10');
-                input.type = "text";
-                input.className = "choices text-center";
-                input.value = answer.answer;
-                input.disabled = true;
-
-
-                const tdOption = this.createElement("td");
-                const editButton = this.createElement("button")
-                editButton.className = "btn-secondary edit";
-                editButton.innerHTML = "Modifier"
-
-                const deleteButton = this.createElement("button")
-                deleteButton.className = "btn-tertiary delete";
-                deleteButton.innerHTML = "Supprimer";
-
-                tdinput.appendChild(input);
-                tdOption.append(editButton, deleteButton);
-
-                tr.append(tdinput, tdOption)
-
-                this.getElement('tbody').append(tr);
-            })
-        }
+            this.getElement('tbody').append(tr);
+        })
     }
 
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
@@ -218,12 +197,15 @@ export class View {
             if (event.target.classList.contains('edit')){
                 let that = this
                 if (this._countClick === 0){
-                    this._guizmoSpeak("Voulez-vous modifier la ligne?")
+                    this._guizmoSpeak("Voulez-vous modifier la ligne?",  "input", "button")
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
                         if (el.target.classList.contains("btn-confirm")){
+                            console.log("je modif");
                             that._countClick++;
+                            console.log(that._countClick)
                             if (that._countClick === 1){
+                                console.log("select row to edit")
                                 event.target.parentElement.parentElement.classList.add('focus');
                                 event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
                                 event.target.parentElement.parentElement.children[1].children[0].nextSibling.id="check-edit";
@@ -244,7 +226,9 @@ export class View {
                                 document.getElementById("choice").disabled = true
                                 document.getElementById("good-answer").disabled = true
                                 document.getElementById("answer-add").classList.add("disabled");
+                                console.log("toggle");
                                 that._countClick++
+                                console.log(that._countClick);
                                 that._toggleSwitch(that._executed);
                                 that._executed = true
 
@@ -263,6 +247,7 @@ export class View {
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
+                            console.log(`annule`)
                             that._removeguizmoSpeech()
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
@@ -273,6 +258,7 @@ export class View {
                 }
 
                 if (this._countClick > 1){
+                    console.log("j'ai édit")
                     let  id =parseInt( event.target.parentElement.parentElement.id)
                     let temporaryAnswerText = document.getElementById("input-edit").value
                     if (document.getElementById("check-edit").parentElement.firstChild.checked)
@@ -299,7 +285,9 @@ export class View {
                 let that = this
                 document.getElementById("message").addEventListener("click", function confirmDel (el) {
                     if (el.target.classList.contains("btn-confirm")){
+                        console.log("delete");
                         var id = parseInt(event.target.parentElement.parentElement.id)
+                        console.log(`view : ${id}`)
 
                         handler(id);
 
@@ -307,6 +295,7 @@ export class View {
                         this.removeEventListener("click", confirmDel)
                     }
                     if (el.target.classList.contains("btn-cancel")){
+                        console.log(`annule`)
                         that._removeguizmoSpeech()
                         this.removeEventListener("click", confirmDel)
                     }
@@ -322,6 +311,9 @@ export class View {
         this.getElement('tbody').addEventListener("click", (event) => {
             if (event.target.id === "check-edit"){
                 if (executed === false) {
+
+
+                    console.log("click-toggle")
                     if (event.target.parentElement.firstChild.checked) {
                         event.target.parentElement.firstChild.checked = false
                     } else {
@@ -366,43 +358,27 @@ _removeguizmoSpeech = () => {
     })
 }
 
-_lockExercice = () => {
-        document.querySelectorAll('input[type=radio]').forEach(radio => {
-            radio.classList.add("disabled");
-        })
-        document.querySelector('#change').classList.remove("display-none");
-        let that = this;
-        this.getElement('body').addEventListener("click", function confirmChange(el){
-            if (el.target.id === "change"){
-                that._guizmoSpeak("Voulez-vous Changer l'exercice?");
-                let these = that;
-                that.getElement('#message').addEventListener("click", event =>{
-                    if (event.target.classList.contains("btn-confirm")){
-                        these._unlockExercice();
-                        these._removeguizmoSpeech();
-                        this.removeEventListener("click", confirmChange);
-                    }
-                    if (event.target.classList.contains("btn-cancel")){
-                        these._removeguizmoSpeech();
-                        document.querySelectorAll('input[type=radio]').forEach(radio => {
-                            radio.classList.add("disabled")})
-                    }
-                })
-            }
-        })
+_lockExercice = (radioOne, radioTwo) => {
+        radioOne.classList.add("disabled");
+        radioTwo.classList.add("disabled");
+        document.getElementById("change").classList.remove("display-none");
 }
 
 _unlockExercice = () => {
+    this.getElement("body").addEventListener("click", event => {
+        if (event.target.id === "change"){
+            console.log("click")
             document.querySelectorAll("input[type=radio]").forEach(radio => {
                 radio.classList.remove("disabled");
                 radio.checked = false;
             });
-            document.getElementById("change").classList.add("display-none");
+            event.target.classList.add("display-none");
+        }
 
         while (this.getElement('table').firstChild){
             this.getElement('table').removeChild(this.getElement('table').firstChild);
-
         }
+    })
 }
 
 }
