@@ -3,8 +3,45 @@
 export class View {
     constructor() {
 
+        // check exercice
+        document.querySelector("body").addEventListener("change", event =>{
+            switch (event.target.id){
+                case (event.target.id = "qcm") :
+                    console.log("je suis qcm");
+                    this.qcmTable()
+                    this._lockExercice(this.getElement("#identification"), this.getElement("#answer"));
+                    this._unlockExercice();
+                    break;
+                case (event.target.id = "identification") :
+                    console.log("je suis identification");
+                    this._lockExercice(this.getElement("#qcm"), this.getElement("#answer"));
+                    this._unlockExercice();
+                    break;
+                case (event.target.id = "answer") :
+                    console.log("je suis answer");
+                    this.answerTable();
+                    this._lockExercice(this.getElement("#identification"), this.getElement("#qcm"));
+                    this._unlockExercice();
+                    break;
+                default :
+                    console.log(event.target)
+            }
+        })
 
+
+
+
+        // counter de click
+        this._countClick = 0
+        // si executed
+        this._executed = false
         this.app = document.getElementById('root');
+
+    }
+
+    // display table when qcm is check
+
+    qcmTable=() => {
         // affiche le tableau Qcm
         this.app.innerHTML = ` <thead>
                <tr>
@@ -30,13 +67,30 @@ export class View {
                         </td>
                     </tr>
                     </tfoot>`
-
-        // counter de click
-        this._countClick = 0
-        // si executed
-        this._executed = false
-
     }
+
+    answerTable = () => {
+        this.app.innerHTML = ` <thead>
+               <tr>
+                  <th scope="col" class="qcm-thead bold_15">Choix</th>
+                  <th scope="col" class="qcm-thead bold_15">Options</th>
+               </tr>
+             </thead>
+             <tbody>
+             </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <label for="choice"></label>
+                            <input type="text" id="choice" class="regular_10 text-center" name="answer">
+                        </td>
+                        <td>
+                            <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
+                        </td>
+                    </tr>
+                    </tfoot>`
+    }
+
 
     // create un elem HTML
     createElement(tag, className) {
@@ -301,6 +355,29 @@ _removeguizmoSpeech = () => {
     })
     document.querySelectorAll("button").forEach(btn => {
         btn.classList.remove("disabled")
+    })
+}
+
+_lockExercice = (radioOne, radioTwo) => {
+        radioOne.classList.add("disabled");
+        radioTwo.classList.add("disabled");
+        document.getElementById("change").classList.remove("display-none");
+}
+
+_unlockExercice = () => {
+    this.getElement("body").addEventListener("click", event => {
+        if (event.target.id === "change"){
+            console.log("click")
+            document.querySelectorAll("input[type=radio]").forEach(radio => {
+                radio.classList.remove("disabled");
+                radio.checked = false;
+            });
+            event.target.classList.add("display-none");
+        }
+
+        while (this.getElement('table').firstChild){
+            this.getElement('table').removeChild(this.getElement('table').firstChild);
+        }
     })
 }
 
