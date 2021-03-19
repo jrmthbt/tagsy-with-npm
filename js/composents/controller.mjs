@@ -32,7 +32,7 @@ export class Controller {
 
     }
     // function pour afficher le tableau quand model est modifier
-     onChange = (qcmAnswer) => {
+     onChange = (qcmAnswer, shortAnswer) => {
                 this.view.displayTableQcm(qcmAnswer);
     }
    // controller qui ajoute au model
