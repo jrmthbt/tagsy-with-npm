@@ -34,7 +34,7 @@ header {
     transition: $trans_3;
     @include responsive_laptop{
       font-size: 25px;
-      margin-top: 25px;
+      margin-top: 10px;
 
     }
 
@@ -47,19 +47,25 @@ header {
 
   #time-save{
     position: absolute;
-    top: 30px;
-    margin-left: 325px;
+    top: 18px;
+    margin-left: 200px;
     color: $medium_gray;
   }
 
   .saveInfo{
-    position: absolute !important;
-    top: 30px !important;
-    margin-left: 125px;
+    position: relative !important;
+    top: 20px !important;
+    left: 385px !important;
+
   }
   @include responsive_laptop{
-    .saveInfo{
+    #time-save{
+      top: 30px;
       margin-left: 300px;
+    }
+    .saveInfo{
+      top: 30px !important;
+      left: 480px !important;
     }
   }
 

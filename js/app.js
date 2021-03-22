@@ -10,6 +10,7 @@ let app = new Controller(new Model(), new View());
 console.table(app.model.qcmAnswers);
 console.table(app.model.shortAnswers);
 
+
 if (document.getElementById("save-info").checked === true){
     callLS();
 
@@ -17,10 +18,24 @@ if (document.getElementById("save-info").checked === true){
    document.getElementById("save-info").addEventListener("change", function(){
        if (this.checked){
            callLS();
-       }else{
-           stopLS();
+       }else if(this.checked === false){
+           app.view._guizmoSpeak("Voulez-vous désactiver la sauvegarde auto et perdre les données sauvées?");
+           document.getElementById("message").addEventListener("click", function confirmDisable(event){
+               if (event.target.classList.contains("btn-confirm")){
+                   stopLS();
+                   const tagsy = [];
+                   localStorage.setItem("saveTagsy", JSON.stringify(tagsy));
+                   app.view._removeguizmoSpeech();
+               }
+               if (event.target.classList.contains("btn-cancel")){
+                   app.view._removeguizmoSpeech();
+                   document.getElementById("save-info").checked = "checked";
+                   callLS();
+               }
+           })
        }
    })
 }
 
 document.body.onload = getTagsy;
+
