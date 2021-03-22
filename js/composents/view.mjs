@@ -12,9 +12,12 @@ export class View {
            }
             if (event.target.id === this.exercice[1]){
                 console.log("je suis identification")
+                this._lockExercice();
             }
             if (event.target.id === this.exercice[2]){
                 console.log("je suis short-answer")
+                this.answerTable();
+                this._lockExercice();
             }
         })
 
@@ -362,14 +365,12 @@ _lockExercice = () => {
                 let these = that;
                 document.getElementById("message").addEventListener("click", function confirmChange (el) {
                     if (el.target.classList.contains("btn-confirm")){
-                        console.log("click")
                         these._unlockExercice();
                         these._removeguizmoSpeech();
                         this.removeEventListener("click", confirmChange)
                     }
 
                     if (el.target.classList.contains("btn-cancel")){
-                        console.log(`annule`)
                         that._removeguizmoSpeech()
                         this.removeEventListener("click", confirmChange)
                     }

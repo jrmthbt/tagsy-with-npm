@@ -16,9 +16,11 @@ export class Controller {
             }
             if (event.target.id === this.view.exercice[1]){
                 console.log("je suis identification - controller ")
+                this.clearTableQcm();
             }
             if (event.target.id === this.view.exercice[2]){
                 console.log("je suis short-answer - controller ")
+                this.clearTableQcm();
             }
         })
 
@@ -44,6 +46,12 @@ export class Controller {
     // controller qui supprime dans le model
     handleDeleteAnswer = (id) => {
         this.model.deleteAnswerQcm(id)
+    }
+
+    clearTableQcm = () => {
+        this.model.qcmAnswers = [];
+        localStorage.setItem('QcmAnswer', JSON.stringify(this.model.qcmAnswers))
+
     }
 
 
