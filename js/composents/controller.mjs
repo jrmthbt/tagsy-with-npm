@@ -1,5 +1,5 @@
 //MVC - controller
-
+import {callLS, getTagsy, stopLS} from "./API/LocalStorage.mjs";
 
 export class Controller {
     constructor(model, view) {
@@ -31,8 +31,39 @@ export class Controller {
             }
         })
 
+    let that = this;
+        if (document.getElementById("save-info").checked === true){
+            callLS();
+
+        }else{
+            document.getElementById("save-info").addEventListener("change", function(){
+                if (this.checked){
+                    callLS();
+                }else if(this.checked === false){
+                    that.view._guizmoSpeak("Voulez-vous désactiver la sauvegarde auto et perdre les données sauvées?");
+                    let these = that;
+                    document.getElementById("message").addEventListener("click", function confirmDisable(event){
+                        if (event.target.classList.contains("btn-confirm")){
+                            stopLS();
+                            const tagsy = [];
+                            localStorage.setItem("saveTagsy", JSON.stringify(tagsy));
+                            these.view._removeguizmoSpeech();
+                        }
+                        if (event.target.classList.contains("btn-cancel")){
+                            these.view._removeguizmoSpeech();
+                            document.getElementById("save-info").checked = "checked";
+                            callLS();
+                        }
+                    })
+                }
+            })
+        }
 
 
+        if (localStorage !== null){
+            document.body.onload = getTagsy;
+
+        }
 
 
 
