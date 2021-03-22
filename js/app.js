@@ -2,7 +2,7 @@
 import {Model} from "./composents/model.mjs";
 import {View} from "./composents/view.mjs";
 import {Controller} from "./composents/controller.mjs";
-import {getTagsy, callLS, stopLS} from "./composents/API/LocalStorage.mjs";
+import {callLS, getTagsy, stopLS} from "./composents/API/LocalStorage.mjs";
 
 
 let app = new Controller(new Model(), new View());
@@ -37,5 +37,9 @@ if (document.getElementById("save-info").checked === true){
    })
 }
 
-document.body.onload = getTagsy;
+
+if (localStorage !== null){
+    document.body.onload = getTagsy;
+
+}
 

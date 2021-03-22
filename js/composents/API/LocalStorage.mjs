@@ -23,15 +23,19 @@
 
 }
 
+
+
  export let getTagsy = () => {
-     const getData = JSON.parse(localStorage.getItem('saveTagsy'));
-     console.log(getData);
+     let getData = JSON.parse(localStorage.getItem('saveTagsy'));
+     if (getData === null){}
+     else {
 
          document.getElementById("save-info").checked = getData.autoSave;
          document.getElementById("counter").checked = getData.counterAuto;
          if (getData.exerciseName) {
              document.getElementById("name-exercise").value = getData.exerciseName;
          }
+     }
 
  }
 
@@ -51,3 +55,4 @@ export let stopLS = ()=>{
 let save = () => {
      saveTagsy(tagsy);
 }
+

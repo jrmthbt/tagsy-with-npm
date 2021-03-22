@@ -5,8 +5,8 @@ export class Model {
 
     // recupere dans le local storage
     constructor() {
-        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswers')) || [];
-        this.shortAnswers = JSON.parse(localStorage.getItem('ShortAnswers')) || [];
+        this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
+        this.shortAnswers = JSON.parse(localStorage.getItem('qhortAnswers')) || [];
     }
 
     // crud fonction read
@@ -21,12 +21,12 @@ export class Model {
     // ajoute dans le localstorage
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
-        localStorage.setItem('QcmAnswers', JSON.stringify(qcmAnswers))
+        localStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
     }
 
     _commitShort(shortAnswers){
         this.onChangeShort(shortAnswers)
-        localStorage.setItem("ShortAnswers", JSON.stringify(shortAnswers))
+        localStorage.setItem("qhortAnswers", JSON.stringify(shortAnswers))
     }
 
 

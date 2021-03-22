@@ -5,8 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/API/LocalStorage.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/API/LocalStorage.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_header.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

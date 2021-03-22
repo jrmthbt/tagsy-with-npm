@@ -71,13 +71,13 @@ export class Controller {
 
     clearTableQcm = () => {
         this.model.qcmAnswers = [];
-        localStorage.setItem('QcmAnswers', JSON.stringify(this.model.qcmAnswers))
+        localStorage.removeItem("qcmAnswers")
         console.table(this.model.qcmAnswers)
 
     }
     clearTableShort = () => {
         this.model.shortAnswers = [];
-        localStorage.setItem("ShortAnswers", JSON.stringify(this.model.shortAnswers))
+       localStorage.removeItem("shortAnswers")
         console.table(this.model.shortAnswers);
     }
 
