@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a7fe8e4-2ee2-4a23-ae8d-371c581bb783" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/composents/API/LocalStorage.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/API/LocalStorage.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_header.scss" afterDir="false" />
-    </list>
+    <list default="true" id="4a7fe8e4-2ee2-4a23-ae8d-371c581bb783" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -140,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616160581600</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="debug ls confirm">
+      <created>1616426761123</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616426761123</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +164,7 @@
     <MESSAGE value="config gitignore" />
     <MESSAGE value="config for sass compress css min" />
     <MESSAGE value="revert" />
-    <option name="LAST_COMMIT_MESSAGE" value="revert" />
+    <MESSAGE value="debug ls confirm" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug ls confirm" />
   </component>
 </project>
