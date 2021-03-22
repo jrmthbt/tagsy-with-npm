@@ -59,4 +59,8 @@
     top: 30px;
     left: -325px;
     margin-bottom: 35px;
+    @include responsive_laptop{
+      top: 35px;
+      left: -465px;
+    }
   }

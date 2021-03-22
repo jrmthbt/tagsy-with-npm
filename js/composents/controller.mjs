@@ -5,28 +5,25 @@ export class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
-
-
         document.querySelector("body").addEventListener("change", event =>{
-            switch (event.target.id){
-                case (event.target.id = "qcm") :
-                    console.log("je suis qcm controller");
-                    this.model.bindChangeQcmAnswer(this.onChange)
-                    this.onChange(this.model.qcmAnswers)
-                    this.view.bindAddAnswer(this.handleAddAnswer)
-                    this.view.binDeleteAnswer(this.handleDeleteAnswer)
-                    this.view.binEditAnswer(this.handleEditAnswer)
-                    break;
-               case (event.target.id = "identification") :
-                    console.log("je suis identification controller");
-                    break;
-                case (event.target.id = "answer") :
-                    console.log("je suis answer controller");
-                    break;
-                default :
-                    console.log(event.target)
+            if (event.target.id === this.view.exercice[0]){
+                console.log("je suis qcm - controller")
+                this.model.bindChangeQcmAnswer(this.onChange)
+                this.view.bindAddAnswer(this.handleAddAnswer)
+                this.view.binDeleteAnswer(this.handleDeleteAnswer)
+                this.view.binEditAnswer(this.handleEditAnswer)
+                this.onChange(this.model.qcmAnswers)
+            }
+            if (event.target.id === this.view.exercice[1]){
+                console.log("je suis identification - controller ")
+            }
+            if (event.target.id === this.view.exercice[2]){
+                console.log("je suis short-answer - controller ")
             }
         })
+
+
+
 
 
 

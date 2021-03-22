@@ -36,6 +36,7 @@
     }
     @include responsive_laptop{
       right: 40px;
+      font-size: 15px !important;
 
       .fa-comment-alt{
         right: 40px;

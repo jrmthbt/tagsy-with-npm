@@ -5,26 +5,16 @@ export class View {
 
         // check exercice
         document.querySelector("body").addEventListener("change", event =>{
-            switch (event.target.id){
-                case (event.target.id = "qcm") :
-                    console.log("je suis qcm");
-                    this.qcmTable()
-                    this._lockExercice(this.getElement("#identification"), this.getElement("#answer"));
-                    this._unlockExercice();
-                    break;
-                case (event.target.id = "identification") :
-                    console.log("je suis identification");
-                    this._lockExercice(this.getElement("#qcm"), this.getElement("#answer"));
-                    this._unlockExercice();
-                    break;
-                case (event.target.id = "answer") :
-                    console.log("je suis answer");
-                    this.answerTable();
-                    this._lockExercice(this.getElement("#identification"), this.getElement("#qcm"));
-                    this._unlockExercice();
-                    break;
-                default :
-                    console.log(event.target)
+           if (event.target.id === this.exercice[0]){
+               console.log("je suis qcm")
+               this.qcmTable();
+               this._lockExercice();
+           }
+            if (event.target.id === this.exercice[1]){
+                console.log("je suis identification")
+            }
+            if (event.target.id === this.exercice[2]){
+                console.log("je suis short-answer")
             }
         })
 
@@ -36,6 +26,7 @@ export class View {
         // si executed
         this._executed = false
         this.app = document.getElementById('root');
+        this.exercice = ["qcm", "identification", "short-answer"];
 
     }
 
@@ -253,7 +244,6 @@ export class View {
                             this.removeEventListener("click", confirmEdit)
                         }
 
-
                     })
                 }
 
@@ -270,6 +260,8 @@ export class View {
                     document.getElementById("choice").disabled = false
                     document.getElementById("good-answer").disabled = false
                     document.getElementById("answer-add").classList.remove("disabled");
+                    document.getElementById("form-add").classList.remove("disabled");
+                    document.getElementById("change").classList.remove("disabled");
                     this._countClick = 0;
                 }
             }
@@ -358,27 +350,46 @@ _removeguizmoSpeech = () => {
     })
 }
 
-_lockExercice = (radioOne, radioTwo) => {
-        radioOne.classList.add("disabled");
-        radioTwo.classList.add("disabled");
+_lockExercice = () => {
+        document.querySelectorAll("input[type=radio]").forEach(radio => {
+            radio.disabled = true;
+        })
         document.getElementById("change").classList.remove("display-none");
+        let that = this;
+        this.getElement("body").addEventListener("click", function confirm(event){
+            if (event.target.id ==="change") {
+                that._guizmoSpeak("Voulez-vous changer d'exercice?")
+                let these = that;
+                document.getElementById("message").addEventListener("click", function confirmChange (el) {
+                    if (el.target.classList.contains("btn-confirm")){
+                        console.log("click")
+                        these._unlockExercice();
+                        these._removeguizmoSpeech();
+                        this.removeEventListener("click", confirmChange)
+                    }
+
+                    if (el.target.classList.contains("btn-cancel")){
+                        console.log(`annule`)
+                        that._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmChange)
+                    }
+
+                })
+            }
+        })
+
 }
 
 _unlockExercice = () => {
-    this.getElement("body").addEventListener("click", event => {
-        if (event.target.id === "change"){
-            console.log("click")
+
             document.querySelectorAll("input[type=radio]").forEach(radio => {
-                radio.classList.remove("disabled");
+                radio.disabled = false;
                 radio.checked = false;
             });
-            event.target.classList.add("display-none");
-        }
+            document.querySelector("#change").classList.add("display-none");
 
-        while (this.getElement('table').firstChild){
-            this.getElement('table').removeChild(this.getElement('table').firstChild);
+            while (document.querySelector("#root").firstChild){
+                document.querySelector("#root").removeChild(document.querySelector("#root").firstChild)
+            }
         }
-    })
-}
-
 }

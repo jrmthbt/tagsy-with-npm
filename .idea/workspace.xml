@@ -3,14 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scss/composents/_button.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_button.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_header.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_responsive_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_responsive_mixins.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_title.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_title.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_toggleCheck.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_toggleCheck.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/composents/_toolbars.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_toolbars.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_confirmBox.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,9 +37,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1p9T7YMPFAP4RmTK6mYUVi0Pbcz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -117,6 +111,7 @@
       <workItem from="1615670842579" duration="180000" />
       <workItem from="1615793810352" duration="26431000" />
       <workItem from="1615874167410" duration="18153000" />
+      <workItem from="1616398361101" duration="5266000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>
