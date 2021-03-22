@@ -25,7 +25,7 @@ export class Controller {
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
                 this.view.binDelete(this.handleDeleteShort)
-                //this.view.binEditShort(this.handleEditShort)
+                this.view.binEditShort(this.handleEditShort)
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
             }
@@ -56,7 +56,7 @@ export class Controller {
         this.model.editAnswerQcm(id, answerText, answerCheck)
 
     }
-    handleEdit = (id, answerText) =>{
+    handleEditShort = (id, answerText) =>{
         this.model.editAnswerShort(id, answerText)
     }
     // controller qui supprime dans le model

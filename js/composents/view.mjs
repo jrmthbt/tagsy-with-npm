@@ -320,6 +320,80 @@ export class View {
 
     }
 
+    binEditShort = handler => {
+        this.getElement('tbody').addEventListener('click',event=> {
+            if (event.target.classList.contains('edit')){
+                let that = this
+                if (this._countClick === 0){
+                    this._guizmoSpeak("Voulez-vous modifier la ligne?",  "input", "button")
+                    document.getElementById("message").addEventListener("click", function confirmEdit(el) {
+
+                        if (el.target.classList.contains("btn-confirm")){
+                            console.log("je modif");
+                            that._countClick++;
+                            console.log(that._countClick)
+                            if (that._countClick === 1){
+                                console.log("select row to edit")
+                                event.target.parentElement.parentElement.classList.add('focus');
+                                event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
+
+
+                                document.querySelectorAll('.edit').forEach(edit => {
+                                    edit.classList.add("disabled");
+                                })
+                                document.querySelectorAll('.delete').forEach(del => {
+                                    del.classList.add("disabled");
+                                })
+
+                                if (event.target.parentElement.parentElement.classList.contains("focus")){
+                                    event.target.classList.remove("disabled")
+                                }
+                                document.getElementById("input-edit").disabled = false
+                                document.getElementById("choice").disabled = true
+                                document.getElementById("answer-add").classList.add("disabled");
+                                that._countClick++
+                                console.log(that._countClick);
+                                that._executed = true
+
+                            }
+
+                            document.getElementById("caution").innerHTML="";
+                            document.getElementById("message").classList.add("display-none");
+                            document.body.style.overflow = "initial"
+                            document.querySelector("form").style.opacity = "initial"
+                            document.querySelectorAll("input").forEach(input => {
+                                input.classList.remove("disabled")
+                            })
+                            if (event.target.parentElement.parentElement.classList.contains("focus")){
+                                event.target.classList.remove("disabled")
+                            }
+                            this.removeEventListener("click", confirmEdit)
+                        }
+                        if (el.target.classList.contains("btn-cancel")){
+                            console.log(`annule`)
+                            that._removeguizmoSpeech()
+                            that._countClick = 0;
+                            this.removeEventListener("click", confirmEdit)
+                        }
+
+                    })
+                }
+
+                if (this._countClick > 1){
+                    console.log("j'ai édit")
+                    let  id =parseInt( event.target.parentElement.parentElement.id)
+                    let temporaryAnswerText = document.getElementById("input-edit").value
+                    handler(id, temporaryAnswerText);
+                    document.getElementById("choice").disabled = false
+                    document.getElementById("answer-add").classList.remove("disabled");
+                    document.getElementById("form-add").classList.remove("disabled");
+                    document.getElementById("change").classList.remove("disabled");
+                    this._countClick = 0;
+                }
+            }
+        })
+    }
+
 // recupere les infos supprimer par l'utilisateur pour diffuser au controller
     binDelete = handler => {
         this.getElement('tbody').addEventListener('click', event => {
