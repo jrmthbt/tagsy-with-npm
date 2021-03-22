@@ -1,5 +1,6 @@
 @import "color";
 @import "variables";
+@import "responsive_mixins";
 /* ---------- header --------- */
 header {
   background-color: $light_gray;
@@ -26,7 +27,6 @@ header {
 
   .help-link{
     width: auto;
-    margin-top: 17px;
     color: $dark_gray;
     cursor: pointer;
     float: right;
@@ -41,13 +41,26 @@ header {
     &:hover{
       border-bottom: solid 5px $purple;
     }
+
+
   }
 
   #time-save{
     position: absolute;
-    top: 22px;
+    top: 30px;
     margin-left: 325px;
     color: $medium_gray;
+  }
+
+  .saveInfo{
+    position: absolute !important;
+    top: 30px !important;
+    margin-left: 125px;
+  }
+  @include responsive_laptop{
+    .saveInfo{
+      margin-left: 300px;
+    }
   }
 
 }
