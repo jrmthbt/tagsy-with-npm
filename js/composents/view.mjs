@@ -269,9 +269,9 @@ export class View {
                                 document.getElementById("good-answer").disabled = true
                                 document.getElementById("answer-add").classList.add("disabled");
                                 console.log("toggle");
+                                that._toggleSwitch(that._executed);
                                 that._countClick++
                                 console.log(that._countClick);
-                                that._toggleSwitch(that._executed);
                                 that._executed = true
 
                             }
@@ -353,7 +353,8 @@ export class View {
                                 document.getElementById("answer-add").classList.add("disabled");
                                 that._countClick++
                                 console.log(that._countClick);
-                                that._executed = true
+                                that._toggleSwitch(that._executed)
+                                that._executed = false
 
                             }
 
