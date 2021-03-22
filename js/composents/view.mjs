@@ -122,7 +122,9 @@ export class View {
     // reset les champs d'ajout
     _resetInput() {
         this.getElement('#choice').value = "";
-        this.getElement('#good-answer').checked = false;
+        if (this.getElement("#good-answer")) {
+            this.getElement('#good-answer').checked = false;
+        }
     }
 
     // affiche le tableau qcm
@@ -173,8 +175,42 @@ export class View {
         })
     }
 
+    displayTableShort (shortAnswer){
+
+        while (this.getElement('tbody').firstChild) {
+            this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+        }
+        shortAnswer.forEach(answer => {
+            const tr = this.createElement('tr')
+            tr.id = answer.id;
+
+            const tdinput = this.createElement('td');
+            const input = this.createElement('input', 'regular_10');
+            input.type = "text";
+            input.className = "choices text-center";
+            input.value = answer.answer;
+            input.disabled = true;
+
+            const tdOption = this.createElement("td");
+            const editButton = this.createElement("button")
+            editButton.className = "btn-secondary edit";
+            editButton.innerHTML = "Modifier"
+
+            const deleteButton = this.createElement("button")
+            deleteButton.className = "btn-tertiary delete";
+            deleteButton.innerHTML = "Supprimer";
+
+            tdinput.appendChild(input);
+            tdOption.append(editButton, deleteButton);
+
+            tr.append(tdinput, tdOption)
+
+            this.getElement('tbody').append(tr);
+        })
+    }
+
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
-    bindAddAnswer(handler) {
+    bindAddQcm(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
             event.preventDefault()
 
@@ -185,8 +221,19 @@ export class View {
         })
     }
 
+    bindAddShort(handler){
+        this.getElement("#answer-add").addEventListener('click', event =>{
+            event.preventDefault()
+
+            if (this._answerText){
+                handler(this._answerText)
+                this._resetInput()
+            }
+        })
+    }
+
 // recuper les infos qcm éditées par l'utilisateur pour diffuser au controller
-    binEditAnswer = (handler) => {
+    binEditQcm = (handler) => {
         this.getElement('tbody').addEventListener('click',event=> {
             if (event.target.classList.contains('edit')){
                 let that = this
@@ -273,7 +320,7 @@ export class View {
     }
 
 // recupere les infos supprimer par l'utilisateur pour diffuser au controller
-    binDeleteAnswer = handler => {
+    binDelete = handler => {
         this.getElement('tbody').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
                 this._guizmoSpeak("Voulez-vous supprimer la ligne?")
@@ -300,6 +347,7 @@ export class View {
             }
         })
     }
+
 
     // fonction qui permet l'edition du checkbox en mode modification
     _toggleSwitch = (executed) =>{

@@ -6,3 +6,4 @@ import {Controller} from "./composents/controller.mjs";
 let app = new Controller(new Model(), new View());
 
 console.table(app.model.qcmAnswers);
+console.table(app.model.shortAnswers);

@@ -5,7 +5,8 @@ export class Model {
 
     // recupere dans le local storage
     constructor() {
-        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswer')) || []
+        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswers')) || [];
+        this.shortAnswers = JSON.parse(localStorage.getItem('ShortAnswers')) || [];
     }
 
     // crud fonction read
@@ -13,10 +14,19 @@ export class Model {
         this.onChangeQcm = callback;
     }
 
+    bindChangeShortAnswer(callback){
+        this.onChangeShort = callback;
+    }
+
     // ajoute dans le localstorage
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
-        localStorage.setItem('QcmAnswer', JSON.stringify(qcmAnswers))
+        localStorage.setItem('QcmAnswers', JSON.stringify(qcmAnswers))
+    }
+
+    _commitShort(shortAnswers){
+        this.onChangeShort(shortAnswers)
+        localStorage.setItem("ShortAnswers", JSON.stringify(shortAnswers))
     }
 
 
@@ -31,6 +41,16 @@ export class Model {
         this.qcmAnswers.push(answer);
 
         this._commit(this.qcmAnswers)
+    }
+
+    addAnswerShort(inputAnswer){
+        const answer = {
+            "id": this.shortAnswers.length > 0 ? this.shortAnswers[this.shortAnswers.length -1].id +1 : 1,
+            "answer" : inputAnswer
+        }
+        this.shortAnswers.push(answer);
+        this._commitShort(this.shortAnswers);
+        console.table(this.shortAnswers);
     }
 
     // crud fonction update
@@ -52,6 +72,12 @@ export class Model {
     deleteAnswerQcm(id) {
         this.qcmAnswers = this.qcmAnswers.filter(( answer) => answer.id !== id)
         this._commit(this.qcmAnswers)
+    }
+
+    deleteAnswerShort(id) {
+        this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
+        this._commitShort(this.shortAnswers)
+        console.table(this.shortAnswers)
     }
 
 
