@@ -12,9 +12,12 @@ export class View {
            }
             if (event.target.id === this.exercice[1]){
                 console.log("je suis identification")
+                this._lockExercice();
             }
             if (event.target.id === this.exercice[2]){
                 console.log("je suis short-answer")
+                this.answerTable();
+                this._lockExercice();
             }
         })
 
@@ -165,6 +168,36 @@ export class View {
             tdOption.append(editButton, deleteButton);
 
             tr.append(tdinput, tdCheck, tdOption)
+
+            this.getElement('tbody').append(tr);
+        })
+    }
+
+    displayTableShort (shortAnswer){
+        shortAnswer.forEach(answer => {
+            const tr = this.createElement('tr')
+            tr.id = answer.id;
+
+            const tdinput = this.createElement('td');
+            const input = this.createElement('input', 'regular_10');
+            input.type = "text";
+            input.className = "choices text-center";
+            input.value = answer.answer;
+            input.disabled = true;
+
+            const tdOption = this.createElement("td");
+            const editButton = this.createElement("button")
+            editButton.className = "btn-secondary edit";
+            editButton.innerHTML = "Modifier"
+
+            const deleteButton = this.createElement("button")
+            deleteButton.className = "btn-tertiary delete";
+            deleteButton.innerHTML = "Supprimer";
+
+            tdinput.appendChild(input);
+            tdOption.append(editButton, deleteButton);
+
+            tr.append(tdinput, tdOption)
 
             this.getElement('tbody').append(tr);
         })

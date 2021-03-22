@@ -5,7 +5,14 @@ export class Model {
 
     // recupere dans le local storage
     constructor() {
-        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswer')) || []
+        this.qcmAnswers = JSON.parse(localStorage.getItem('QcmAnswer')) || [];
+        this.shortAnswer = [
+            {id : 1, "answer" : "suis"},
+            {id : 2, "answer" : "es"},
+            {id : 3, "answer" : "est"},
+            {id : 4, "answer" : "sont"},
+
+        ]
     }
 
     // crud fonction read
