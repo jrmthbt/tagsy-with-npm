@@ -19,6 +19,9 @@ export class View {
                 this.answerTable();
                 this._lockExercice();
             }
+            if (event.target.id === "explication"){
+                this._toggleDisplay(document.getElementById("explication-text"));
+            }
         })
 
 
@@ -517,4 +520,8 @@ _unlockExercice = () => {
                 document.querySelector("#root").removeChild(document.querySelector("#root").firstChild)
             }
         }
+
+        _toggleDisplay(el){
+        el.classList.toggle("display-none");
+}
 }
