@@ -9,19 +9,33 @@ h1 {
   margin-left: 45px;
   color: $purple;
   float: left;
+  @include responsive_laptop{
+    top: 25px;
+    margin-left: 70px;
+  }
 }
 
   h2{
     text-align: $text-center;
-    margin-top: 75px;
+    margin-top: 100px;
+    @include responsive_laptop{
+      font-size: 35px !important;
+      margin-top: 100px;
+    }
   }
   h3{
     text-align: $text-center;
     margin-top: 25px;
+    @include responsive_laptop {
+      font-size: 25px !important;
+    }
   }
   h4{
     text-align: $text-center;
     margin-top: 15px;
+    @include responsive_laptop {
+      font-size: 20px !important;
+    }
 
     span{
       border-bottom: solid 0 #6468DA;

@@ -34,4 +34,21 @@
       left: 28px;
 
     }
+    @include responsive_laptop{
+      right: 40px;
+
+      .fa-comment-alt{
+        right: 40px;
+        bottom: 100px;
+      }
+
+      p#caution{
+        top: 0;
+        font-size: 15px !important;
+      }
+
+      button{
+        top: 45px;
+      }
+    }
   }

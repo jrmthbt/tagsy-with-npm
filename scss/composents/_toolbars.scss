@@ -15,6 +15,10 @@
   margin-top: 20px;
   border-radius: $border-radius_5;
 
+  @include responsive_laptop{
+    width: $container_laptop_800;
+  }
+
   .tools {
     width: 50px;
     height: 50px;
@@ -52,6 +56,10 @@
   .counter {
     color: $purple;
     margin: 16px 65px 0 0;
+    @include responsive_laptop{
+      margin: 16px 0 0 0;
+      text-align: left;
+    }
 
   }
 }

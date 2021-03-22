@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="" />
+    <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_button.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_button.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_form.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_header.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_responsive_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_responsive_mixins.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_title.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_title.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_toggleCheck.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_toggleCheck.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/composents/_toolbars.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/composents/_toolbars.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/main.scss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +40,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1p9T7YMPFAP4RmTK6mYUVi0Pbcz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -126,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614613430163</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="revert">
+      <created>1616160581600</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616160581600</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +168,7 @@
     <MESSAGE value="project tagsy with npm" />
     <MESSAGE value="config gitignore" />
     <MESSAGE value="config for sass compress css min" />
-    <option name="LAST_COMMIT_MESSAGE" value="config for sass compress css min" />
+    <MESSAGE value="revert" />
+    <option name="LAST_COMMIT_MESSAGE" value="revert" />
   </component>
 </project>

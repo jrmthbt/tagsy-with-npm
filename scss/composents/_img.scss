@@ -5,4 +5,7 @@
   right: 10px;
   bottom: 0;
   width: 75px;
+  @include responsive_laptop{
+    width: 100px;
+  }
 }

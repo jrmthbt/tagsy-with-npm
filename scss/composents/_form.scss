@@ -9,6 +9,10 @@ form{
   text-align: left;
   label{
     margin-top: 20px;
+    @include responsive_laptop{
+      font-size: 20px !important;
+      margin-right: 10px;
+    }
   }
 
   input[type="text"]{
@@ -18,18 +22,29 @@ form{
     height: 25px;
     margin: 10px 0;
     padding: 5px;
+    @include responsive_laptop{
+      width: 788px;
+      height: 40px;
+      font-size: 15px !important;
+    }
   }
 
   input[type="radio"]{
     top: 0;
     margin: 0 5px;
     cursor: pointer;
+    @include responsive_laptop{
+      margin: 0 10px 0 -5px;
+    }
   }
 
   .type-exercice{
     position: relative;
     top: 0;
     left: 0;
+    @include responsive_laptop{
+      font-size: 15px !important;
+    }
   }
 
 
@@ -39,15 +54,22 @@ form{
     border-radius: $border-radius_5;
     margin: 10px 0 30px;
 
+    @include responsive_laptop{
+      width: $container_laptop_800;
+    }
+
     thead{
       background-color: $light_gray;
+      height: 25px;
       tr{
 
         text-align: $text_center;
         th{
-          width: ($container_tablet_600)/3;
           border: 1px solid $light_gray;
           border-radius: $border-radius_5;
+          @include responsive_laptop{
+            width: ($container_laptop_800)/3;
+          }
         }
       }
     }
@@ -63,15 +85,25 @@ form{
         }
         td{
           border-radius: $border-radius_5;
+          @include responsive_laptop{
+            height: 60px;
+          };
           input.choices{
             width: $choices_width;
             height: $choices_height;
             padding: $padding5;
             border: $border_input_choices;
+            @include responsive_laptop {
+              width: ($container_laptop_800/3)-25;
+              height: $choices_height*2;
+            }
           }
           .good-answer-choice{
             top: -10px;
             left: 75px;
+            @include responsive_laptop{
+              left: 90px;
+            }
           }
         }
       }
@@ -84,17 +116,25 @@ form{
         text-align: $text_center;
         td{
           border-radius: $border-radius_5;
-          width: ($container_tablet_600)/3;
           text-align: center;
+
           input#choice{
             width: $choices_width;
             height: $choices_height;
             padding: $padding5;
             border: $border_input_choices;
+            @include responsive_laptop {
+              width: ($container_laptop_800/3)-25;
+              height: $choices_height*2;
+            }
           }
+
           .good-answer{
             top: -10px;
             left: 75px;
+            @include responsive_laptop {
+              left: 90px;
+            }
           }
         }
       }
@@ -107,6 +147,10 @@ form{
   .explication-check{
     top: 20px !important;
     left: 115px!important;
+    @include responsive_laptop{
+      top: 25px !important;
+      left: 160px !important;
+    }
   }
 }
 

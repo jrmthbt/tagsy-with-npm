@@ -12,6 +12,11 @@ label.toggle-checkbox-label {
   position: relative;
   top: -15px;
   left: 540px;
+  @include responsive_laptop{
+    width: 60px;
+    height: 20px;
+    border-radius: 30px;
+  }
 
   &:after {
     content: "";
@@ -24,10 +29,20 @@ label.toggle-checkbox-label {
     box-shadow: 0 1px 2px $black_shadow, 0 1px 3px $black_shadow;
     border-radius: 50%;
     transition: $trans_3;
+    @include responsive_laptop{
+      width: 12px;
+      height: 12px;
+      top: 4px;
+      left: 5px;
+
+    }
   }
 
   &:active:after{
     width: 10px;
+    @include responsive_laptop{
+    width: 15px;
+    }
   }
 
 }

@@ -8,11 +8,19 @@ header {
   position: fixed;
   top: 0;
   z-index: 100;
+  @include responsive_laptop{
+    height: 75px;
+  }
 
   #logo {
     width: 35px;
     position: absolute;
     top: 11px;
+    @include responsive_laptop {
+      width: 60px;
+      top: 14px;
+    }
+
   }
 
 
@@ -24,6 +32,11 @@ header {
     float: right;
     border-bottom: solid 0 $purple;
     transition: $trans_3;
+    @include responsive_laptop{
+      font-size: 25px;
+      margin-top: 25px;
+
+    }
 
     &:hover{
       border-bottom: solid 5px $purple;
