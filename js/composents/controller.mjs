@@ -9,9 +9,9 @@ export class Controller {
             if (event.target.id === this.view.exercice[0]){
                 console.log("je suis qcm - controller")
                 this.model.bindChangeQcmAnswer(this.onChangeQcm)
-                this.view.bindAddAnswer(this.handleAddAnswer)
-                this.view.binDeleteAnswer(this.handleDeleteAnswer)
-                this.view.binEditAnswer(this.handleEditAnswer)
+                this.view.bindAddQcm(this.handleAddQcm)
+                this.view.binDelete(this.handleDeleteQcm)
+                this.view.binEditQcm(this.handleEditQcm)
                 this.onChangeQcm(this.model.qcmAnswers)
             }
             if (event.target.id === this.view.exercice[1]){
@@ -19,7 +19,10 @@ export class Controller {
             }
             if (event.target.id === this.view.exercice[2]){
                 console.log("je suis short-answer - controller ")
-                this.onChangeShort(this.model.shortAnswer)
+                this.model.bindChangeShortAnswer(this.onChangeShort);
+                this.view.bindAddShort(this.handleAddShort)
+                this.view.binDelete(this.handleDeleteShort)
+                this.onChangeShort(this.model.shortAnswers)
             }
         })
 
@@ -31,24 +34,32 @@ export class Controller {
     }
     // function pour afficher le tableau quand model est modifier
      onChangeQcm = (qcmAnswer) => {
-                this.view.displayTableQcm(qcmAnswer);
+        this.view.displayTableQcm(qcmAnswer);
     }
 
     onChangeShort = (shortAnswer) => {
         this.view.displayTableShort(shortAnswer);
     }
    // controller qui ajoute au model
-    handleAddAnswer = (answerText, answerCheck) => {
+    handleAddQcm = (answerText, answerCheck) => {
         this.model.addAnswerQcm(answerText, answerCheck)
     }
+
+    handleAddShort = (answerText) => {
+        this.model.addAnswerShort(answerText);
+    }
     // controller qui edit le model
-    handleEditAnswer = (id, answerText, answerCheck) => {
+    handleEditQcm = (id, answerText, answerCheck) => {
         this.model.editAnswerQcm(id, answerText, answerCheck)
 
     }
     // controller qui supprime dans le model
-    handleDeleteAnswer = (id) => {
+    handleDeleteQcm = (id) => {
         this.model.deleteAnswerQcm(id)
+    }
+
+    handleDeleteShort = id =>{
+        this.model.deleteAnswerShort(id)
     }
 
 
