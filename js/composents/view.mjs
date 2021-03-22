@@ -189,6 +189,7 @@ export class View {
             input.type = "text";
             input.className = "choices text-center";
             input.value = answer.answer;
+            console.log(answer.answer);
             input.disabled = true;
 
             const tdOption = this.createElement("td");

@@ -67,6 +67,16 @@ export class Model {
         this._commit(this.qcmAnswers)
     }
 
+    editAnswerShort(id, updateAnswer){
+        this.shortAnswers.forEach(answer =>{
+            if (answer.id === id){
+                answer.id = id
+                answer.answer = updateAnswer
+            }
+        })
+        this._commitShort(this.shortAnswers)
+    }
+
 
     // crud function delete
     deleteAnswerQcm(id) {

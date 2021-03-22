@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bdd5908-cb39-4245-8b98-22221cac91f9" name="Default Changelist" comment="">
+    <list default="true" id="4a7fe8e4-2ee2-4a23-ae8d-371c581bb783" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/model.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
