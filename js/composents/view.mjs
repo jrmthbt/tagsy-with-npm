@@ -4,7 +4,7 @@ export class View {
     constructor() {
 
         // check exercice
-        document.querySelector("body").addEventListener("change", event =>{
+        document.querySelector("body").addEventListener("click", event =>{
            if (event.target.id === this.exercice[0]){
                console.log("je suis qcm")
                this.qcmTable();
@@ -20,7 +20,12 @@ export class View {
                 this._lockExercice();
             }
             if (event.target.id === "explication"){
-                this._toggleDisplay(document.getElementById("explication-text"));
+                if (!event.target.checked) {
+                    this._hideDisplay(document.getElementById("explication-text"));
+                }
+                else{
+                    this._showDisplay(document.getElementById("explication-text"));
+                }
             }
         })
 
@@ -133,9 +138,11 @@ export class View {
     // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
 
+        if (this.getElement('tbody')) {
 
-        while (this.getElement('tbody').firstChild) {
-            this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+            while (this.getElement('tbody').firstChild) {
+                this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+            }
         }
 
 
@@ -348,6 +355,7 @@ export class View {
                                     del.classList.add("disabled");
                                 })
 
+
                                 if (event.target.parentElement.parentElement.classList.contains("focus")){
                                     event.target.classList.remove("disabled")
                                 }
@@ -371,6 +379,7 @@ export class View {
                             if (event.target.parentElement.parentElement.classList.contains("focus")){
                                 event.target.classList.remove("disabled")
                             }
+
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
@@ -394,6 +403,7 @@ export class View {
                     document.getElementById("change").classList.remove("disabled");
                     this._countClick = 0;
                 }
+
             }
         })
     }
@@ -460,6 +470,8 @@ export class View {
         document.querySelectorAll("button").forEach(btn => {
             btn.classList.add("disabled")
         })
+        document.querySelector("#save-info").disabled = true;
+
             document.getElementsByClassName("btn-confirm")[0].classList.remove("disabled")
             document.getElementsByClassName("btn-cancel")[0].classList.remove("disabled")
 
@@ -478,6 +490,7 @@ _removeguizmoSpeech = () => {
     document.querySelectorAll("button").forEach(btn => {
         btn.classList.remove("disabled")
     })
+    document.querySelector("#save-info").disabled = false;
 }
 
 _lockExercice = () => {
@@ -521,7 +534,11 @@ _unlockExercice = () => {
             }
         }
 
-        _toggleDisplay(el){
-        el.classList.toggle("display-none");
-}
+        _hideDisplay(el){
+            el.classList.add("display-none");
+        }
+
+        _showDisplay(el){
+            el.classList.remove("display-none");
+        }
 }

@@ -1,5 +1,5 @@
 //MVC - controller
-import {callLS, getTagsy, stopLS} from "./API/LocalStorage.mjs";
+import {callLS, stopLS} from "./API/LocalStorage.mjs";
 
 export class Controller {
     constructor(model, view) {
@@ -61,7 +61,40 @@ export class Controller {
 
 
         if (localStorage !== null){
-            document.body.onload = getTagsy;
+            document.body.onload = function (){
+               console.table(that.model.getTagsy);
+               that._getDataSaved();
+               console.log(document.getElementById("save-info").checked)
+                /*if (document.getElementById("save-info").checked){
+                    callLS();
+                }
+                if (document.getElementById("qcm").checked){
+                    that.view._lockExercice();
+                    that.view.qcmTable();
+                    that.model.bindChangeQcmAnswer(that.onChange)
+                    that.view.bindAddQcm(that.handleAddAnswer)
+                    that.view.binDelete(that.handleDeleteAnswer)
+                    that.view.binEditQcm(that.handleEditAnswer)
+                    that.onChange(that.model.qcmAnswers)
+                    that.clearTableShort()
+                }
+                if (document.getElementById("identification").checked){
+                    that.clearTableQcm();
+                    that.clearTableShort()
+                }
+
+                if (document.getElementById("short-answer").checked){
+                    that.view._lockExercice();
+                    that.view.answerTable();
+                    that.model.bindChangeShortAnswer(that.onChangeShort)
+                    that.view.bindAddShort(that.handleAddShort)
+                    that.view.binDelete(that.handleDeleteShort)
+                    that.view.binEditShort(that.handleEditShort)
+                    that.onChangeShort(that.model.shortAnswers)
+                    that.clearTableQcm();
+                }*/
+            };
+
 
         }
 
@@ -111,6 +144,18 @@ export class Controller {
        localStorage.removeItem("shortAnswers")
         console.table(this.model.shortAnswers);
     }
+
+    _getDataSaved = () => {
+        document.getElementById("save-info").checked = this.model.getTagsy.autoSave;
+        document.getElementById("counter").checked = this.model.getTagsy.counterAuto;
+        document.getElementById("qcm").checked = this.model.getTagsy.qcm;
+        document.getElementById("identification").checked = this.model.getTagsy.identification;
+        document.getElementById("short-answer").checked = this.model.getTagsy.shortAnswer;
+        document.getElementById("explication").checked = this.model.getTagsy.explanationCheck;
+
+    }
+
+
 
 
 

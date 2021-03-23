@@ -17,6 +17,7 @@
 
   @include responsive_laptop{
     width: $container_laptop_800;
+    top: 75px;
   }
 
   .tools {

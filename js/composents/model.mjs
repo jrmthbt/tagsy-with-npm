@@ -6,7 +6,8 @@ export class Model {
     // recupere dans le local storage
     constructor() {
         this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
-        this.shortAnswers = JSON.parse(localStorage.getItem('qhortAnswers')) || [];
+        this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
+        this.getTagsy = JSON.parse(localStorage.getItem("saveTagsy")) || [];
     }
 
     // crud fonction read
@@ -26,7 +27,7 @@ export class Model {
 
     _commitShort(shortAnswers){
         this.onChangeShort(shortAnswers)
-        localStorage.setItem("qhortAnswers", JSON.stringify(shortAnswers))
+        localStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
     }
 
 
