@@ -532,6 +532,10 @@ _unlockExercice = () => {
             while (document.querySelector("#root").firstChild){
                 document.querySelector("#root").removeChild(document.querySelector("#root").firstChild)
             }
+
+            document.getElementById("question-name").value = "";
+            document.getElementById("explication").checked = false;
+            document.getElementById("explication-text").value = "";
         }
 
         _hideDisplay(el){

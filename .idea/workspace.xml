@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b9528db-4c8f-4abd-951a-a355a0d9f808" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/js/composents/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/controller.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/composents/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/js/composents/view.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
       <workItem from="1615874167410" duration="18153000" />
       <workItem from="1616398361101" duration="5266000" />
       <workItem from="1616484614940" duration="559000" />
-      <workItem from="1616486134249" duration="8104000" />
+      <workItem from="1616486134249" duration="8454000" />
     </task>
     <task id="LOCAL-00001" summary="project tagsy with npm">
       <created>1614609628946</created>
