@@ -543,6 +543,7 @@ _unlockExercice = () => {
             document.getElementById("question-name").value = "";
             document.getElementById("explication").checked = false;
             document.getElementById("explication-text").value = "";
+            this._hideDisplay(document.getElementById("explication-text"))
         }
 
         _hideDisplay(el){
