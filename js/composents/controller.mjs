@@ -65,7 +65,7 @@ export class Controller {
                console.table(that.model.getTagsy);
                that._getDataSaved();
                console.log(document.getElementById("save-info").checked)
-                /*if (document.getElementById("save-info").checked){
+               if (document.getElementById("save-info").checked){
                     callLS();
                 }
                 if (document.getElementById("qcm").checked){
@@ -92,7 +92,7 @@ export class Controller {
                     that.view.binEditShort(that.handleEditShort)
                     that.onChangeShort(that.model.shortAnswers)
                     that.clearTableQcm();
-                }*/
+                }
             };
 
 
@@ -152,6 +152,19 @@ export class Controller {
         document.getElementById("identification").checked = this.model.getTagsy.identification;
         document.getElementById("short-answer").checked = this.model.getTagsy.shortAnswer;
         document.getElementById("explication").checked = this.model.getTagsy.explanationCheck;
+        if (document.getElementById("explication").checked){
+            document.getElementById("explication-text").classList.remove("display-none")
+        }
+        if (this.model.getTagsy.exerciseName){
+            document.getElementById("name-exercise").value = this.model.getTagsy.exerciseName;
+        }
+        if (this.model.getTagsy.questionName){
+            document.getElementById("question-name").value = this.model.getTagsy.questionName;
+        }
+        if (this.model.getTagsy.explanation){
+            document.getElementById("explication-text").value = this.model.getTagsy.explanation;
+        }
+
 
     }
 
