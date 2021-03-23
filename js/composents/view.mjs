@@ -471,6 +471,8 @@ export class View {
             btn.classList.add("disabled")
         })
         document.querySelector("#save-info").disabled = true;
+        document.querySelector("#counter").disabled = true;
+        document.querySelector("#explication").disabled = true;
 
             document.getElementsByClassName("btn-confirm")[0].classList.remove("disabled")
             document.getElementsByClassName("btn-cancel")[0].classList.remove("disabled")
@@ -491,6 +493,8 @@ _removeguizmoSpeech = () => {
         btn.classList.remove("disabled")
     })
     document.querySelector("#save-info").disabled = false;
+    document.querySelector("#counter").disabled = false;
+    document.querySelector("#explication").disabled = false;
 }
 
 _lockExercice = () => {
@@ -499,11 +503,13 @@ _lockExercice = () => {
         })
         document.getElementById("change").classList.remove("display-none");
         let that = this;
-        this.getElement("body").addEventListener("click", function confirm(event){
+
+        this.getElement("body").addEventListener("mousedown", function confirm(event){
             if (event.target.id ==="change") {
                 that._guizmoSpeak("Voulez-vous changer d'exercice?")
                 let these = that;
                 document.getElementById("message").addEventListener("click", function confirmChange (el) {
+
                     if (el.target.classList.contains("btn-confirm")){
                         these._unlockExercice();
                         these._removeguizmoSpeech();
@@ -517,6 +523,7 @@ _lockExercice = () => {
 
                 })
             }
+
         })
 
 }
