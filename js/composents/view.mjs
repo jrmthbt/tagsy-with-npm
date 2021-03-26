@@ -45,26 +45,26 @@ export class View {
 
     qcmTable=() => {
         // affiche le tableau Qcm
-        this.app.innerHTML = ` <thead>
-               <tr>
+        this.app.innerHTML = ` <thead id="thead-root">
+               <tr id="tr-thead-root">
                   <th scope="col" class="qcm-thead bold_15">Choix</th>
                   <th scope="col" class="qcm-thead bold_15">Bonne réponse</th>
                   <th scope="col" class="qcm-thead bold_15">Options</th>
                </tr>
              </thead>
-             <tbody>
+             <tbody id="tbody-root">
              </tbody>
-                    <tfoot>
-                    <tr>
-                        <td>
+                    <tfoot id="tfoot-root">
+                    <tr id="tr-tfoot-root">
+                        <td id="tdO-tfoot">
                             <label for="choice"></label>
                             <input type="text" id="choice" class="regular_10 text-center" name="answer">
                         </td>
-                        <td>
+                        <td id="tdT-tfoot">
                             <input type="checkbox" id="good-answer" class="toggle-checkbox" name="answer-check">
                             <label for="good-answer" class="toggle-checkbox-label good-answer"></label>
                         </td>
-                        <td>
+                        <td id="tdTh-tfoot">
                             <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
                         </td>
                     </tr>
@@ -72,21 +72,21 @@ export class View {
     }
 
     answerTable = () => {
-        this.app.innerHTML = ` <thead>
-               <tr>
-                  <th scope="col" class="qcm-thead bold_15">Choix</th>
-                  <th scope="col" class="qcm-thead bold_15">Options</th>
+        this.app.innerHTML = ` <thead id="thead-root">
+               <tr id="tr-thead-root">
+                  <th scope="col" class="answer-thead bold_15">Choix</th>
+                  <th scope="col" class="answer-thead bold_15">Options</th>
                </tr>
              </thead>
-             <tbody>
+             <tbody id="tbody-root">
              </tbody>
-                    <tfoot>
-                    <tr>
-                        <td>
+                    <tfoot id="tfoot-root">
+                    <tr id="tr-tfoot-root">
+                        <td id="tdO-tfoot">
                             <label for="choice"></label>
                             <input type="text" id="choice" class="regular_10 text-center" name="answer">
                         </td>
-                        <td>
+                        <td id="tdT-tfoot">
                             <button class="btn-primary bold_10" id="answer-add">Ajouter</button>
                         </td>
                     </tr>
@@ -138,10 +138,10 @@ export class View {
     // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
 
-        if (this.getElement('tbody')) {
+        if (this.getElement('#tbody-root')) {
 
-            while (this.getElement('tbody').firstChild) {
-                this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+            while (this.getElement('#tbody-root').firstChild) {
+                this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
             }
         }
 
@@ -181,14 +181,14 @@ export class View {
 
             tr.append(tdinput, tdCheck, tdOption)
 
-            this.getElement('tbody').append(tr);
+            this.getElement('#tbody-root').append(tr);
         })
     }
 
     displayTableShort (shortAnswer){
 
-        while (this.getElement('tbody').firstChild) {
-            this.getElement('tbody').removeChild(this.getElement('tbody').firstChild)
+        while (this.getElement('#tbody-root').firstChild) {
+            this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
         }
         shortAnswer.forEach(answer => {
             const tr = this.createElement('tr')
@@ -216,7 +216,7 @@ export class View {
 
             tr.append(tdinput, tdOption)
 
-            this.getElement('tbody').append(tr);
+            this.getElement('#tbody-root').append(tr);
         })
     }
 
@@ -245,7 +245,7 @@ export class View {
 
 // recuper les infos qcm éditées par l'utilisateur pour diffuser au controller
     binEditQcm = (handler) => {
-        this.getElement('tbody').addEventListener('click',event=> {
+        this.getElement('#tbody-root').addEventListener('click',event=> {
             if (event.target.classList.contains('edit')){
                 let that = this
                 if (this._countClick === 0){
@@ -331,7 +331,7 @@ export class View {
     }
 
     binEditShort = handler => {
-        this.getElement('tbody').addEventListener('click',event=> {
+        this.getElement('#tbody-root').addEventListener('click',event=> {
             if (event.target.classList.contains('edit')){
                 let that = this
                 if (this._countClick === 0){
@@ -410,7 +410,7 @@ export class View {
 
 // recupere les infos supprimer par l'utilisateur pour diffuser au controller
     binDelete = handler => {
-        this.getElement('tbody').addEventListener('click', event => {
+        this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
                 this._guizmoSpeak("Voulez-vous supprimer la ligne?")
                 let that = this
@@ -440,7 +440,7 @@ export class View {
 
     // fonction qui permet l'edition du checkbox en mode modification
     _toggleSwitch = (executed) =>{
-        this.getElement('tbody').addEventListener("click", (event) => {
+        this.getElement('#tbody-root').addEventListener("click", (event) => {
             if (event.target.id === "check-edit"){
                 if (executed === false) {
 
