@@ -13,6 +13,7 @@
 @import "composents/toggleCheck";
 @import "composents/img";
 @import "composents/confirmBox";
+@import "composents/questionEdited";
 
 
 /*------- initalisation de la page ------ */
@@ -62,6 +63,14 @@ body {
   color: $dark_gray;
   border: 1px solid $dark_gray;
   background-color: $medium_light_gray;
+}
+
+.opacity{
+  opacity: 75%;
+  transition: $trans_3;
+  &:hover{
+    opacity: 100%;
+  }
 }
 
 

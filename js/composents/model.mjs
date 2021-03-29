@@ -7,7 +7,35 @@ export class Model {
     constructor() {
         this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
         this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
-        this.getTagsy = JSON.parse(localStorage.getItem("saveTagsy")) || [];
+
+        this.getTagsy = [
+            {
+                "id" : 1,
+                "type" : "QCM",
+                "enonce" : "Je suis le nom de la question",
+                "table" : this.qcmAnswers.slice(),
+                "explicationCheck" : "checked",
+                "explication" : "je suis l'explication",
+            },
+            {
+                "id" : 2,
+                "type" : "QCM",
+                "enonce" : "Je suis le nom de la question 2",
+                "table" : this.qcmAnswers.slice(),
+                "explicationCheck" : "checked",
+                "explication" : "je suis l'explication de la question 2",
+            },
+            {
+                "id" : 3,
+                "type" : "Identification",
+                "enonce" : "Je suis le nom de la question",
+                "table" : [],
+                "explicationCheck" : "checked",
+                "explication" : "je suis l'explication",
+            },
+        ]
+
+        console.table(this.getTagsy)
     }
 
     // crud fonction read
@@ -38,7 +66,6 @@ export class Model {
             "choix": inputAnswer,
             "goodAnswer": inputChecked,
         }
-    console.log(answer);
         this.qcmAnswers.push(answer);
 
         this._commit(this.qcmAnswers)
@@ -51,7 +78,6 @@ export class Model {
         }
         this.shortAnswers.push(answer);
         this._commitShort(this.shortAnswers);
-        console.table(this.shortAnswers);
     }
 
     // crud fonction update
@@ -88,7 +114,6 @@ export class Model {
     deleteAnswerShort(id) {
         this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
         this._commitShort(this.shortAnswers)
-        console.table(this.shortAnswers)
     }
 
 

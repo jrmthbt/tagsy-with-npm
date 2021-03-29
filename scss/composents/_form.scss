@@ -117,7 +117,7 @@ form{
           border-radius: $border-radius_5;
           text-align: center;
 
-          input#choice{
+          input#choice, input.choices{
             width: $choices_width;
             height: $choices_height;
             padding: $padding5;

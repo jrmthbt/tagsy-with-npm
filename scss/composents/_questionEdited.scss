@@ -1,0 +1,47 @@
+@import "variables";
+@import "color";
+
+div#questions{
+  width: $container_tablet_600;
+  height: auto;
+  border: 1px dashed black;
+  color: #4f8ecb;
+  position: relative;
+
+  button.delete-question{
+    position: absolute;
+    right: 0;
+  }
+  button.edit-question{
+    position: absolute;
+    right: 25px;
+  }
+ p.qcm{
+   position: absolute;
+   top: 4px;
+   left: 85px;
+ }
+  input.question-name, input.explication-edited{
+    border: 1px solid $blue;
+    width: 589px;
+    padding: 5px;
+  }
+
+  P.explication-name{
+    width: auto;
+    position: absolute;
+    left: 0;
+  }
+
+  label.explication-edited-label{
+    position: relative;
+    left: 115px;
+    top: 3px;
+  }
+
+  hr{
+    color: $blue;
+    margin: 15px 0;
+    border : 1px solid $blue;
+  }
+}

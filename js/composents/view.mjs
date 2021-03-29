@@ -6,16 +6,13 @@ export class View {
         // check exercice
         document.querySelector("body").addEventListener("click", event =>{
            if (event.target.id === this.exercice[0]){
-               console.log("je suis qcm")
                this.qcmTable();
                this._lockExercice();
            }
             if (event.target.id === this.exercice[1]){
-                console.log("je suis identification")
                 this._lockExercice();
             }
             if (event.target.id === this.exercice[2]){
-                console.log("je suis short-answer")
                 this.answerTable();
                 this._lockExercice();
             }
@@ -27,6 +24,7 @@ export class View {
                     this._showDisplay(document.getElementById("explication-text"));
                 }
             }
+
         })
 
 
@@ -118,10 +116,8 @@ export class View {
     // get la valeur du check entreée par l'utilisateur
     get _checkValue() {
         if (this.getElement("#good-answer").checked) {
-            console.log(this.getElement("#good-answer").checked)
             return this.getElement('#good-answer').value = "checked"
         } else {
-            console.log(this.getElement("#good-answer").checked)
             return this.getElement('#good-answer').checked = false;
 
         }
@@ -199,7 +195,6 @@ export class View {
             input.type = "text";
             input.className = "choices text-center";
             input.value = answer.answer;
-            console.log(answer.answer);
             input.disabled = true;
 
             const tdOption = this.createElement("td");
@@ -253,11 +248,8 @@ export class View {
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
                         if (el.target.classList.contains("btn-confirm")){
-                            console.log("je modif");
                             that._countClick++;
-                            console.log(that._countClick)
                             if (that._countClick === 1){
-                                console.log("select row to edit")
                                 event.target.parentElement.parentElement.classList.add('focus');
                                 event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
                                 event.target.parentElement.parentElement.children[1].children[0].nextSibling.id="check-edit";
@@ -278,10 +270,8 @@ export class View {
                                 document.getElementById("choice").disabled = true
                                 document.getElementById("good-answer").disabled = true
                                 document.getElementById("answer-add").classList.add("disabled");
-                                console.log("toggle");
                                 that._toggleSwitch(that._executed);
                                 that._countClick++
-                                console.log(that._countClick);
                                 that._executed = true
 
                             }
@@ -299,7 +289,6 @@ export class View {
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
-                            console.log(`annule`)
                             that._removeguizmoSpeech()
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
@@ -309,7 +298,6 @@ export class View {
                 }
 
                 if (this._countClick > 1){
-                    console.log("j'ai édit")
                     let  id =parseInt( event.target.parentElement.parentElement.id)
                     let temporaryAnswerText = document.getElementById("input-edit").value
                     if (document.getElementById("check-edit").parentElement.firstChild.checked)
@@ -339,11 +327,8 @@ export class View {
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
                         if (el.target.classList.contains("btn-confirm")){
-                            console.log("je modif");
                             that._countClick++;
-                            console.log(that._countClick)
                             if (that._countClick === 1){
-                                console.log("select row to edit")
                                 event.target.parentElement.parentElement.classList.add('focus');
                                 event.target.parentElement.parentElement.children[0].firstChild.id="input-edit";
 
@@ -363,7 +348,6 @@ export class View {
                                 document.getElementById("choice").disabled = true
                                 document.getElementById("answer-add").classList.add("disabled");
                                 that._countClick++
-                                console.log(that._countClick);
                                 that._toggleSwitch(that._executed)
                                 that._executed = false
 
@@ -383,7 +367,6 @@ export class View {
                             this.removeEventListener("click", confirmEdit)
                         }
                         if (el.target.classList.contains("btn-cancel")){
-                            console.log(`annule`)
                             that._removeguizmoSpeech()
                             that._countClick = 0;
                             this.removeEventListener("click", confirmEdit)
@@ -393,7 +376,6 @@ export class View {
                 }
 
                 if (this._countClick > 1){
-                    console.log("j'ai édit")
                     let  id =parseInt( event.target.parentElement.parentElement.id)
                     let temporaryAnswerText = document.getElementById("input-edit").value
                     handler(id, temporaryAnswerText);
@@ -416,9 +398,7 @@ export class View {
                 let that = this
                 document.getElementById("message").addEventListener("click", function confirmDel (el) {
                     if (el.target.classList.contains("btn-confirm")){
-                        console.log("delete");
                         var id = parseInt(event.target.parentElement.parentElement.id)
-                        console.log(`view : ${id}`)
 
                         handler(id);
 
@@ -426,13 +406,10 @@ export class View {
                         this.removeEventListener("click", confirmDel)
                     }
                     if (el.target.classList.contains("btn-cancel")){
-                        console.log(`annule`)
                         that._removeguizmoSpeech()
                         this.removeEventListener("click", confirmDel)
                     }
                 })
-
-
             }
         })
     }
@@ -444,8 +421,6 @@ export class View {
             if (event.target.id === "check-edit"){
                 if (executed === false) {
 
-
-                    console.log("click-toggle")
                     if (event.target.parentElement.firstChild.checked) {
                         event.target.parentElement.firstChild.checked = false
                     } else {
@@ -552,5 +527,71 @@ _unlockExercice = () => {
 
         _showDisplay(el){
             el.classList.remove("display-none");
+        }
+
+        _displayQuestions(questions){
+            if (this.getElement('#questions')) {
+
+                while (this.getElement('#questions').firstChild) {
+                    this.getElement('#questions').removeChild(this.getElement('#questions').firstChild)
+                }
+            }
+
+            questions.forEach(question => {
+
+
+                const div = this.createElement("div", "opacity");
+                div.id = `question-${question.id}`;
+
+                const btnEdit = this.createElement("button");
+                btnEdit.className = "btn btn-secondary edit-question"
+
+                const imgBtnEdit = this.createElement('i');
+                imgBtnEdit.className = "fa fa-edit edit-question"
+
+                const btnDel = this.createElement("button");
+                btnDel.className = "btn btn-tertiary delete-question";
+
+                const imgBtnDel = this.createElement("i");
+                imgBtnDel.className = "fa fa-trash-alt delete-question";
+
+                const name = this.createElement("p", "qcm")
+                name.className = "bold_15"
+                name.innerHTML = `Question-${question.id} : ${question.type}`
+
+                const questionName = this.createElement("input", "question-name");
+                questionName.type = "text";
+                questionName.value = question.enonce;
+                questionName.disabled = true;
+
+                const table = this.createElement("table", "app");
+
+                const explicationName = this.createElement("p")
+                explicationName.className = "explication-name bold_15"
+                explicationName.innerHTML = "Texte explicatif : "
+
+                const explanationCheck = this.createElement("label")
+                explanationCheck.className = "toggle-checkbox-label explication-edited-label bold_10"
+
+                const checkbox = this.createElement("input")
+                checkbox.type = "checkbox";
+                checkbox.className = "toggle-checkbox explication-edited-check"
+                checkbox.checked = question.explanationCheck;
+
+                const explication = this.createElement("input")
+                explication.type = "text";
+                explication.className = "explication-edited"
+                explication.value = question.explication
+
+                const hr = this.createElement("hr")
+
+
+                document.getElementById("questions").appendChild(div);
+                div.append(btnEdit, btnDel, name, questionName, table,explicationName, explanationCheck, checkbox, explication, hr)
+                btnEdit.appendChild(imgBtnEdit);
+                btnDel.appendChild(imgBtnDel);
+
+
+            })
         }
 }

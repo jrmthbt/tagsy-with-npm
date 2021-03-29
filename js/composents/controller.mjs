@@ -7,7 +7,6 @@ export class Controller {
         this.view = view;
         document.querySelector("body").addEventListener("change", event =>{
             if (event.target.id === this.view.exercice[0]){
-                console.log("je suis qcm - controller")
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
                 this.view.binDelete(this.handleDeleteAnswer)
@@ -16,12 +15,10 @@ export class Controller {
                 this.clearTableShort()
             }
             if (event.target.id === this.view.exercice[1]){
-                console.log("je suis identification - controller ")
                 this.clearTableQcm();
                 this.clearTableShort()
             }
             if (event.target.id === this.view.exercice[2]){
-                console.log("je suis short-answer - controller ")
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
                 this.view.binDelete(this.handleDeleteShort)
@@ -30,6 +27,8 @@ export class Controller {
                 this.clearTableQcm();
             }
         })
+
+        this.onChangeQuestion(this.model.getTagsy)
 
     let that = this;
         if (document.getElementById("save-info").checked === true){
@@ -62,9 +61,7 @@ export class Controller {
 
         if (localStorage !== null){
             document.body.onload = function (){
-               console.table(that.model.getTagsy);
                that._getDataSaved();
-               console.log(document.getElementById("save-info").checked)
                if (document.getElementById("save-info").checked){
                     callLS();
                 }
@@ -107,6 +104,10 @@ export class Controller {
     }
     onChangeShort = (shortAnswer) =>{
         this.view.displayTableShort(shortAnswer);
+    }
+
+    onChangeQuestion = (getTagsy) =>{
+        this.view._displayQuestions(getTagsy);
     }
    // controller qui ajoute au model
     handleAddAnswer = (answerText, answerCheck) => {

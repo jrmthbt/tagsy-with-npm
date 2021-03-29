@@ -26,7 +26,6 @@
         "explanation" : tagsy.explanation.value,
     }
 
-    console.table(tagsyData);
 
     let store = JSON.stringify(tagsyData);
     localStorage.setItem("saveTagsy", store);
