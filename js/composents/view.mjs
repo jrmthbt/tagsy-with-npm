@@ -73,8 +73,6 @@ export class View {
                     </tfoot>`
         }
         if (id === "tableQCM"){
-            console.log(id, "coucou")
-
             document.querySelectorAll(".tableQCM").forEach(table => {
                 table.innerHTML = ` <thead class="thead-app">
                <tr class="tr-thead-app">
@@ -128,7 +126,6 @@ export class View {
         }
 
         if (id === "tableShort") {
-            console.log(id, "coucou2")
             document.querySelectorAll(".tableShort").forEach(table => {
             table.innerHTML = ` <thead class="thead-app">
                <tr class="tr-thead-app">
@@ -240,6 +237,22 @@ export class View {
             tr.append(tdinput, tdCheck, tdOption)
 
             this.getElement('#tbody-root').append(tr);
+        })
+    }
+
+    displayTableQcmCreated (qcmTable){
+       document.querySelectorAll(".tbody-app").forEach(table => {
+            if(table.parentElement.classList.contains("tableQCM")) {
+                while (table.firstChild){
+                    table.removeChild(table.firstChild)
+                }
+
+                qcmTable.forEach(choice => {
+                    const tr = this.createElement('tr')
+                    tr.id = table.parentElement.parentElement.id + choice.id
+
+                })
+            }
         })
     }
 

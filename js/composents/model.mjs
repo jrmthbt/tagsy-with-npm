@@ -51,7 +51,6 @@ export class Model {
             },
         ]
 
-        console.table(this.getTagsy)
     }
 
     // crud fonction read
@@ -61,6 +60,10 @@ export class Model {
 
     bindChangeShortAnswer(callback){
         this.onChangeShort = callback;
+    }
+
+    bindChangeQuestion(callback){
+        this.onChangeQuestion = callback;
     }
 
     // ajoute dans le localstorage
