@@ -16,7 +16,7 @@ export class Model {
                 "table" : [{"id": 1,"choix" : "es", "goodAnswer" : false},
                     {"id": 2,"choix" : "est", "goodAnswer" : false},
                     {"id": 3,"choix" : "suis", "goodAnswer" : "checked"},],
-                "checkExplication" : "checked",
+                "check" : "checked",
                 "explication" : "je suis l'explication",
             },
             {
@@ -26,7 +26,7 @@ export class Model {
                 "table" : [{"id": 1,"choix" : "es", "goodAnswer" : false},
                     {"id": 2,"choix" : "est", "goodAnswer" : false},
                     {"id": 3,"choix" : "suis", "goodAnswer" : "checked"},],
-                "checkExplication" : "checked",
+                "check" : "checked",
                 "explication" : "je suis l'explication de la question 2",
             },
             {
@@ -34,8 +34,8 @@ export class Model {
                 "type" : "Identification",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [],
-                "checkExplication" : "checked",
-                "explication" : "je suis l'explication",
+                "check" : false,
+                "explication" : "",
             },
             {
                 "id" : 4,
@@ -46,7 +46,7 @@ export class Model {
                     {"id": 2,"answer" : "est"},
                     {"id": 3,"answer" : "suis"},
                     ],
-                "checkExplication" : "checked",
+                "check" : "checked",
                 "explication" : "je suis l'explication",
             },
         ]

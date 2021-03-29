@@ -44,4 +44,8 @@ div#questions{
     margin: 15px 0;
     border : 1px solid $blue;
   }
+
+  input[type="checkbox"].toggle-checkbox:checked + label.toggle-checkbox-label{
+    background-color: $blue;
+  }
 }

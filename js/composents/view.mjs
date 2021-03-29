@@ -639,24 +639,32 @@ _unlockExercice = () => {
                 explicationName.className = "explication-name bold_15"
                 explicationName.innerHTML = "Texte explicatif : "
 
+
                 const explanationCheck = this.createElement("label")
                 explanationCheck.className = "toggle-checkbox-label explication-edited-label bold_10"
 
-                const checkbox = this.createElement("input")
-                checkbox.type = "checkbox";
-                checkbox.checked = question.checkExplication;
-                checkbox.className = "toggle-checkbox explication-edited-check"
+                const check = this.createElement("input")
+                check.className = "toggle-checkbox explication-edited-check"
+                check.type = "checkbox";
+                if (!(question.check === "checked")) {
+                }else{check.checked = question.check}
+                console.log(check.checked, question.check)
 
                 const explication = this.createElement("input")
                 explication.type = "text";
                 explication.className = "explication-edited"
                 explication.value = question.explication
+                explication.disabled = true
 
                 const hr = this.createElement("hr")
 
 
                 document.getElementById("questions").appendChild(div);
-                div.append(btnEdit, btnDel, name, questionName, table,explicationName, explanationCheck, checkbox, explication, hr)
+                div.append(btnEdit, btnDel, name, questionName, table,explicationName,check, explanationCheck,)
+                if (question.check === "checked"){
+                    div.appendChild(explication)
+                }
+                div.appendChild(hr)
                 btnEdit.appendChild(imgBtnEdit);
                 btnDel.appendChild(imgBtnDel);
 
