@@ -648,7 +648,6 @@ _unlockExercice = () => {
                 check.type = "checkbox";
                 if (!(question.check === "checked")) {
                 }else{check.checked = question.check}
-                console.log(check.checked, question.check)
 
                 const explication = this.createElement("input")
                 explication.type = "text";
