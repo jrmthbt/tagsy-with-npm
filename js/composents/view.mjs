@@ -6,14 +6,14 @@ export class View {
         // check exercice
         document.querySelector("body").addEventListener("click", event =>{
            if (event.target.id === this.exercice[0]){
-               this.qcmTable();
+               this.qcmTable(document.getElementById("root").id);
                this._lockExercice();
            }
             if (event.target.id === this.exercice[1]){
                 this._lockExercice();
             }
             if (event.target.id === this.exercice[2]){
-                this.answerTable();
+                this.answerTable(document.getElementById("root").id);
                 this._lockExercice();
             }
             if (event.target.id === "explication"){
@@ -30,20 +30,24 @@ export class View {
 
 
 
+
+
         // counter de click
         this._countClick = 0
         // si executed
         this._executed = false
         this.app = document.getElementById('root');
+        this.appQuestion = document.querySelectorAll(".app-question")
         this.exercice = ["qcm", "identification", "short-answer"];
 
     }
 
     // display table when qcm is check
 
-    qcmTable=() => {
+    qcmTable=(id) => {
         // affiche le tableau Qcm
-        this.app.innerHTML = ` <thead id="thead-root">
+        if (id === "root") {
+            this.app.innerHTML = ` <thead id="thead-root">
                <tr id="tr-thead-root">
                   <th scope="col" class="qcm-thead bold_15">Choix</th>
                   <th scope="col" class="qcm-thead bold_15">Bonne réponse</th>
@@ -67,10 +71,42 @@ export class View {
                         </td>
                     </tr>
                     </tfoot>`
-    }
+        }
+        if (id === "tableQCM"){
+            console.log(id, "coucou")
 
-    answerTable = () => {
-        this.app.innerHTML = ` <thead id="thead-root">
+            document.querySelectorAll(".tableQCM").forEach(table => {
+                table.innerHTML = ` <thead class="thead-app">
+               <tr class="tr-thead-app">
+                  <th scope="col" class="qcm-thead bold_15">Choix</th>
+                  <th scope="col" class="qcm-thead bold_15">Bonne réponse</th>
+                  <th scope="col" class="qcm-thead bold_15">Options</th>
+               </tr>
+             </thead>
+             <tbody class="tbody-app">
+             </tbody>
+                    <tfoot class="tfoot-app">
+                    <tr class="tr-tfoot-app">
+                        <td class="tdO-tfoot">
+                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer">
+                        </td>
+                        <td class="tdT-tfoot">
+                            <input type="checkbox"  class="toggle-checkbox good-answer good-answer-edited" name="answer-check">
+                            <label class="toggle-checkbox-label good-answer"></label>
+                        </td>
+                        <td class="tdTh-tfoot">
+                            <button class="btn-primary bold_10 answer-add">Ajouter</button>
+                        </td>
+                    </tr>
+                    </tfoot>`
+            })
+        }
+            }
+
+    answerTable = (id) => {
+
+        if (id === "root") {
+            this.app.innerHTML = ` <thead id="thead-root">
                <tr id="tr-thead-root">
                   <th scope="col" class="answer-thead bold_15">Choix</th>
                   <th scope="col" class="answer-thead bold_15">Options</th>
@@ -89,6 +125,32 @@ export class View {
                         </td>
                     </tr>
                     </tfoot>`
+        }
+
+        if (id === "tableShort") {
+            console.log(id, "coucou2")
+            document.querySelectorAll(".tableShort").forEach(table => {
+            table.innerHTML = ` <thead class="thead-app">
+               <tr class="tr-thead-app">
+                  <th scope="col" class="answer-thead bold_15">Choix</th>
+                  <th scope="col" class="answer-thead bold_15">Options</th>
+               </tr>
+             </thead>
+             <tbody class="tbody-app">
+             </tbody>
+                    <tfoot class="tfoot-app">
+                    <tr class="tr-tfoot-app">
+                        <td class="tdO-tfoot">
+                            <label for="choice"></label>
+                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer">
+                        </td>
+                        <td class="tdT-tfoot">
+                            <button class="btn-primary bold_10 answer-add">Ajouter</button>
+                        </td>
+                    </tr>
+                    </tfoot>`
+        })
+        }
     }
 
 
@@ -556,7 +618,7 @@ _unlockExercice = () => {
                 imgBtnDel.className = "fa fa-trash-alt delete-question";
 
                 const name = this.createElement("p", "qcm")
-                name.className = "bold_15"
+                name.className = `bold_15 ${question.type}`
                 name.innerHTML = `Question-${question.id} : ${question.type}`
 
                 const questionName = this.createElement("input", "question-name");
@@ -564,7 +626,14 @@ _unlockExercice = () => {
                 questionName.value = question.enonce;
                 questionName.disabled = true;
 
-                const table = this.createElement("table", "app");
+                const table = this.createElement("table");
+                if (name.classList.contains("QCM")){
+                    table.className = 'tableQCM app-question'
+                }
+                else if(name.classList.contains("courte")){
+                    table.className= "tableShort app-question"
+                }
+                else{table.className = "app-question"}
 
                 const explicationName = this.createElement("p")
                 explicationName.className = "explication-name bold_15"
@@ -575,8 +644,8 @@ _unlockExercice = () => {
 
                 const checkbox = this.createElement("input")
                 checkbox.type = "checkbox";
+                checkbox.checked = question.checkExplication;
                 checkbox.className = "toggle-checkbox explication-edited-check"
-                checkbox.checked = question.explanationCheck;
 
                 const explication = this.createElement("input")
                 explication.type = "text";
@@ -593,5 +662,16 @@ _unlockExercice = () => {
 
 
             })
-        }
+            document.querySelectorAll(".tableQCM").forEach(table => {
+                table.classList.remove("app-question");
+                this.qcmTable(table.className);
+                table.classList.add("app-question");
+        })
+
+            document.querySelectorAll(".tableShort").forEach(table => {
+                table.classList.remove("app-question");
+                this.answerTable(table.className);
+                table.classList.add("app-question");
+            })
+    }
 }

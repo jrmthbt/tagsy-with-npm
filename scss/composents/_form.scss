@@ -99,7 +99,7 @@ form{
           }
           .good-answer-choice{
             top: -10px;
-            left: 75px;
+            left: 55px;
             @include responsive_laptop{
               left: 90px;
             }
@@ -130,7 +130,7 @@ form{
 
           .good-answer{
             top: -10px;
-            left: 75px;
+            left: 55px;
             @include responsive_laptop {
               left: 90px;
             }
