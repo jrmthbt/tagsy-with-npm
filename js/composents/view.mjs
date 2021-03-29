@@ -88,7 +88,7 @@ export class View {
                     <tfoot class="tfoot-app">
                     <tr class="tr-tfoot-app">
                         <td class="tdO-tfoot">
-                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer">
+                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer" disabled>
                         </td>
                         <td class="tdT-tfoot">
                             <input type="checkbox"  class="toggle-checkbox good-answer good-answer-edited" name="answer-check">
@@ -142,7 +142,7 @@ export class View {
                     <tr class="tr-tfoot-app">
                         <td class="tdO-tfoot">
                             <label for="choice"></label>
-                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer">
+                            <input type="text" class="regular_10 text-center choices choices-edited" name="answer" disabled>
                         </td>
                         <td class="tdT-tfoot">
                             <button class="btn-primary bold_10 answer-add">Ajouter</button>
