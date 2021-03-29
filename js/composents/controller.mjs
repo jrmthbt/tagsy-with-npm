@@ -28,7 +28,12 @@ export class Controller {
             }
         })
 
+        this.model.bindChangeQuestion(this.onChangeQuestion)
         this.onChangeQuestion(this.model.getTagsy)
+        this.model.getTagsy.forEach(question => {
+            if(question.type === "QCM"){
+                this.onChangeQuestionTable(question.table)
+            }})
 
     let that = this;
         if (document.getElementById("save-info").checked === true){
@@ -108,6 +113,9 @@ export class Controller {
 
     onChangeQuestion = (getTagsy) =>{
         this.view._displayQuestions(getTagsy);
+    }
+    onChangeQuestionTable = questionTable => {
+        this.view.displayTableQcmCreated(questionTable)
     }
    // controller qui ajoute au model
     handleAddAnswer = (answerText, answerCheck) => {

@@ -250,7 +250,8 @@ export class View {
                 qcmTable.forEach(choice => {
                     const tr = this.createElement('tr')
                     tr.id = table.parentElement.parentElement.id + choice.id
-
+                    console.log(tr.id)
+                    table.append(tr);
                 })
             }
         })
