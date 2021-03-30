@@ -245,14 +245,11 @@ export class View {
     const table = qcmTable.filter(table => table.table)
 
         for (let i = 0; i<table.length; i++){
-            //console.log(table[i])
             if (table[i].type === "QCM"){
-               // console.log(table[i])
 
                     for (let j = 0; j<table[i].table.length; j++) {
                         const tr = this.createElement('tr')
                         tr.id = ((i+1).toString()) + (j)
-                       // console.log(tr.id)
                         document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
 
                         const tdinput = this.createElement('td');
@@ -334,13 +331,10 @@ export class View {
         const table = shortAnswer.filter(table => table.table)
 
         for (let i = 0; i < table.length; i++) {
-            //console.log(table[i])
             if (table[i].type === "Réponse courte") {
-                console.log(table[i])
                 for (let j = 0; j<table[i].table.length; j++) {
                     const tr = this.createElement('tr')
                     tr.id = ((i + 1).toString()) + (j)
-                    console.log(tr.id)
                     document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
 
                     const tdinput = this.createElement('td');
