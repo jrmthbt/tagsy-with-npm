@@ -30,7 +30,8 @@ export class Controller {
 
         this.model.bindChangeQuestion(this.onChangeQuestion)
         this.onChangeQuestion(this.model.getTagsy)
-        this.onChangeQuestionTable(this.model.getTagsy.slice())
+        this.onChangeQuestionTableQcm(this.model.getTagsy.slice())
+        this.onChangeQuestionTableShort(this.model.getTagsy.slice())
 
     let that = this;
         if (document.getElementById("save-info").checked === true){
@@ -111,8 +112,11 @@ export class Controller {
     onChangeQuestion = (getTagsy) =>{
         this.view._displayQuestions(getTagsy);
     }
-    onChangeQuestionTable = questionTable => {
+    onChangeQuestionTableQcm = questionTable => {
         this.view.displayTableQcmCreated(questionTable)
+    }
+    onChangeQuestionTableShort = questionTableShort => {
+        this.view.displayTableShortCreated(questionTableShort)
     }
    // controller qui ajoute au model
     handleAddAnswer = (answerText, answerCheck) => {

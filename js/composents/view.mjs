@@ -247,13 +247,13 @@ export class View {
         for (let i = 0; i<table.length; i++){
             //console.log(table[i])
             if (table[i].type === "QCM"){
-                console.log(table[i])
+               // console.log(table[i])
 
                     for (let j = 0; j<table[i].table.length; j++) {
                         const tr = this.createElement('tr')
                         tr.id = ((i+1).toString()) + (j)
-                        console.log(tr.id)
-                        document.getElementById(`question-${i+1}`).children[4].children[1].appendChild(tr)
+                       // console.log(tr.id)
+                        document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
 
                         const tdinput = this.createElement('td');
                         const input = this.createElement('input', 'regular_10');
@@ -280,9 +280,6 @@ export class View {
                         const deleteButton = this.createElement("button")
                         deleteButton.className = "btn-tertiary delete-edited disabled-edit";
                         deleteButton.innerHTML = "Supprimer";
-
-
-
 
                         tr.append(tdinput, tdCheck, tdOption);
                         tdinput.appendChild(input)
@@ -331,6 +328,45 @@ export class View {
 
             this.getElement('#tbody-root').append(tr);
         })
+    }
+
+    displayTableShortCreated (shortAnswer) {
+        const table = shortAnswer.filter(table => table.table)
+
+        for (let i = 0; i < table.length; i++) {
+            //console.log(table[i])
+            if (table[i].type === "Réponse courte") {
+                console.log(table[i])
+                for (let j = 0; j<table[i].table.length; j++) {
+                    const tr = this.createElement('tr')
+                    tr.id = ((i + 1).toString()) + (j)
+                    console.log(tr.id)
+                    document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
+
+                    const tdinput = this.createElement('td');
+                    const input = this.createElement('input', 'regular_10');
+                    input.type = "text";
+                    input.className = "choices text-center";
+                    input.value = table[i].table[j].answer;
+                    input.disabled = true
+
+                    const tdOption = this.createElement("td");
+                    const editButton = this.createElement("button")
+                    editButton.className = "btn-secondary edit-edited disabled-edit";
+                    editButton.innerHTML = "Modifier"
+                    editButton.disabled;
+
+                    const deleteButton = this.createElement("button")
+                    deleteButton.className = "btn-tertiary delete-edited disabled-edit";
+                    deleteButton.innerHTML = "Supprimer";
+
+                    tr.append(tdinput, tdOption);
+                    tdinput.appendChild(input)
+                    tdOption.append(editButton, deleteButton)
+                }
+
+            }
+        }
     }
 
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
@@ -675,7 +711,7 @@ _unlockExercice = () => {
 
                 const name = this.createElement("p", "qcm")
                 name.className = `bold_15 ${question.type}`
-                name.innerHTML = `Question-${question.id} : ${question.type}`
+                name.innerHTML = `Question : ${question.type}`
 
                 const questionName = this.createElement("input", "question-name");
                 questionName.type = "text";
@@ -736,5 +772,7 @@ _unlockExercice = () => {
                 this.answerTable(table.className);
                 table.classList.add("app-question");
             })
+
+            document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
     }
 }
