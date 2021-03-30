@@ -30,10 +30,7 @@ export class Controller {
 
         this.model.bindChangeQuestion(this.onChangeQuestion)
         this.onChangeQuestion(this.model.getTagsy)
-        this.model.getTagsy.forEach(question => {
-            if(question.type === "QCM"){
-                this.onChangeQuestionTable(question.table)
-            }})
+        this.onChangeQuestionTable(this.model.getTagsy.slice())
 
     let that = this;
         if (document.getElementById("save-info").checked === true){

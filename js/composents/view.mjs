@@ -93,7 +93,7 @@ export class View {
                             <label class="toggle-checkbox-label good-answer"></label>
                         </td>
                         <td class="tdTh-tfoot">
-                            <button class="btn-primary bold_10 answer-add">Ajouter</button>
+                            <button class="btn-primary bold_10 answer-add disabled-edit">Ajouter</button>
                         </td>
                     </tr>
                     </tfoot>`
@@ -142,7 +142,7 @@ export class View {
                             <input type="text" class="regular_10 text-center choices choices-edited" name="answer" disabled>
                         </td>
                         <td class="tdT-tfoot">
-                            <button class="btn-primary bold_10 answer-add">Ajouter</button>
+                            <button class="btn-primary bold_10 answer-add disabled-edit">Ajouter</button>
                         </td>
                     </tr>
                     </tfoot>`
@@ -241,21 +241,63 @@ export class View {
     }
 
     displayTableQcmCreated (qcmTable){
-       document.querySelectorAll(".tbody-app").forEach(table => {
-            if(table.parentElement.classList.contains("tableQCM")) {
-                while (table.firstChild){
-                    table.removeChild(table.firstChild)
+
+    const table = qcmTable.filter(table => table.table)
+
+        for (let i = 0; i<table.length; i++){
+            //console.log(table[i])
+            if (table[i].type === "QCM"){
+                console.log(table[i])
+
+                    for (let j = 0; j<table[i].table.length; j++) {
+                        const tr = this.createElement('tr')
+                        tr.id = ((i+1).toString()) + (j)
+                        console.log(tr.id)
+                        document.getElementById(`question-${i+1}`).children[4].children[1].appendChild(tr)
+
+                        const tdinput = this.createElement('td');
+                        const input = this.createElement('input', 'regular_10');
+                        input.type = "text";
+                        input.className = "choices text-center";
+                        input.value = table[i].table[j].choix;
+                        input.disabled = true
+
+                        const tdCheck = this.createElement('td');
+                        const labelToggle = this.createElement('label');
+                        labelToggle.className = "good-answer-choice toggle-checkbox-label";
+                        const check = this.createElement('input', 'toggle-checkbox')
+                        check.type = "checkbox";
+                        if (table[i].table[j].goodAnswer === "checked") {
+                            check.checked = table[i].table[j].goodAnswer
+                        }
+
+                        const tdOption = this.createElement("td");
+                        const editButton = this.createElement("button")
+                        editButton.className = "btn-secondary edit-edited disabled-edit";
+                        editButton.innerHTML = "Modifier"
+                        editButton.disabled;
+
+                        const deleteButton = this.createElement("button")
+                        deleteButton.className = "btn-tertiary delete-edited disabled-edit";
+                        deleteButton.innerHTML = "Supprimer";
+
+
+
+
+                        tr.append(tdinput, tdCheck, tdOption);
+                        tdinput.appendChild(input)
+                        tdCheck.append(check, labelToggle)
+                        tdOption.append(editButton, deleteButton)
+
                 }
 
-                qcmTable.forEach(choice => {
-                    const tr = this.createElement('tr')
-                    tr.id = table.parentElement.parentElement.id + choice.id
-                    console.log(tr.id)
-                    table.append(tr);
-                })
+
+
+
             }
-        })
+        }
     }
+
 
     displayTableShort (shortAnswer){
 
