@@ -3,114 +3,18 @@
 
 export class Model {
 
-    // recupere dans le local storage
+    // get in LocalStorage
     constructor() {
         this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
         this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
         this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
-        this.questionCreated = [
-            /*{
-                "id" : "question-1",
-                "type" : "QCM",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [{"id": 1,"choix" : "es", "goodAnswer" : false},
-                    {"id": 2,"choix" : "est", "goodAnswer" : false},
-                    {"id": 3,"choix" : "suis", "goodAnswer" : "checked"},
-                    {"id" : 4,"choix": "toto", "goodAnswer" : "checked"},],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },
-            {
-                "id" : "question-2",
-                "type" : "QCM",
-                "enonce" : "Je suis le nom de la question 2",
-                "table" : [{"id": 1,"choix" : "somme", "goodAnswer" : "checked"},
-                    {"id": 2,"choix" : "êtes", "goodAnswer" : "checked"},
-                    {"id": 3,"choix" : "sont", "goodAnswer" : "checked"},],
-                "check" : "checked",
-                "explication" : "je suis l'explication de la question 2",
-            },
-            {
-                "id" : "question-3",
-                "type" : "Identification",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [],
-                "check" : false,
-                "explication" : "",
-            },
-            {
-                "id" : "question-4",
-                "type" : "Réponse courte",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [
-                    {"id": 1,"answer" : "es"},
-                    {"id": 2,"answer" : "est"},
-                    {"id": 3,"answer" : "suis"},
-                    ],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },
-            {
-                "id" : "question-5",
-                "type" : "QCM",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [
-                    {"id": 1,"choix" : "tutu", "goodAnswer" : false},
-                    {"id": 2,"choix" : "toto", "goodAnswer" : false},
-                    {"id": 3,"choix" : "tata", "goodAnswer" : "checked"},
-                    {"id" : 4,"choix": "titi", "goodAnswer" : "checked"},],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },
-            {
-                "id" : "question-7",
-                "type" : "QCM",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [
-                    {"id": 1,"choix" : "antoine", "goodAnswer" : false},
-                    {"id": 2,"choix" : "jeremie", "goodAnswer" : false},
-                    {"id": 3,"choix" : "alyne", "goodAnswer" : "checked"},
-                    {"id" : 4,"choix": "François", "goodAnswer" : "checked"},],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },
-            {
-                "id" : "question-8",
-                "type" : "Réponse courte",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [
-                    {"id": 1,"answer" : "Alyssa"},
-                    {"id": 2,"answer" : "Christine"},
-                    {"id": 3,"answer" : "Florence"},
-                ],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },
-            {
-                "id" : "question-9",
-                "type" : "Identification",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [],
-                "check" : false,
-                "explication" : "",
-            },
-            {
-                "id" : "question-10",
-                "type" : "Réponse courte",
-                "enonce" : "Je suis le nom de la question",
-                "table" : [
-                    {"id": 1,"answer" : "Belgique"},
-                    {"id": 2,"answer" : "Namur"},
-                    {"id": 3,"answer" : "Fernelmont"},
-                ],
-                "check" : "checked",
-                "explication" : "je suis l'explication",
-            },*/
-        ]
+        this.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
         this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
     }
 
     // crud fonction read
+
+
     bindChangeQcmAnswer(callback){
         this.onChangeQcm = callback;
     }
@@ -170,12 +74,14 @@ export class Model {
             "enonce" : getEditor.questionName,
             "table" : getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ?  this.shortAnswers : [],
             "check" : getEditor.explanationCheck ? "checked" : false,
-            "explication" : getEditor.explanation
+            "explication" : getEditor.explanationCheck ? getEditor.explanation : "",
         }
         console.log (question)
         this.questionCreated.push(question)
         this._commitQuestion(this.questionCreated)
-        localStorage.clear()
+        localStorage.removeItem("qcmAnswers")
+        localStorage.removeItem("shortAnswers")
+        localStorage.removeItem("tagsyEditor")
     }
 
 

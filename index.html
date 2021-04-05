@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
+
+<!-- Head open -->
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Link stylesheet-->
     <link rel="stylesheet" href="dist/css/main.css">
+    <!-- Link favicon-->
     <link rel="icon" href="img/favicon.png">
     <title>Tagsy - l'éditeur de tags pour exercices de j'accorde</title>
+    <!-- Link fontawesome local-->
     <script defer src="/dist/font-awesome/brands.js"></script>
     <script defer src="/dist/font-awesome/solid.js"></script>
     <script defer src="/dist/font-awesome/fontawesome.js"></script>
 </head>
+<!--end Head -->
+<!-- body open-->
 <body>
+<!--header open-->
 <header>
+    <!--container header open-->
     <div class="container">
         <!-- Logo, title & help btn-->
         <img id="logo" alt="jaccorde" src="img/jaccorde-main-logo.png">
@@ -21,8 +30,12 @@
         <label for="save-info" class="toggle-checkbox-label saveInfo"></label>
         <p class="help-link regular_20 help">Aide</p>
     </div>
+    <!-- end container header-->
 </header>
+<!-- end header-->
+<!-- main open-->
 <main>
+    <!-- container main open-->
     <div class="container">
         <!-- title -->
         <h2 class="bold_25">Tagsy</h2>
@@ -66,9 +79,11 @@
             <label class="bold_15" for="name-exercise">Nom de l'exercice : </label>
             <input type="text" name="nom-exercice" id="name-exercise" class="regular_10" placeholder="Entrez le nom de l'exercice">
             <p id="nbr-question" class="bold_10"></p>
+            <!-- question created displaying here-->
             <div id="questions">
 
             </div>
+            <!-- end question created-->
                 <label class="bold_15" for="question-name">Question : </label>
                 <label for="qcm" class="bold_10 type-exercice label-name">QCM : </label>
                 <input type="radio" name="exercice" id="qcm" class="type-exercice">
@@ -79,6 +94,7 @@
             <button id="change" class="btn btn-secondary btn-change display-none">Changer le type d'exercice</button>
                  <input type="text" name="question-name" id="question-name" class="regular_10" placeholder="Entrez l'énoncer">
                  <div class="clear"></div>
+            <!-- table QCM/Short answer-->
                 <table id="root">
                 </table>
                 <input type="hidden" id="hidden">
@@ -87,18 +103,24 @@
                 <label for="explication-text" class="bold_15 explication">Texte explicatif : </label>
                 <input type="text" id="explication-text" class="regular_10 explication display-none" placeholder="Entrez l'explication">
             </form>
+        <!-- end form-->
+        <!--btn for add question-->
         <button class="btn-primary bold_10" id="form-add">Ajouter la question</button>
     </div>
     <img src="img/gizmo-greet.png" alt="guizmo" id="guizmo-greet">
+    <!--alert message -->
     <div class="confirm display-none" id="message">
             <i class="fas fa-comment-alt" id="speech"></i>
             <p id="caution" class="bold_10 text-center"></p>
             <button class="btn btn-primary btn-confirm regular_15">oui</button>
             <button class="btn btn-secondary btn-cancel regular_15">non</button>
     </div>
+    <!-- end alert message-->
 </main>
+<!-- end main-->
 <footer>
 </footer>
 </body>
+<!-- link Javascript-->
 <script src="dist/js/app.js" defer></script>
 </html>
