@@ -25,6 +25,7 @@ export class View {
                 }
             }
 
+
         })
 
 
@@ -694,14 +695,10 @@ _unlockExercice = () => {
                 const btnEdit = this.createElement("button");
                 btnEdit.className = "btn btn-secondary edit-question"
 
-                const imgBtnEdit = this.createElement('i');
-                imgBtnEdit.className = "fa fa-edit edit-question"
 
                 const btnDel = this.createElement("button");
                 btnDel.className = "btn btn-tertiary delete-question";
 
-                const imgBtnDel = this.createElement("i");
-                imgBtnDel.className = "fa fa-trash-alt delete-question";
 
                 const name = this.createElement("p", "qcm")
                 name.className = `bold_15 ${question.type}`
@@ -750,8 +747,6 @@ _unlockExercice = () => {
                     div.appendChild(explication)
                 }
                 div.appendChild(hr)
-                btnEdit.appendChild(imgBtnEdit);
-                btnDel.appendChild(imgBtnDel);
 
 
             })

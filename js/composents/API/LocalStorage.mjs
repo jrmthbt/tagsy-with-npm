@@ -1,16 +1,22 @@
  export const tagsy = {
     "autoSave" : document.getElementById("save-info"),
     "counterAuto" : document.getElementById("counter"),
-    "exerciceName" : document.getElementById("name-exercise"),
-     "qcmCheck" : document.getElementById("qcm"),
-     "identifyCheck" : document.getElementById("identification"),
-     "shortCheck" : document.getElementById("short-answer"),
-     "questionName" : document.getElementById("question-name"),
-     "explanationCheck" : document.getElementById("explication"),
-     "explanation" : document.getElementById("explication-text"),
+     "exerciceName" : document.getElementById("name-exercise"),
 };
 
- export let saveTagsy = (tagsy)=> {
+
+export const tagsyEditor = {
+    "qcmCheck" : document.getElementById("qcm"),
+    "identifyCheck" : document.getElementById("identification"),
+    "shortCheck" : document.getElementById("short-answer"),
+    "questionName" : document.getElementById("question-name"),
+    "explanationCheck" : document.getElementById("explication"),
+    "explanation" : document.getElementById("explication-text"),
+    "table" : JSON.parse(localStorage.getItem("qcmAnswers"))|| JSON.parse(localStorage.getItem("shotAnswers ")),
+
+}
+
+ export let saveTagsy = (tagsy, tagsyEditor)=> {
     if (typeof localStorage === "undefined" && JSON) {
         document.querySelector('#time-save').innerHTML = "Sauvegarde automatique indisponible";
     }
@@ -18,17 +24,22 @@
         'autoSave' : tagsy.autoSave.checked,
         'counterAuto' : tagsy.counterAuto.checked,
         'exerciseName' : tagsy.exerciceName.value,
-        'qcm' : tagsy.qcmCheck.checked,
-        'identification' : tagsy.identifyCheck.checked,
-        'shortAnswer' : tagsy.shortCheck.checked,
-        "questionName": tagsy.questionName.value,
-        "explanationCheck" : tagsy.explanationCheck.checked,
-        "explanation" : tagsy.explanation.value,
     }
 
+    let tagsyEditorData = {
+        'qcm' : tagsyEditor.qcmCheck.checked,
+        'identification' : tagsyEditor.identifyCheck.checked,
+        'shortAnswer' : tagsyEditor.shortCheck.checked,
+        "questionName": tagsyEditor.questionName.value,
+        "explanationCheck" : tagsyEditor.explanationCheck.checked,
+        "explanation" : tagsyEditor.explanation.value,
 
+    }
     let store = JSON.stringify(tagsyData);
-    localStorage.setItem("saveTagsy", store);
+    localStorage.setItem("tagsy", store);
+
+    let editor = JSON.stringify(tagsyEditorData)
+     localStorage.setItem("tagsyEditor", editor)
 
 
 }
@@ -54,6 +65,7 @@ export let stopLS = ()=>{
 }
 
 let save = () => {
-     saveTagsy(tagsy);
+     saveTagsy(tagsy, tagsyEditor);
+
 }
 

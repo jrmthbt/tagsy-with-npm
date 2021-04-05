@@ -7,8 +7,8 @@ export class Model {
     constructor() {
         this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
         this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
-
-        this.getTagsy = [
+        this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
+        this.questionCreated = [
             {
                 "id" : 1,
                 "type" : "QCM",
@@ -107,7 +107,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
         ]
-
+        this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
     }
 
     // crud fonction read
@@ -155,6 +155,8 @@ export class Model {
         this.shortAnswers.push(answer);
         this._commitShort(this.shortAnswers);
     }
+
+
 
     // crud fonction update
     editAnswerQcm(id, updatedAnswer, updateChecked) {
