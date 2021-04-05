@@ -49,6 +49,10 @@ export let callLS =() => {
     document.querySelectorAll("input").forEach(input => {
         input.addEventListener("focusout", save)
     })
+
+    document.querySelectorAll("input[type=checkbox]").forEach(check => {
+        check.addEventListener("change", save)
+    })
     document.querySelectorAll("button").forEach(btn=>{
         btn.addEventListener("click", save)
     })
@@ -59,6 +63,10 @@ export let stopLS = ()=>{
         input.removeEventListener("focusout", save);
 
     })
+    document.querySelectorAll("input[type=checkbox]").forEach(check => {
+        check.removeEventListener("change", save)
+    })
+
     document.querySelectorAll("button").forEach(btn=>{
         btn.removeEventListener("click", save)
     })

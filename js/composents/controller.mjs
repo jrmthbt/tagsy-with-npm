@@ -26,6 +26,20 @@ export class Controller {
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
             }
+
+            callLS()
+
+        })
+
+        document.querySelector("#form-add").addEventListener("click", function (){
+              that.handleAddQuestion()
+            that.clearEditor()
+            that.clearTableShort()
+            that.clearTableQcm()
+            that.model.bindChangeQuestion(that.onChangeQuestion)
+            that.onChangeQuestion(that.model.questionCreated)
+            that.onChangeQuestionTableQcm(that.model.questionCreated.slice())
+            that.onChangeQuestionTableShort(that.model.questionCreated.slice())
         })
 
 
@@ -37,70 +51,6 @@ export class Controller {
 
 
     let that = this;
-        if (document.getElementById("save-info").checked === true){
-            callLS();
-
-        }else{
-            document.getElementById("save-info").addEventListener("change", function(){
-                if (this.checked){
-                    callLS();
-                }else if(this.checked === false){
-                    that.view._guizmoSpeak("Voulez-vous désactiver la sauvegarde auto et perdre les données sauvées?");
-                    let these = that;
-                    document.getElementById("message").addEventListener("click", function confirmDisable(event){
-                        if (event.target.classList.contains("btn-confirm")){
-                            stopLS();
-                            localStorage.clear()
-                            these.view._removeguizmoSpeech();
-                        }
-                        if (event.target.classList.contains("btn-cancel")){
-                            these.view._removeguizmoSpeech();
-                            document.getElementById("save-info").checked = "checked";
-                            callLS();
-                        }
-                    })
-                }
-            })
-        }
-
-
-        if (localStorage !== null){
-            document.body.onload = function (){
-               that._getDataSaved();
-               if (document.getElementById("save-info").checked){
-                    callLS();
-                }
-                if (document.getElementById("qcm").checked){
-                    that.view._lockExercice();
-                    that.view.qcmTable(document.getElementById("root").id);
-                    that.model.bindChangeQcmAnswer(that.onChange)
-                    that.view.bindAddQcm(that.handleAddAnswer)
-                    that.view.binDelete(that.handleDeleteAnswer)
-                    that.view.binEditQcm(that.handleEditAnswer)
-                    that.onChange(that.model.qcmAnswers)
-                    that.clearTableShort()
-                }
-                if (document.getElementById("identification").checked){
-                    that.clearTableQcm();
-                    that.clearTableShort()
-                }
-
-                if (document.getElementById("short-answer").checked){
-                    that.view._lockExercice();
-                    that.view.answerTable(document.getElementById("root").id);
-                    that.model.bindChangeShortAnswer(that.onChangeShort)
-                    that.view.bindAddShort(that.handleAddShort)
-                    that.view.binDelete(that.handleDeleteShort)
-                    that.view.binEditShort(that.handleEditShort)
-                    that.onChangeShort(that.model.shortAnswers)
-                    that.clearTableQcm();
-                }
-            };
-
-
-        }
-
-
 
     }
     // function pour afficher le tableau quand model est modifier
@@ -126,6 +76,11 @@ export class Controller {
     }
     handleAddShort = (answerText) => {
         this.model.addAnswerShort(answerText)
+    }
+
+    handleAddQuestion = () => {
+        this.model.addQuestion()
+        console.table(this.model.questionCreated)
     }
     // controller qui edit le model
     handleEditAnswer = (id, answerText, answerCheck) => {
@@ -157,6 +112,12 @@ export class Controller {
         console.table(this.model.shortAnswers);
     }
 
+    clearEditor = () => {
+        this.view._unlockExercice()
+        this.view.getElement("#explication").checked = false;
+        this.view.getElement("#explication-text").value= "";
+    }
+
     _getDataSaved = () => {
         document.getElementById("save-info").checked = this.model.tagsy.autoSave;
         document.getElementById("qcm").checked = this.model.tagsyEditor.qcm;
@@ -176,9 +137,6 @@ export class Controller {
 
     }
 
-    _render(){
-        localStorage.removeItem("tagsyEditor");
-    }
 
 
 

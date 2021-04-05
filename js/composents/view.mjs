@@ -687,6 +687,7 @@ _unlockExercice = () => {
             }
 
             questions.forEach(question => {
+                console.log(question)
 
 
                 const div = this.createElement("div", "opacity");

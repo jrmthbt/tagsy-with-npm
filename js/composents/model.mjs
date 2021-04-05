@@ -9,8 +9,8 @@ export class Model {
         this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
         this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
         this.questionCreated = [
-            {
-                "id" : 1,
+            /*{
+                "id" : "question-1",
                 "type" : "QCM",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [{"id": 1,"choix" : "es", "goodAnswer" : false},
@@ -21,7 +21,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
             {
-                "id" : 2,
+                "id" : "question-2",
                 "type" : "QCM",
                 "enonce" : "Je suis le nom de la question 2",
                 "table" : [{"id": 1,"choix" : "somme", "goodAnswer" : "checked"},
@@ -31,7 +31,7 @@ export class Model {
                 "explication" : "je suis l'explication de la question 2",
             },
             {
-                "id" : 3,
+                "id" : "question-3",
                 "type" : "Identification",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [],
@@ -39,7 +39,7 @@ export class Model {
                 "explication" : "",
             },
             {
-                "id" : 4,
+                "id" : "question-4",
                 "type" : "Réponse courte",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [
@@ -51,7 +51,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
             {
-                "id" : 5,
+                "id" : "question-5",
                 "type" : "QCM",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [
@@ -63,7 +63,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
             {
-                "id" : 7,
+                "id" : "question-7",
                 "type" : "QCM",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [
@@ -75,7 +75,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
             {
-                "id" : 8,
+                "id" : "question-8",
                 "type" : "Réponse courte",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [
@@ -87,7 +87,7 @@ export class Model {
                 "explication" : "je suis l'explication",
             },
             {
-                "id" : 9,
+                "id" : "question-9",
                 "type" : "Identification",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [],
@@ -95,7 +95,7 @@ export class Model {
                 "explication" : "",
             },
             {
-                "id" : 10,
+                "id" : "question-10",
                 "type" : "Réponse courte",
                 "enonce" : "Je suis le nom de la question",
                 "table" : [
@@ -105,7 +105,7 @@ export class Model {
                 ],
                 "check" : "checked",
                 "explication" : "je suis l'explication",
-            },
+            },*/
         ]
         this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
     }
@@ -134,6 +134,11 @@ export class Model {
         localStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
     }
 
+    _commitQuestion (questionCreated){
+        this.onChangeQuestion(questionCreated)
+        localStorage.setItem("questionCreated", JSON.stringify(questionCreated))
+    }
+
 
     // crud function create
     addAnswerQcm(inputAnswer, inputChecked) {
@@ -156,6 +161,22 @@ export class Model {
         this._commitShort(this.shortAnswers);
     }
 
+    addQuestion(){
+        let getEditor = JSON.parse(localStorage.getItem("tagsyEditor"))
+        console.table(getEditor)
+        const question = {
+            "id": this.questionCreated.length > 0 ? `question-${this.questionCreated.length + 2}` : 'question-1',
+            "type" : getEditor.qcm ? "QCM" : getEditor.identification ? "Identification" : "Réponse courte",
+            "enonce" : getEditor.questionName,
+            "table" : getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ?  this.shortAnswers : [],
+            "check" : getEditor.explanationCheck ? "checked" : false,
+            "explication" : getEditor.explanation
+        }
+        console.log (question)
+        this.questionCreated.push(question)
+        this._commitQuestion(this.questionCreated)
+        localStorage.clear()
+    }
 
 
     // crud fonction update
@@ -193,6 +214,7 @@ export class Model {
         this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
         this._commitShort(this.shortAnswers)
     }
+
 
 
 }
