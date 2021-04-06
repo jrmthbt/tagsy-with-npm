@@ -1,10 +1,13 @@
 //MVC - controller
-import {callLS, stopLS, tagsyEditor} from "./API/LocalStorage.mjs";
+import {callLS, stopLS} from "./API/Storage.mjs";
 
 export class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
+        document.body.addEventListener("load", function (){
+            localStorage.clear();
+        })
         document.querySelector("body").addEventListener("change", event =>{
             if (event.target.id === this.view.exercice[0]){
                 this.model.bindChangeQcmAnswer(this.onChange)
@@ -26,10 +29,12 @@ export class Controller {
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
             }
-
             callLS()
 
+
         })
+
+
 
         document.querySelector("#form-add").addEventListener("click", function (){
               that.handleAddQuestion()

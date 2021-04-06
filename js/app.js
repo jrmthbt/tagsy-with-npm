@@ -5,3 +5,4 @@ import {Controller} from "./composents/controller.mjs";
 
 let app = new Controller(new Model(), new View());
 
+

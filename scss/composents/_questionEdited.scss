@@ -1,5 +1,7 @@
 @import "variables";
 @import "color";
+@import "responsive_mixins";
+@import "fonts";
 
 div#questions{
   width: $container_tablet_600;
@@ -7,24 +9,46 @@ div#questions{
   //border: 1px dashed black;
   color: #4f8ecb;
   position: relative;
+  @include responsive_laptop{
+    width: $container_laptop_800;
+  }
 
   button.delete-question{
     position: absolute;
     right: 0;
+    &:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f2ed";
+    }
   }
   button.edit-question{
     position: absolute;
     right: 25px;
+    &:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f044";
+    }
+    @include responsive_laptop{
+
+      right: 30px;
+    }
   }
- p.qcm{
-   position: absolute;
-   top: 4px;
-   left: 85px;
+
+   p.QCM, p.Identification, p.courte{
+   @include responsive_laptop{
+     font-size: 20px !important;
+   }
  }
   input.question-name, input.explication-edited{
     border: 1px solid $blue;
     width: 589px;
     padding: 5px;
+    @include responsive_laptop{
+      width: 789px;
+      margin-top: 20px;
+    }
   }
 
   P.explication-name{

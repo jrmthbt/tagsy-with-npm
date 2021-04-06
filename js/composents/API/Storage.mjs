@@ -12,7 +12,7 @@ export const tagsyEditor = {
     "questionName" : document.getElementById("question-name"),
     "explanationCheck" : document.getElementById("explication"),
     "explanation" : document.getElementById("explication-text"),
-    "table" : JSON.parse(localStorage.getItem("qcmAnswers"))|| JSON.parse(localStorage.getItem("shotAnswers ")),
+    "table" : JSON.parse(sessionStorage.getItem("qcmAnswers"))|| JSON.parse(sessionStorage.getItem("shotAnswers ")),
 
 }
 
@@ -36,10 +36,10 @@ export const tagsyEditor = {
 
     }
     let store = JSON.stringify(tagsyData);
-    localStorage.setItem("tagsy", store);
+    sessionStorage.setItem("tagsy", store);
 
     let editor = JSON.stringify(tagsyEditorData)
-     localStorage.setItem("tagsyEditor", editor)
+     sessionStorage.setItem("tagsyEditor", editor)
 
 
 }

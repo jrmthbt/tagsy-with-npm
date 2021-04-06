@@ -5,11 +5,11 @@ export class Model {
 
     // get in LocalStorage
     constructor() {
-        this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
-        this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
-        this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
-        this.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
-        this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
+        this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
+        this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
+        this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
+        this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
+        this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
     }
 
     // crud fonction read
@@ -30,17 +30,17 @@ export class Model {
     // ajoute dans le localstorage
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
-        localStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
+        sessionStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
     }
 
     _commitShort(shortAnswers){
         this.onChangeShort(shortAnswers)
-        localStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
+        sessionStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
     }
 
     _commitQuestion (questionCreated){
         this.onChangeQuestion(questionCreated)
-        localStorage.setItem("questionCreated", JSON.stringify(questionCreated))
+        sessionStorage.setItem("questionCreated", JSON.stringify(questionCreated))
     }
 
 
@@ -66,10 +66,10 @@ export class Model {
     }
 
     addQuestion(){
-        let getEditor = JSON.parse(localStorage.getItem("tagsyEditor"))
+        let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor"))
         console.table(getEditor)
         const question = {
-            "id": this.questionCreated.length > 0 ? `question-${this.questionCreated.length + 2}` : 'question-1',
+            "id": this.questionCreated.length > 0 ? `question-${this.questionCreated.length + 1}` : 'question-1',
             "type" : getEditor.qcm ? "QCM" : getEditor.identification ? "Identification" : "Réponse courte",
             "enonce" : getEditor.questionName,
             "table" : getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ?  this.shortAnswers : [],
@@ -79,9 +79,9 @@ export class Model {
         console.log (question)
         this.questionCreated.push(question)
         this._commitQuestion(this.questionCreated)
-        localStorage.removeItem("qcmAnswers")
-        localStorage.removeItem("shortAnswers")
-        localStorage.removeItem("tagsyEditor")
+        sessionStorage.removeItem("qcmAnswers")
+        sessionStorage.removeItem("shortAnswers")
+        sessionStorage.removeItem("tagsyEditor")
     }
 
 

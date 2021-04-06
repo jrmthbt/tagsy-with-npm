@@ -701,7 +701,7 @@ _unlockExercice = () => {
                 btnDel.className = "btn btn-tertiary delete-question";
 
 
-                const name = this.createElement("p", "qcm")
+                const name = this.createElement("p")
                 name.className = `bold_15 ${question.type}`
                 name.innerHTML = `Question : ${question.type}`
 

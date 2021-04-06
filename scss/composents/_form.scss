@@ -1,5 +1,6 @@
 @import "color";
 @import "variables";
+@import "responsive_mixins";
 
 // style form
 form{
@@ -18,6 +19,9 @@ form{
   #nbr-question{
     margin-bottom: 10px;
     color: $blue;
+    @include responsive_laptop{
+      font-size: 15px !important;
+    }
   }
 
   input[type="text"]{
