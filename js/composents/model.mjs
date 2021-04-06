@@ -10,6 +10,8 @@ export class Model {
         this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
         this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
         this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
+
+        this.count = 1;
     }
 
     // crud fonction read
@@ -46,6 +48,7 @@ export class Model {
 
     // crud function create
     addAnswerQcm(inputAnswer, inputChecked) {
+
         const answer = {
             "id": this.qcmAnswers.length > 0 ? this.qcmAnswers[this.qcmAnswers.length - 1].id + 1 : 1,
             "choix": inputAnswer,
@@ -68,8 +71,9 @@ export class Model {
     addQuestion(){
         let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor"))
         console.table(getEditor)
+        this.count++
         const question = {
-            "id": this.questionCreated.length > 0 ? `question-${this.questionCreated.length + 1}` : 'question-1',
+            "id": this.questionCreated.length > 0 ? `question-${this.count}` : 'question-1',
             "type" : getEditor.qcm ? "QCM" : getEditor.identification ? "Identification" : "Réponse courte",
             "enonce" : getEditor.questionName,
             "table" : getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ?  this.shortAnswers : [],
@@ -119,6 +123,11 @@ export class Model {
     deleteAnswerShort(id) {
         this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
         this._commitShort(this.shortAnswers)
+    }
+
+    deleteQuestion(id){
+        this.questionCreated = this.questionCreated.filter((question) => question.id !==id)
+        this._commitQuestion(this.questionCreated)
     }
 
 

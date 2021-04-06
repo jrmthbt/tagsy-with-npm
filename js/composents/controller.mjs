@@ -36,27 +36,47 @@ export class Controller {
 
 
 
-        document.querySelector("#form-add").addEventListener("click", function (){
-              that.handleAddQuestion()
-            that.clearEditor()
-            that.clearTableShort()
-            that.clearTableQcm()
-            that.model.bindChangeQuestion(that.onChangeQuestion)
-            that.onChangeQuestion(that.model.questionCreated)
-            that.onChangeQuestionTableQcm(that.model.questionCreated.slice())
-            that.onChangeQuestionTableShort(that.model.questionCreated.slice())
+        document.querySelector("body").addEventListener("click", function (event) {
+
+            if (event.target.id === "form-add") {
+                that.handleAddQuestion()
+                that.clearEditor()
+                that.clearTableShort()
+                that.clearTableQcm()
+                that.model.bindChangeQuestion(that.onChangeQuestion)
+                that.onChangeQuestion(that.model.questionCreated)
+                that.onChangeQuestionTableQcm(that.model.questionCreated.slice())
+                that.onChangeQuestionTableShort(that.model.questionCreated.slice())
+            }
+
+            if (event.target.classList.contains("delete-question")) {
+                that.view.binDeleteQuestion(that.handleDeleteQuestion, event)
+                that.view.getElement("#message").addEventListener("click", el =>{
+                    if (el.target.classList.contains("btn-confirm")){
+                       that.displayQuestion()
+                    }
+                })
+
+
+            }
         })
 
 
-            this.model.bindChangeQuestion(this.onChangeQuestion)
-            this.onChangeQuestion(this.model.questionCreated)
-            this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
-            this.onChangeQuestionTableShort(this.model.questionCreated.slice())
+        this.displayQuestion()
+
+
 
 
 
     let that = this;
 
+    }
+
+    displayQuestion =() => {
+        this.model.bindChangeQuestion(this.onChangeQuestion)
+        this.onChangeQuestion(this.model.questionCreated)
+        this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
+        this.onChangeQuestionTableShort(this.model.questionCreated.slice())
     }
     // function pour afficher le tableau quand model est modifier
      onChange = (qcmAnswer) => {
@@ -70,9 +90,11 @@ export class Controller {
         this.view._displayQuestions(getTagsy);
     }
     onChangeQuestionTableQcm = questionTable => {
+        console.log("pas de surprise pour nous")
         this.view.displayTableQcmCreated(questionTable)
     }
     onChangeQuestionTableShort = questionTableShort => {
+        console.log(" une belle surpirse ppour vous")
         this.view.displayTableShortCreated(questionTableShort)
     }
    // controller qui ajoute au model
@@ -102,6 +124,10 @@ export class Controller {
 
     handleDeleteShort = (id) => {
         this.model.deleteAnswerShort(id)
+    }
+
+    handleDeleteQuestion = (id) => {
+        this.model.deleteQuestion(id)
     }
 
 

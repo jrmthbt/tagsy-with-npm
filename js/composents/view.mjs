@@ -251,7 +251,7 @@ export class View {
                     for (let j = 0; j<table[i].table.length; j++) {
                         const tr = this.createElement('tr')
                         tr.id = ((i+1).toString()) + (j)
-                        document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
+                        document.getElementById(`${table[i].id}`).children[4].children[1].appendChild(tr)
 
                         const tdinput = this.createElement('td');
                         const input = this.createElement('input', 'regular_10');
@@ -336,7 +336,7 @@ export class View {
                 for (let j = 0; j<table[i].table.length; j++) {
                     const tr = this.createElement('tr')
                     tr.id = ((i + 1).toString()) + (j)
-                    document.getElementById(`question-${table[i].id}`).children[4].children[1].appendChild(tr)
+                    document.getElementById(`${table[i].id}`).children[4].children[1].appendChild(tr)
 
                     const tdinput = this.createElement('td');
                     const input = this.createElement('input', 'regular_10');
@@ -563,6 +563,29 @@ export class View {
         })
     }
 
+    binDeleteQuestion = (handler, event) =>{
+            if(event.target.classList.contains("delete-question")){
+                this.test("click")
+                this._guizmoSpeak("Voulez-vous supprimer cette question?")
+                let that = this
+                document.getElementById("message").addEventListener("click", function confirmDel (el){
+                    if (el.target.classList.contains("btn-confirm")){
+                        var id = (event.target.parentElement.id)
+
+                        handler(id)
+
+                        that._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmDel)
+                    }
+
+                    if (el.target.classList.contains("btn-cancel")){
+                        that._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmDel)
+                    }
+                })
+            }
+    }
+
 
     // fonction qui permet l'edition du checkbox en mode modification
     _toggleSwitch = (executed) =>{
@@ -691,7 +714,7 @@ _unlockExercice = () => {
 
 
                 const div = this.createElement("div", "opacity");
-                div.id = `question-${question.id}`;
+                div.id = `${question.id}`;
 
                 const btnEdit = this.createElement("button");
                 btnEdit.className = "btn btn-secondary edit-question"
@@ -764,5 +787,10 @@ _unlockExercice = () => {
             })
 
             document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
+    }
+
+    test=(del = "deletequestion")=>{
+        console.log( "¯\\_(ツ)_/¯")
+        console.log(del)
     }
 }
