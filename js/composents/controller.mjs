@@ -90,11 +90,9 @@ export class Controller {
         this.view._displayQuestions(getTagsy);
     }
     onChangeQuestionTableQcm = questionTable => {
-        console.log("pas de surprise pour nous")
         this.view.displayTableQcmCreated(questionTable)
     }
     onChangeQuestionTableShort = questionTableShort => {
-        console.log(" une belle surpirse ppour vous")
         this.view.displayTableShortCreated(questionTableShort)
     }
    // controller qui ajoute au model
