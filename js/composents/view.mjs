@@ -696,7 +696,7 @@ export class View {
                     let explanation = document.getElementById("question-explanation-text-edit").value
 
                     handler(id, questionName, array, explanationCheck, explanation)
-                    this._countClick = 0
+                    this._countClick++
                     that._unlockEditor();
                     that._lockQuestionEditing(event)
                     that._unlockButton("button.edit-question");

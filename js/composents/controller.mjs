@@ -1,5 +1,5 @@
 //MVC - controller
-import {callLS, stopLS} from "./API/Storage.mjs";
+import {callLS} from "./API/Storage.mjs";
 
 export class Controller {
     constructor(model, view) {
@@ -60,6 +60,11 @@ export class Controller {
 
             if (event.target.classList.contains("edit-question")){
                 that.view.binEditQuestion(that.handleEditQuestion, event)
+                if(that.view._countClick >2){
+                    that.displayQuestion()
+                    that.view._countClick = 0
+                }
+
             }
         })
 
