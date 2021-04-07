@@ -51,11 +51,13 @@ export class Controller {
 
             if (event.target.classList.contains("delete-question")) {
                 that.view.binDeleteQuestion(that.handleDeleteQuestion, event)
-                that.view.getElement("#message").addEventListener("click", el =>{
+                that.view.getElement("#message").addEventListener("click", function confirmDel (el) {
                     if (el.target.classList.contains("btn-confirm")){
                        that.displayQuestion()
                     }
+                    that.view.getElement("#message").removeEventListener("click",confirmDel)
                 })
+
             }
 
             if (event.target.classList.contains("edit-question")){
@@ -65,6 +67,7 @@ export class Controller {
                     that.view._countClick = 0
                 }
 
+            event.preventDefault()
             }
         })
 

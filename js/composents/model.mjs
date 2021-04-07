@@ -11,7 +11,7 @@ export class Model {
         this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
         this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
 // counter
-        this.count = 1;
+        this.count = this.questionCreated.length;
     }
 
     // crud fonction read
@@ -72,22 +72,24 @@ export class Model {
 // Questions
     addQuestion(){
         let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor"))
-        console.table(getEditor)
-        this.count++
-        const question = {
-            "id": this.questionCreated.length > 0 ? `question-${this.count}` : 'question-1',
-            "type" : getEditor.qcm ? "QCM" : getEditor.identification ? "Identification" : "Réponse courte",
-            "enonce" : getEditor.questionName,
-            "table" : getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ?  this.shortAnswers : [],
-            "check" : getEditor.explanationCheck ? "checked" : false,
-            "explication" : getEditor.explanationCheck ? getEditor.explanation : "",
+        let that = this
+        if (getEditor !== null) {
+            that.count++
+            const question = {
+                "id": this.questionCreated.length > 0 ? `question-${this.count}` : 'question-1',
+                "type": getEditor.qcm ? "QCM" : getEditor.identification ? "Identification" : "Réponse courte",
+                "enonce": getEditor.questionName,
+                "table": getEditor.qcm ? this.qcmAnswers : getEditor.shortAnswer ? this.shortAnswers : [],
+                "check": getEditor.explanationCheck ? "checked" : false,
+                "explication": getEditor.explanationCheck ? getEditor.explanation : "",
+            }
+            console.log(question)
+            this.questionCreated.push(question)
+            this._commitQuestion(this.questionCreated)
+            sessionStorage.removeItem("qcmAnswers")
+            sessionStorage.removeItem("shortAnswers")
+            sessionStorage.removeItem("tagsyEditor")
         }
-        console.log (question)
-        this.questionCreated.push(question)
-        this._commitQuestion(this.questionCreated)
-        sessionStorage.removeItem("qcmAnswers")
-        sessionStorage.removeItem("shortAnswers")
-        sessionStorage.removeItem("tagsyEditor")
     }
 
 

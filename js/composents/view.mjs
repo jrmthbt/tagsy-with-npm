@@ -660,9 +660,10 @@ export class View {
                                 that._lockButton("button.delete-question");
                                 event.target.parentElement.classList.add("focus-question")
                                 event.target.id = "edit-question-confirmed"
+                                console.log(event.target.parentElement)
                                 event.target.parentElement.classList.remove("opacity");
                                 if (event.target.parentElement.classList.contains("focus-question")){
-                                    that.getElement("#edit-question-confirmed").classList.remove("disabled")
+                                    event.target.classList.remove("disabled")
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
@@ -893,6 +894,7 @@ export class View {
         this.getElement("#explication-text").disabled = true;
         this.getElement("#explication").disabled = true;
         this.getElement("#form-add").classList.add("disabled");
+        this.getElement("#name-exercise").classList.add("disabled")
 
 
     }
@@ -905,6 +907,7 @@ export class View {
         this.getElement("#explication-text").disabled = false;
         this.getElement("#explication").disabled = false;
         this.getElement("#form-add").classList.remove("disabled");
+        this.getElement("#name-exercise").classList.remove("disabled")
 
 
     }
