@@ -56,8 +56,10 @@ export class Controller {
                        that.displayQuestion()
                     }
                 })
+            }
 
-
+            if (event.target.classList.contains("edit-question")){
+                that.view.binEditQuestion(that.handleEditQuestion, event)
             }
         })
 
@@ -114,6 +116,10 @@ export class Controller {
     }
     handleEditShort = (id, answerText) =>{
         this.model.editAnswerShort(id, answerText)
+    }
+
+    handleEditQuestion = (id, questionName, array, explanationCheck, explanation) =>{
+        this.model.editQuestion(id, questionName, array, explanationCheck, explanation)
     }
     // controller qui supprime dans le model
     handleDeleteAnswer = (id) => {

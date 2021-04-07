@@ -3,43 +3,44 @@
 
 export class Model {
 
-    // get in LocalStorage
+    // get in sessionStorage
     constructor() {
         this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
         this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
         this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
         this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
         this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
-
+// counter
         this.count = 1;
     }
 
     // crud fonction read
 
-
+// array QCM
     bindChangeQcmAnswer(callback){
         this.onChangeQcm = callback;
     }
-
+// array ShortAnswer
     bindChangeShortAnswer(callback){
         this.onChangeShort = callback;
     }
-
+// questions
     bindChangeQuestion(callback){
         this.onChangeQuestion = callback;
     }
 
-    // ajoute dans le localstorage
+    // ajoute dans le sessionstorage
+    // array QCM
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
         sessionStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
     }
-
+// array ShortAnswer
     _commitShort(shortAnswers){
         this.onChangeShort(shortAnswers)
         sessionStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
     }
-
+// Questions
     _commitQuestion (questionCreated){
         this.onChangeQuestion(questionCreated)
         sessionStorage.setItem("questionCreated", JSON.stringify(questionCreated))
@@ -47,6 +48,7 @@ export class Model {
 
 
     // crud function create
+    // array QCM
     addAnswerQcm(inputAnswer, inputChecked) {
 
         const answer = {
@@ -58,7 +60,7 @@ export class Model {
 
         this._commit(this.qcmAnswers)
     }
-
+// array ShortAnswer
     addAnswerShort(inputAnswer){
         const answer = {
             "id": this.shortAnswers.length > 0 ? this.shortAnswers[this.shortAnswers.length -1].id +1 : 1,
@@ -67,7 +69,7 @@ export class Model {
         this.shortAnswers.push(answer);
         this._commitShort(this.shortAnswers);
     }
-
+// Questions
     addQuestion(){
         let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor"))
         console.table(getEditor)
@@ -90,6 +92,7 @@ export class Model {
 
 
     // crud fonction update
+    // array QCM
     editAnswerQcm(id, updatedAnswer, updateChecked) {
         this.qcmAnswers.forEach(answer =>{
             if (answer.id === id){
@@ -102,7 +105,7 @@ export class Model {
 
         this._commit(this.qcmAnswers)
     }
-
+// array ShortAnswer
     editAnswerShort(id, updateAnswer){
         this.shortAnswers.forEach(answer =>{
             if (answer.id === id){
@@ -112,19 +115,33 @@ export class Model {
         })
         this._commitShort(this.shortAnswers)
     }
+// Questions
+    editQuestion(id, updateQuestion, updateArray, updateExplanationCheck, updateExplanation){
+        this.questionCreated.forEach(question => {
+            if (question.id === id){
+                question.id = id
+                question.enonce = updateQuestion;
+                question.table = updateArray;
+                question.check = updateExplanationCheck
+                question.explication = updateExplanation
+            }
+        })
 
+        this._commitQuestion(this.questionCreated);
+    }
 
     // crud function delete
+    // array QCM
     deleteAnswerQcm(id) {
         this.qcmAnswers = this.qcmAnswers.filter(( answer) => answer.id !== id)
         this._commit(this.qcmAnswers)
     }
-
+// array ShortAnswer
     deleteAnswerShort(id) {
         this.shortAnswers = this.shortAnswers.filter((answer) => answer.id !== id)
         this._commitShort(this.shortAnswers)
     }
-
+// Questions
     deleteQuestion(id){
         this.questionCreated = this.questionCreated.filter((question) => question.id !==id)
         this._commitQuestion(this.questionCreated)
