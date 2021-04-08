@@ -129,7 +129,7 @@ export class Model {
             }
         })
 
-        console.table(this.questionCreated);
+        this._commitQuestion(this.questionCreated);
     }
 
     // crud function delete

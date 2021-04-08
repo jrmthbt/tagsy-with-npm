@@ -35,6 +35,7 @@ export class View {
         this.app = document.getElementById('root');
         this.appQuestion = document.querySelectorAll(".app-question")
         this.exercice = ["qcm", "identification", "short-answer"];
+        this._edited = [];
 
     }
 
@@ -477,6 +478,7 @@ export class View {
         })
     }
 
+
 // recuper les infos qcm éditées par l'utilisateur pour diffuser au controller
     binEditQcm = (handler) => {
         this.getElement('#tbody-root').addEventListener('click', event => {
@@ -669,6 +671,7 @@ export class View {
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
+                                that._getArray(getArray, event, that._edited)
                                 that._countClick++;
                                 that._executed = true
                                 console.log(that._countClick)
@@ -689,7 +692,8 @@ export class View {
                 if (that._countClick > 1) {
                     let id = event.target.parentElement.id;
                     let questionName = document.getElementById("question-name-edit").value
-                    let array = []
+                    let array = that._getArray(getArray, event, that._edited)
+
                     if (document.getElementById("question-check-explanation").checked){
                         var explanationCheck = "checked"
                     }
@@ -958,8 +962,6 @@ export class View {
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = false;
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "choice-edited-question";
                 event.target.parentElement.children[4].children[2].children[0].children[1].children[1].id = "checkAnswer-edited-question";
-                this._toggleSwitch(this._executed)
-                this._executed = true
                 event.target.parentElement.children[4].children[2].children[0].children[2].firstElementChild.classList.id = "add-edited-answer-question"
             }
         else{
@@ -981,26 +983,76 @@ export class View {
         event.target.parentElement.children[7].id = "";
         event.target.parentElement.children[8].id = "";
         event.target.parentElement.children[8].disabled = true;
-        if (event.target.parentElement.children[4].childElementCount > 0){
-            if (event.target.parentElement.classList.contains("focus-question")){
-                document.querySelectorAll(".focus-question button.disabled-edit").forEach(btn =>{
+        if (event.target.parentElement.children[4].childElementCount > 0) {
+            if (event.target.parentElement.classList.contains("focus-question")) {
+                document.querySelectorAll(".focus-question button.disabled-edit").forEach(btn => {
                     btn.classList.add("disabled-edit")
                 })
             }
-            if ( event.target.parentElement.children[4].children[2].children[0].childElementCount === 3) {
+            if (event.target.parentElement.children[4].children[2].children[0].childElementCount === 3) {
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = true;
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "";
                 event.target.parentElement.children[4].children[2].children[0].children[1].children[1].id = "";
                 event.target.parentElement.children[4].children[2].children[0].children[2].firstElementChild.classList.id = ""
-            }
-            else{
+            } else {
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = true;
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "";
                 event.target.parentElement.children[4].children[2].children[0].children[1].firstElementChild.classList.id = ""
 
             }
+        }
 
     }
+
+    _getArray (getArray, event, edited){
+        let answerAdd;
+        let that = this
+        getArray.forEach(question => {
+            if (question.id === event.target.parentElement.id){
+                edited = question.table
+                document.querySelector("#questions").addEventListener("click", function (event) {
+                    if (event.target.classList.contains("answer-add"))
+                    that.addInCreated(edited, answerAdd)
+                })
+
+            }
+        })
+
+        return edited
+
+    }
+    addInCreated = (edited, answerAdd) => {
+            console.log(answerAdd)
+            console.log(edited)
+
+            edited.forEach(answer => {
+                if(Object.keys(answer).length > 2){
+                    console.log(edited.length)
+                    answerAdd = {
+                        "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
+                        "choix": document.querySelector("#choice-edited-question").value,
+                        "goodAnswer" : document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
+                    }
+
+                }else{
+                    console.log("short")
+                    answerAdd = {
+                        "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
+                        "answer": document.querySelector("#choice-edited-question").value,
+                    }
+                }
+            })
+            edited.push(answerAdd)
+        console.log(edited)
+        edited = []
+            document.querySelector("#choice-edited-question").value = "";
+            if (document.querySelector("#checkAnswer-edited-question")){
+            document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
+            console.log(edited)
+
+    }
+
+
 
     test = (del = "deletequestion") => {
         console.log("¯\\_(ツ)_/¯")

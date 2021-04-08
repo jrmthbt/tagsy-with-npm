@@ -66,9 +66,10 @@ export class Controller {
                     that.displayQuestion()
                     that.view._countClick = 0
                 }
-
             event.preventDefault()
             }
+
+
         })
 
 
