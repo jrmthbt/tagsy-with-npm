@@ -981,7 +981,24 @@ export class View {
         event.target.parentElement.children[7].id = "";
         event.target.parentElement.children[8].id = "";
         event.target.parentElement.children[8].disabled = true;
+        if (event.target.parentElement.children[4].childElementCount > 0){
+            if (event.target.parentElement.classList.contains("focus-question")){
+                document.querySelectorAll(".focus-question button.disabled-edit").forEach(btn =>{
+                    btn.classList.add("disabled-edit")
+                })
+            }
+            if ( event.target.parentElement.children[4].children[2].children[0].childElementCount === 3) {
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = true;
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "";
+                event.target.parentElement.children[4].children[2].children[0].children[1].children[1].id = "";
+                event.target.parentElement.children[4].children[2].children[0].children[2].firstElementChild.classList.id = ""
+            }
+            else{
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = true;
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "";
+                event.target.parentElement.children[4].children[2].children[0].children[1].firstElementChild.classList.id = ""
 
+            }
 
     }
 
