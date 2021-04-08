@@ -61,7 +61,7 @@ export class Controller {
             }
 
             if (event.target.classList.contains("edit-question")){
-                that.view.binEditQuestion(that.handleEditQuestion, event)
+                that.view.binEditQuestion(that.handleEditQuestion, event, that.model.questionCreated.slice())
                 if(that.view._countClick >2){
                     that.displayQuestion()
                     that.view._countClick = 0

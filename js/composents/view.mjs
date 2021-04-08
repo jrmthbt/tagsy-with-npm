@@ -134,7 +134,7 @@ export class View {
                     <tfoot class="tfoot-app">
                     <tr class="tr-tfoot-app">
                         <td class="tdO-tfoot">
-                            <label for="choice"></label>
+                          
                             <input type="text" class="regular_10 text-center choices choices-edited" name="answer" disabled>
                         </td>
                         <td class="tdT-tfoot">
@@ -185,6 +185,9 @@ export class View {
             this.getElement('#good-answer').checked = false;
         }
     }
+
+    // get le tableau de la question en cours d'édition
+
 
     // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
@@ -642,7 +645,7 @@ export class View {
         })
     }
 
-    binEditQuestion = (handler, event) => {
+    binEditQuestion = (handler, event, getArray) => {
         let that = this
             if (event.target.classList.contains("edit-question")){
                 if (that._countClick === 0) {
@@ -660,7 +663,6 @@ export class View {
                                 that._lockButton("button.delete-question");
                                 event.target.parentElement.classList.add("focus-question")
                                 event.target.id = "edit-question-confirmed"
-                                console.log(event.target.parentElement)
                                 event.target.parentElement.classList.remove("opacity");
                                 if (event.target.parentElement.classList.contains("focus-question")){
                                     event.target.classList.remove("disabled")
@@ -780,6 +782,19 @@ export class View {
                     } else {
                         event.target.parentElement.children[6].checked = "checked";
                         that._showDisplay(document.getElementById("question-explanation-text-edit"))
+                    }
+
+                }
+            }
+
+            if (event.target.id === "checkAnswer-edited-question"){
+                if (executed === false){
+                    if (event.target.parentElement.firstElementChild.checked) {
+                        console.log("toto")
+                        event.target.parentElement.firstElementChild.checked = false
+                    } else {
+                        event.target.parentElement.firstElementChild.checked = "checked";
+                        console.log("tata")
                     }
 
                 }
@@ -926,12 +941,35 @@ export class View {
 
 
     _unlockQuestionEditing(event){
+
         event.target.parentElement.children[3].id = "question-name-edit"
         event.target.parentElement.children[3].disabled = false;
         event.target.parentElement.children[6].id= "question-check-explanation"
         event.target.parentElement.children[7].id = "question-explanation-edit";
         event.target.parentElement.children[8].id = "question-explanation-text-edit";
         event.target.parentElement.children[8].disabled = false;
+        if (event.target.parentElement.children[4].childElementCount > 0){
+            if (event.target.parentElement.classList.contains("focus-question")){
+                document.querySelectorAll(".focus-question button.disabled-edit").forEach(btn =>{
+                    btn.classList.remove("disabled-edit")
+                })
+            }
+            if ( event.target.parentElement.children[4].children[2].children[0].childElementCount === 3) {
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = false;
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "choice-edited-question";
+                event.target.parentElement.children[4].children[2].children[0].children[1].children[1].id = "checkAnswer-edited-question";
+                this._toggleSwitch(this._executed)
+                this._executed = true
+                event.target.parentElement.children[4].children[2].children[0].children[2].firstElementChild.classList.id = "add-edited-answer-question"
+            }
+        else{
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = false;
+                event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.id = "choice-edited-question";
+                event.target.parentElement.children[4].children[2].children[0].children[1].firstElementChild.classList.id = "add-edited-answer-question"
+
+            }
+
+        }
 
 
     }
