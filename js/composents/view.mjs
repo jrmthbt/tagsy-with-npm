@@ -647,18 +647,17 @@ export class View {
         })
     }
 
-    binEditQuestion = (handler, event, getArray) => {
+    binEditQuestion = (handler, event, getArray, display) => {
         let that = this
             if (event.target.classList.contains("edit-question")){
                 if (that._countClick === 0) {
-                    that.test("edit confirm ?? ")
                     that._guizmoSpeak("Voulez-vous modifier cette question?");
                     document.getElementById("message").addEventListener("click", function confirmEditQuestion(el) {
 
                         if (el.target.classList.contains("btn-confirm")){
                             that._removeguizmoSpeech()
                             that._countClick++;
-                            console.log(that._countClick)
+
                             if (that._countClick === 1){
                                 that._lockEditor();
                                 that._lockButton("button.edit-question");
@@ -671,10 +670,10 @@ export class View {
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
-                                that._getArray(getArray, event, that._edited)
+                                that._getArray(getArray, event, that._edited, display, that._edited)
                                 that._countClick++;
                                 that._executed = true
-                                console.log(that._countClick)
+
 
                             }
                             this.removeEventListener("click", confirmEditQuestion)
@@ -692,7 +691,8 @@ export class View {
                 if (that._countClick > 1) {
                     let id = event.target.parentElement.id;
                     let questionName = document.getElementById("question-name-edit").value
-                    let array = that._getArray(getArray, event, that._edited)
+                    let array = that._edited
+                    console.log(array, "handler")
 
                     if (document.getElementById("question-check-explanation").checked){
                         var explanationCheck = "checked"
@@ -711,6 +711,7 @@ export class View {
                     event.target.parentElement.classList.remove("focus-question")
                     event.target.id = ""
                     event.target.parentElement.classList.add("opacity");
+
 
                 }
             }
@@ -742,7 +743,6 @@ export class View {
 
     binDeleteQuestion = (handler, event) => {
         if (event.target.classList.contains("delete-question")) {
-            this.test("click")
             this._guizmoSpeak("Voulez-vous supprimer cette question?")
             let that = this
             document.getElementById("message").addEventListener("click", function confirmDel(el) {
@@ -794,11 +794,11 @@ export class View {
             if (event.target.id === "checkAnswer-edited-question"){
                 if (executed === false){
                     if (event.target.parentElement.firstElementChild.checked) {
-                        console.log("toto")
+
                         event.target.parentElement.firstElementChild.checked = false
                     } else {
                         event.target.parentElement.firstElementChild.checked = "checked";
-                        console.log("tata")
+
                     }
 
                 }
@@ -1004,58 +1004,85 @@ export class View {
 
     }
 
-    _getArray (getArray, event, edited){
-        let answerAdd;
+    _getArray (getArray, event, edited, display, array){
+        console.log("je passe beaucoup")
+        let answerAdd = [];
         let that = this
+
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
-                edited = question.table
-                document.querySelector("#questions").addEventListener("click", function (event) {
-                    if (event.target.classList.contains("answer-add"))
-                    that.addInCreated(edited, answerAdd)
-                })
+                document.querySelector("#questions").addEventListener("click",  function addAnswer (el){
+                    if (el.target.classList.contains("answer-add")) {
+                        that.addInCreated(getArray, answerAdd, display, el)
 
+                        return that._edited
+
+
+                    }
+                    if (el.target.id === "edit-question-confirmed") {
+                        document.querySelector("#questions").removeEventListener("click", addAnswer)
+
+                    }
+                })
             }
         })
 
-        return edited
 
     }
-    addInCreated = (edited, answerAdd) => {
-            console.log(answerAdd)
-            console.log(edited)
-
-            edited.forEach(answer => {
-                if(Object.keys(answer).length > 2){
-                    console.log(edited.length)
-                    answerAdd = {
-                        "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
+    addInCreated = (edited, answerAdd, display, event) => {
+        let that = this
+        edited.forEach(answer => {
+            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
+                if (answer.type === "QCM") {
+                    console.log(answer)
+                    const answerEdit = {
+                        "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
                         "choix": document.querySelector("#choice-edited-question").value,
-                        "goodAnswer" : document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
+                        "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
                     }
 
-                }else{
-                    console.log("short")
-                    answerAdd = {
-                        "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
-                        "answer": document.querySelector("#choice-edited-question").value,
-                    }
+                    console.log(answer.table)
+                    answer.table.push(answerEdit)
+                    console.log(answer.table, "after push")
+                    return this._edited = answer.table
                 }
-            })
-            edited.push(answerAdd)
-        console.log(edited)
-        edited = []
-            document.querySelector("#choice-edited-question").value = "";
-            if (document.querySelector("#checkAnswer-edited-question")){
+            }
+
+            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
+                if (answer.type === "Réponse courte") {
+                    console.log("short!!!!!")
+                    const answerEdit = {
+                        "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
+                        "answer": document.querySelector("#choice-edited-question").value,
+
+                    }
+
+                    console.log(answer.table)
+                    answer.table.push(answerEdit)
+                    console.log(answer.table, "after push")
+                    return this._edited = answer.table
+                }
+            }
+
+        })
+
+
+
+
+        document.querySelector("#choice-edited-question").value = "";
+        if (document.querySelector("#checkAnswer-edited-question")){
             document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
-            console.log(edited)
+
+
+
+
 
     }
 
 
 
-    test = (del = "deletequestion") => {
+    test = () => {
         console.log("¯\\_(ツ)_/¯")
-        console.log(del)
+
     }
 }
