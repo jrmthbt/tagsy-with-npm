@@ -39,14 +39,11 @@ export class Controller {
         document.querySelector("body").addEventListener("click", function (event) {
 
             if (event.target.id === "form-add") {
-                that.handleAddQuestion()
-                that.clearEditor()
-                that.clearTableShort()
-                that.clearTableQcm()
-                that.model.bindChangeQuestion(that.onChangeQuestion)
-                that.onChangeQuestion(that.model.questionCreated)
-                that.onChangeQuestionTableQcm(that.model.questionCreated.slice())
-                that.onChangeQuestionTableShort(that.model.questionCreated.slice())
+                if(that.view.getElement("input[name=exercice]").checked){
+                if (!(that.view.getElement("#question-name").value === "" || undefined)) {
+                        that.addQuestion()
+                    }
+                }
             }
 
             if (event.target.classList.contains("delete-question")) {
@@ -81,6 +78,17 @@ export class Controller {
 
     let that = this;
 
+    }
+
+    addQuestion = () => {
+        this.handleAddQuestion()
+        this.clearEditor()
+        this.clearTableShort()
+        this.clearTableQcm()
+        this.model.bindChangeQuestion(this.onChangeQuestion)
+        this.onChangeQuestion(this.model.questionCreated)
+        this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
+        this.onChangeQuestionTableShort(this.model.questionCreated.slice())
     }
 
     displayQuestion =() => {

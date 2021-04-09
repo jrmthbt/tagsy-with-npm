@@ -200,6 +200,13 @@ export class View {
             }
         }
 
+        if (this.getElement('#tableEditing')) {
+
+            while (this.getElement('#tableEditing').firstChild) {
+                this.getElement('#tableEditing').removeChild(this.getElement('#tableEditing').firstChild)
+            }
+        }
+
 
         qcmAnswers.forEach(answer => {
             const tr = this.createElement('tr')
@@ -236,11 +243,18 @@ export class View {
 
             tr.append(tdinput, tdCheck, tdOption)
 
-            this.getElement('#tbody-root').append(tr);
+            if(this.getElement('#tbody-root')){
+                this.getElement("#tbody-root").append(tr);
+            }
+
+            if(this.getElement('#tableEditing')){
+                this.getElement("#tableEditing").append(tr);
+            }
         })
     }
 
     displayTableQcmCreated(qcmTable) {
+
 
         const table = qcmTable.filter(table => table.table)
 
@@ -292,8 +306,18 @@ export class View {
 
     displayTableShort(shortAnswer) {
 
-        while (this.getElement('#tbody-root').firstChild) {
-            this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
+        if (this.getElement('#tableEditing')) {
+
+            while (this.getElement('#tableEditing').firstChild) {
+                this.getElement('#tableEditing').removeChild(this.getElement('#tableEditing').firstChild)
+            }
+        }
+
+        if (this.getElement('#tbody-root')) {
+
+            while (this.getElement('#tbody-root').firstChild) {
+                this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
+            }
         }
         shortAnswer.forEach(answer => {
             const tr = this.createElement('tr')
@@ -320,11 +344,20 @@ export class View {
 
             tr.append(tdinput, tdOption)
 
-            this.getElement('#tbody-root').append(tr);
+            if(this.getElement('#tbody-root')){
+                this.getElement("#tbody-root").append(tr);
+            }
+
+            if(this.getElement('#tableEditing')){
+                this.getElement("#tableEditing").append(tr);
+            }
+
         })
     }
 
     displayTableShortCreated(shortAnswer) {
+
+
         const table = shortAnswer.filter(table => table.table)
 
         for (let i = 0; i < table.length; i++) {
@@ -957,6 +990,7 @@ export class View {
                 document.querySelectorAll(".focus-question button.disabled-edit").forEach(btn =>{
                     btn.classList.remove("disabled-edit")
                 })
+                event.target.parentElement.children[4].children[1].id = "tableEditing"
             }
             if ( event.target.parentElement.children[4].children[2].children[0].childElementCount === 3) {
                 event.target.parentElement.children[4].children[2].children[0].firstElementChild.firstElementChild.disabled = false;
@@ -1013,9 +1047,12 @@ export class View {
             if (question.id === event.target.parentElement.id){
                 document.querySelector("#questions").addEventListener("click",  function addAnswer (el){
                     if (el.target.classList.contains("answer-add")) {
-                        that.addInCreated(getArray, answerAdd, display, el)
+                        if (that.getElement("#choice-edited-question").value !== "") {
+                            that.addInCreated(getArray, answerAdd, display, el)
 
-                        return that._edited
+                            return that._edited
+                        }
+
 
 
                     }
@@ -1044,7 +1081,9 @@ export class View {
                     console.log(answer.table)
                     answer.table.push(answerEdit)
                     console.log(answer.table, "after push")
-                    return this._edited = answer.table
+                    that.displayTableQcm(answer.table)
+                    this._edited = answer.table
+                    return this._edited
                 }
             }
 
@@ -1060,22 +1099,18 @@ export class View {
                     console.log(answer.table)
                     answer.table.push(answerEdit)
                     console.log(answer.table, "after push")
-                    return this._edited = answer.table
+                    that.displayTableShort(answer.table)
+                    this._edited = answer.table
+                    return this._edited
                 }
             }
 
         })
 
 
-
-
         document.querySelector("#choice-edited-question").value = "";
         if (document.querySelector("#checkAnswer-edited-question")){
             document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
-
-
-
-
 
     }
 
