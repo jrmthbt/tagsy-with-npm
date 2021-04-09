@@ -39,11 +39,11 @@ export class Controller {
         document.querySelector("body").addEventListener("click", function (event) {
 
             if (event.target.id === "form-add") {
-                if(that.view.getElement("input[name=exercice]").checked){
-                if (!(that.view.getElement("#question-name").value === "" || undefined)) {
+                document.querySelectorAll("input[name=exercice]").forEach(radio =>{
+                    if(radio.checked){
                         that.addQuestion()
                     }
-                }
+                })
             }
 
             if (event.target.classList.contains("delete-question")) {

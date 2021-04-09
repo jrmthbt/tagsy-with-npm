@@ -239,16 +239,24 @@ export class View {
 
             tdinput.appendChild(input);
             tdCheck.append(check, labelToggle);
-            tdOption.append(editButton, deleteButton);
 
             tr.append(tdinput, tdCheck, tdOption)
 
             if(this.getElement('#tbody-root')){
                 this.getElement("#tbody-root").append(tr);
+                tdOption.append(editButton, deleteButton);
             }
 
             if(this.getElement('#tableEditing')){
                 this.getElement("#tableEditing").append(tr);
+                const editButtonEdit = this.createElement("button")
+                editButtonEdit.className = "btn-secondary edit-edited";
+                editButtonEdit.innerHTML = "Modifier"
+
+                const deleteButtonEdit = this.createElement("button")
+                deleteButtonEdit.className = "btn-tertiary delete-edited ";
+                deleteButtonEdit.innerHTML = "Supprimer";
+                tdOption.append(editButtonEdit, deleteButtonEdit);
             }
         })
     }
@@ -703,7 +711,7 @@ export class View {
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
-                                that._getArray(getArray, event, that._edited, display, that._edited)
+                                that._getArray(getArray, event, that._edited)
                                 that._countClick++;
                                 that._executed = true
 
@@ -1038,26 +1046,56 @@ export class View {
 
     }
 
-    _getArray (getArray, event, edited, display, array){
-        console.log("je passe beaucoup")
+    _getArray (getArray, event){
         let answerAdd = [];
         let that = this
-
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
-                document.querySelector("#questions").addEventListener("click",  function addAnswer (el){
-                    if (el.target.classList.contains("answer-add")) {
-                        if (that.getElement("#choice-edited-question").value !== "") {
-                            that.addInCreated(getArray, answerAdd, display, el)
+                document.querySelector("#questions").addEventListener("click",  function editQuestionTable (el){
+                    if (el.target.classList.contains("delete-edited")){
+                        that.test()
+                        that._guizmoSpeak("Voulez-vous Supprimer la ligne?")
+                        document.getElementById("message").addEventListener("click", function confirmDel(ele) {
+                            if (ele.target.classList.contains("btn-confirm")) {
+                                that.delInCreated(getArray, answerAdd, el)
+                                that._removeguizmoSpeech()
+                                this.removeEventListener("click", confirmDel)
+                            }
 
-                            return that._edited
-                        }
+                            if (ele.target.classList.contains("btn-cancel")) {
+                                that._removeguizmoSpeech()
+                                this.removeEventListener("click", confirmDel)
+                                getArray.forEach(question=>{
+                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
+                                        if (question.type === "QCM") {
+                                            that._edited = question.table
+                                            console.log(that._edited)
+                                        }
+                                    }
+                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
+                                        if (question.type === "Réponse courte") {
+                                            that._edited = question.table
+                                            console.log(that._edited)
+                                        }
+                                    }
+                                })
+
+
+                            }
+                        })
 
 
 
                     }
+                    if (el.target.classList.contains("answer-add")) {
+                        if (that.getElement("#choice-edited-question").value !== "") {
+                            that.addInCreated(getArray, answerAdd, el)
+                        }
+                    }
+
                     if (el.target.id === "edit-question-confirmed") {
-                        document.querySelector("#questions").removeEventListener("click", addAnswer)
+                        document.querySelector("#questions").removeEventListener("click", editQuestionTable)
+
 
                     }
                 })
@@ -1066,52 +1104,65 @@ export class View {
 
 
     }
-    addInCreated = (edited, answerAdd, display, event) => {
+    addInCreated = (edited, answerAdd, event) => {
         let that = this
         edited.forEach(answer => {
             if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
                 if (answer.type === "QCM") {
-                    console.log(answer)
                     const answerEdit = {
                         "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
                         "choix": document.querySelector("#choice-edited-question").value,
                         "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
                     }
 
-                    console.log(answer.table)
                     answer.table.push(answerEdit)
-                    console.log(answer.table, "after push")
                     that.displayTableQcm(answer.table)
                     this._edited = answer.table
-                    return this._edited
                 }
             }
 
             if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
                 if (answer.type === "Réponse courte") {
-                    console.log("short!!!!!")
                     const answerEdit = {
                         "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
                         "answer": document.querySelector("#choice-edited-question").value,
 
                     }
-
-                    console.log(answer.table)
                     answer.table.push(answerEdit)
-                    console.log(answer.table, "after push")
                     that.displayTableShort(answer.table)
                     this._edited = answer.table
-                    return this._edited
+
                 }
             }
 
         })
-
-
         document.querySelector("#choice-edited-question").value = "";
         if (document.querySelector("#checkAnswer-edited-question")){
             document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
 
+    }
+
+    delInCreated = (edited, answerAdd, event) => {
+        let that = this
+        that._edited =[]
+        edited.forEach(answer => {
+            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
+                if (answer.type === "QCM") {
+                    console.log("QCM")
+                    console.log(answer.table)
+                    let id = event.target.parentElement.parentElement.id
+                    console.log(id)
+
+
+                }
+            }
+            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
+                if (answer.type === "Réponse courte") {
+                    console.log("Short")
+
+                }
+            }
+        })
     }
 
 
