@@ -193,13 +193,6 @@ export class View {
     // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
 
-        if (this.getElement('#tbody-root')) {
-
-            while (this.getElement('#tbody-root').firstChild) {
-                this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
-            }
-        }
-
         if (this.getElement('#tableEditing')) {
 
             while (this.getElement('#tableEditing').firstChild) {
@@ -207,6 +200,12 @@ export class View {
             }
         }
 
+        if (this.getElement('#tbody-root')) {
+
+            while (this.getElement('#tbody-root').firstChild) {
+                this.getElement('#tbody-root').removeChild(this.getElement('#tbody-root').firstChild)
+            }
+        }
 
         qcmAnswers.forEach(answer => {
             const tr = this.createElement('tr')
@@ -348,16 +347,25 @@ export class View {
             deleteButton.innerHTML = "Supprimer";
 
             tdinput.appendChild(input);
-            tdOption.append(editButton, deleteButton);
+
 
             tr.append(tdinput, tdOption)
 
             if(this.getElement('#tbody-root')){
                 this.getElement("#tbody-root").append(tr);
+                tdOption.append(editButton, deleteButton);
             }
 
             if(this.getElement('#tableEditing')){
                 this.getElement("#tableEditing").append(tr);
+                const editButtonEdit = this.createElement("button")
+                editButtonEdit.className = "btn-secondary edit-edited";
+                editButtonEdit.innerHTML = "Modifier"
+
+                const deleteButtonEdit = this.createElement("button")
+                deleteButtonEdit.className = "btn-tertiary delete-edited ";
+                deleteButtonEdit.innerHTML = "Supprimer";
+                tdOption.append(editButtonEdit, deleteButtonEdit);
             }
 
         })
@@ -688,7 +696,7 @@ export class View {
         })
     }
 
-    binEditQuestion = (handler, event, getArray, display) => {
+    binEditQuestion = (handler, event, getArray) => {
         let that = this
             if (event.target.classList.contains("edit-question")){
                 if (that._countClick === 0) {
@@ -1051,14 +1059,22 @@ export class View {
         let that = this
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
-                document.querySelector("#questions").addEventListener("click",  function editQuestionTable (el){
+                document.querySelector("#questions").addEventListener("mousedown",  function editQuestion (el){
+                    if (el.target.classList.contains("answer-add")) {
+                        if (that.getElement("#choice-edited-question").value !== "") {
+                            that.addInCreated(getArray, answerAdd, el)
+                        }
+                    }
+
                     if (el.target.classList.contains("delete-edited")){
+                        console.log("del row in question")
                         that.test()
-                        that._guizmoSpeak("Voulez-vous Supprimer la ligne?")
+                        console.log("test passed")
+                        that._guizmoSpeak("Voulez-vous supprimer la ligne?")
                         document.getElementById("message").addEventListener("click", function confirmDel(ele) {
                             if (ele.target.classList.contains("btn-confirm")) {
-                                that.delInCreated(getArray, answerAdd, el)
                                 that._removeguizmoSpeech()
+                                that.delInCreated(getArray, answerAdd, el)
                                 this.removeEventListener("click", confirmDel)
                             }
 
@@ -1087,14 +1103,10 @@ export class View {
 
 
                     }
-                    if (el.target.classList.contains("answer-add")) {
-                        if (that.getElement("#choice-edited-question").value !== "") {
-                            that.addInCreated(getArray, answerAdd, el)
-                        }
-                    }
 
                     if (el.target.id === "edit-question-confirmed") {
-                        document.querySelector("#questions").removeEventListener("click", editQuestionTable)
+                        console.log("remove event")
+                        document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
 
 
                     }
@@ -1145,25 +1157,46 @@ export class View {
     delInCreated = (edited, answerAdd, event) => {
         let that = this
         that._edited =[]
-        edited.forEach(answer => {
-            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
+        console.log("delete row")
+        if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
+            edited.forEach(answer => {
                 if (answer.type === "QCM") {
                     console.log("QCM")
-                    console.log(answer.table)
-                    let id = event.target.parentElement.parentElement.id
-                    console.log(id)
+                    console.log(event)
+                    console.log(event.target.parentElement.parentElement.parentElement.parentElement)
+                    console.log(event.target.parentElement.parentElement.rowIndex)
+                    answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
+                    console.log(answer.table, "qcm delete")
+                    that.displayTableQcm(answer.table)
+                    this._edited = answer.table
+                    console.log(this._edited)
 
 
                 }
-            }
-            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
-                if (answer.type === "Réponse courte") {
-                    console.log("Short")
+            })
+        }
 
-                }
+        else if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
+                edited.forEach(answer => {
+                    if (answer.type === "Réponse courte") {
+                        console.log("Short")
+                        console.log(event.target.parentElement.parentElement.parentElement.parentElement)
+                        console.log(event.target.parentElement.parentElement.rowIndex)
+                        answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
+                        console.log(answer.table)
+                        that.displayTableShort(answer.table)
+                        this._edited = answer.table
+                        console.log(this._edited)
+                    }
+
+
+                })
             }
-        })
-    }
+
+}
+
+
+
 
 
 

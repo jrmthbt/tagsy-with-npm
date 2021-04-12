@@ -36,7 +36,7 @@ export class Controller {
 
 
 
-        document.querySelector("body").addEventListener("click", function (event) {
+        document.querySelector("body").addEventListener("mousedown", function (event) {
 
             if (event.target.id === "form-add") {
                 document.querySelectorAll("input[name=exercice]").forEach(radio =>{
