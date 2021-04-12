@@ -719,7 +719,7 @@ export class View {
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
-                                that._getArray(getArray, event, that._edited)
+                                that._getArray(getArray, event)
                                 that._countClick++;
                                 that._executed = true
 
@@ -890,6 +890,7 @@ export class View {
         document.querySelectorAll("button").forEach(btn => {
             btn.classList.remove("disabled")
         })
+
         document.querySelector("#save-info").disabled = false;
         document.querySelector("#counter").disabled = false;
         document.querySelector("#explication").disabled = false;
@@ -1059,28 +1060,43 @@ export class View {
         let that = this
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
+                console.log(question.id, event.target.parentElement.id)
+                console.log(that._edited)
                 document.querySelector("#questions").addEventListener("mousedown",  function editQuestion (el){
                     if (el.target.classList.contains("answer-add")) {
                         if (that.getElement("#choice-edited-question").value !== "") {
-                            that.addInCreated(getArray, answerAdd, el)
+                            that.addInCreated(getArray, el)
                         }
                     }
 
-                    if (el.target.classList.contains("delete-edited")){
-                        console.log("del row in question")
-                        that.test()
-                        console.log("test passed")
+                   /* if (el.target.classList.contains("delete-edited")){
                         that._guizmoSpeak("Voulez-vous supprimer la ligne?")
                         document.getElementById("message").addEventListener("click", function confirmDel(ele) {
                             if (ele.target.classList.contains("btn-confirm")) {
                                 that._removeguizmoSpeech()
-                                that.delInCreated(getArray, answerAdd, el)
+
+                                document.querySelectorAll("button.edit-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelectorAll("button.delete-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                that.delInCreated(getArray, el)
                                 this.removeEventListener("click", confirmDel)
                             }
 
                             if (ele.target.classList.contains("btn-cancel")) {
                                 that._removeguizmoSpeech()
                                 this.removeEventListener("click", confirmDel)
+
+                                document.querySelectorAll("button.edit-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelectorAll("button.delete-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
                                 getArray.forEach(question=>{
                                     if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
                                         if (question.type === "QCM") {
@@ -1102,11 +1118,61 @@ export class View {
 
 
 
-                    }
+                    }*/
+
+                   /* if (el.target.classList.contains("edit-edited")){
+                        that.test()
+                        that._guizmoSpeak("Voulez-vous modifier la ligne?")
+                        document.getElementById("message").addEventListener("click", function confirmEdit(ele) {
+
+                            if (ele.target.classList.contains("btn-confirm")) {
+                                that._removeguizmoSpeech()
+                                document.querySelectorAll("button.edit-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelectorAll("button.delete-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                that.editInCreated(getArray, el)
+                                this.removeEventListener("click", confirmEdit)
+                            }
+
+                            if (ele.target.classList.contains("btn-cancel")) {
+                                that._removeguizmoSpeech()
+                                this.removeEventListener("click", confirmEdit)
+                                document.querySelectorAll("button.edit-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelectorAll("button.delete-question").forEach(btn => {
+                                    btn.classList.add("disabled")
+                                })
+                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                getArray.forEach(question=>{
+                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
+                                        if (question.type === "QCM") {
+                                            that._edited = question.table
+                                            console.log(that._edited)
+                                        }
+                                    }
+                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
+                                        if (question.type === "Réponse courte") {
+                                            that._edited = question.table
+                                            console.log(that._edited)
+                                        }
+                                    }
+                                })
+
+
+                            }
+                        })
+
+                    }*/
 
                     if (el.target.id === "edit-question-confirmed") {
                         console.log("remove event")
                         document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
+
 
 
                     }
@@ -1116,34 +1182,44 @@ export class View {
 
 
     }
-    addInCreated = (edited, answerAdd, event) => {
+    addInCreated = (edited, event) => {
         let that = this
+        console.log(that._edited, "that edited before add ")
         edited.forEach(answer => {
             if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
-                if (answer.type === "QCM") {
-                    const answerEdit = {
-                        "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
-                        "choix": document.querySelector("#choice-edited-question").value,
-                        "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
+                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id){
+                    console.log("question X")
+                    if (answer.type === "QCM") {
+                        const answerEdit = {
+                            "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
+                            "choix": document.querySelector("#choice-edited-question").value,
+                            "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
+                        }
+                        console.log(answerEdit)
+                        console.log(this._edited, "1X")
+                        console.log(answer.table ,"2X")
+                       answer.table.push(answerEdit)
+                        that.displayTableQcm(answer.table)
+                        this._edited = answer.table
+                        console.log(this._edited, "3X")
+                        console.log(answer.table ,"4X")
                     }
-
-                    answer.table.push(answerEdit)
-                    that.displayTableQcm(answer.table)
-                    this._edited = answer.table
                 }
             }
 
             if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
-                if (answer.type === "Réponse courte") {
-                    const answerEdit = {
-                        "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
-                        "answer": document.querySelector("#choice-edited-question").value,
+                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
+                    if (answer.type === "Réponse courte") {
+                        const answerEdit = {
+                            "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
+                            "answer": document.querySelector("#choice-edited-question").value,
+
+                        }
+                        answer.table.push(answerEdit)
+                        that.displayTableShort(answer.table)
+                        this._edited = answer.table
 
                     }
-                    answer.table.push(answerEdit)
-                    that.displayTableShort(answer.table)
-                    this._edited = answer.table
-
                 }
             }
 
@@ -1154,7 +1230,15 @@ export class View {
 
     }
 
-    delInCreated = (edited, answerAdd, event) => {
+    editInCreated = (edited, event) => {
+        console.log("edit Question")
+        let that = this;
+        edited.forEach(answer => {
+            console.log(answer)
+        })
+    }
+
+    delInCreated = (edited, event) => {
         let that = this
         that._edited =[]
         console.log("delete row")
@@ -1194,11 +1278,6 @@ export class View {
             }
 
 }
-
-
-
-
-
 
     test = () => {
         console.log("¯\\_(ツ)_/¯")
