@@ -1069,7 +1069,7 @@ export class View {
                         }
                     }
 
-                   /* if (el.target.classList.contains("delete-edited")){
+                   if (el.target.classList.contains("delete-edited")){
                         that._guizmoSpeak("Voulez-vous supprimer la ligne?")
                         document.getElementById("message").addEventListener("click", function confirmDel(ele) {
                             if (ele.target.classList.contains("btn-confirm")) {
@@ -1118,7 +1118,7 @@ export class View {
 
 
 
-                    }*/
+                    }
 
                    /* if (el.target.classList.contains("edit-edited")){
                         that.test()
@@ -1241,38 +1241,42 @@ export class View {
     delInCreated = (edited, event) => {
         let that = this
         that._edited =[]
+        let getAnswer;
         console.log("delete row")
         if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
             edited.forEach(answer => {
-                if (answer.type === "QCM") {
-                    console.log("QCM")
-                    console.log(event)
-                    console.log(event.target.parentElement.parentElement.parentElement.parentElement)
-                    console.log(event.target.parentElement.parentElement.rowIndex)
-                    answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
-                    console.log(answer.table, "qcm delete")
-                    that.displayTableQcm(answer.table)
-                    this._edited = answer.table
-                    console.log(this._edited)
-
-
+                console.log(answer.id)
+                //console.log(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id)
+                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
+                    if (answer.type === "QCM") {
+                        console.log("QCM")
+                        console.log(event.target.parentElement.parentElement.rowIndex)
+                        answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
+                        console.log(answer.table, "qcm delete")
+                        getAnswer = answer.table
+                    }
                 }
             })
+            console.log(getAnswer)
+             that.displayTableQcm(getAnswer)
+             this._edited = getAnswer
+             console.log(this._edited)
         }
 
         else if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
                 edited.forEach(answer => {
-                    if (answer.type === "Réponse courte") {
-                        console.log("Short")
-                        console.log(event.target.parentElement.parentElement.parentElement.parentElement)
-                        console.log(event.target.parentElement.parentElement.rowIndex)
-                        answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
-                        console.log(answer.table)
-                        that.displayTableShort(answer.table)
-                        this._edited = answer.table
-                        console.log(this._edited)
+                    if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
+                        if (answer.type === "Réponse courte") {
+                            console.log("Short")
+                            console.log(event.target.parentElement.parentElement.parentElement.parentElement)
+                            console.log(event.target.parentElement.parentElement.rowIndex)
+                            answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
+                            console.log(answer.table)
+                            that.displayTableShort(answer.table)
+                            this._edited = answer.table
+                            console.log(this._edited)
+                        }
                     }
-
 
                 })
             }
