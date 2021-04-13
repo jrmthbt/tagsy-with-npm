@@ -1286,7 +1286,7 @@ export class View {
 }
 
     test = () => {
-        console.log("¯\\_(ツ)_/¯")
+        console.log("( °͡‿‿°͡❛)")
 
     }
 }
