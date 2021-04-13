@@ -1235,7 +1235,7 @@ export class View {
 
             } else if (el.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
                 edited[el.target.parentElement.parentElement.rowIndex - 1].answer = el.target.parentElement.parentElement.firstElementChild.firstElementChild.value
-                
+
             }
 
                 console.log(edited, "after edit")

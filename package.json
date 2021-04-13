@@ -18,6 +18,7 @@
     "push": "git push origin main"
   },
   "dependencies": {
+    "dompurify": "^2.2.7",
     "sass": "^1.32.8"
   },
   "devDependencies": {

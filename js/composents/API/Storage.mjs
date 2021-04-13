@@ -47,7 +47,7 @@ export const tagsyEditor = {
 
 export let callLS =() => {
     document.querySelectorAll("input").forEach(input => {
-        input.addEventListener("focusout", save)
+        input.addEventListener("keyup", save)
     })
 
     document.querySelectorAll("input[type=checkbox]").forEach(check => {
@@ -60,7 +60,7 @@ export let callLS =() => {
 
 export let stopLS = ()=>{
     document.querySelectorAll("input").forEach(input => {
-        input.removeEventListener("focusout", save);
+        input.removeEventListener("keyup", save);
 
     })
     document.querySelectorAll("input[type=checkbox]").forEach(check => {
