@@ -33,7 +33,6 @@ export class View {
         // si executed
         this._executed = false
         this.app = document.getElementById('root');
-        this.appQuestion = document.querySelectorAll(".app-question")
         this.exercice = ["qcm", "identification", "short-answer"];
         this._edited = [];
 
@@ -1056,11 +1055,11 @@ export class View {
     }
 
     _getArray (getArray, event){
-        let answerAdd = [];
         let that = this
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
                 console.log(question.id, event.target.parentElement.id)
+                that._edited = question.table
                 console.log(that._edited)
                 document.querySelector("#questions").addEventListener("mousedown",  function editQuestion (el){
                     if (el.target.classList.contains("answer-add")) {
@@ -1171,6 +1170,7 @@ export class View {
 
                     if (el.target.id === "edit-question-confirmed") {
                         console.log("remove event")
+                        console.log(getArray)
                         document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
 
 
@@ -1230,13 +1230,15 @@ export class View {
 
     }
 
-    editInCreated = (edited, event) => {
+   /* editInCreated = (edited, event) => {
         console.log("edit Question")
         let that = this;
         edited.forEach(answer => {
             console.log(answer)
         })
     }
+
+    */
 
     delInCreated = (edited, event) => {
         let that = this
