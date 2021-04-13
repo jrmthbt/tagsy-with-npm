@@ -29,7 +29,22 @@ export class Controller {
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
             }
-            callLS()
+            if (event.target.id === "save-info"){
+                if (event.target.checked){
+                    console.log("ls")
+                    let save = { "saveLS" : event.target.checked}
+                    let store = JSON.stringify(save)
+                    sessionStorage.clear()
+                    localStorage.setItem("tagsy", store)
+                }
+                else {
+                    console.log("SS")
+                localStorage.clear()
+                    let save = {"saveLS": event.target.checked}
+                    let store = JSON.stringify(save)
+                    sessionStorage.setItem("tagsy", store)
+                }
+            }
 
 
         })

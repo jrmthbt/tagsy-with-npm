@@ -5,13 +5,28 @@ export class Model {
 
     // get in sessionStorage
     constructor() {
-        this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
-        this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
-        this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
-        this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
-        this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
-// counter
-        this.count = this.questionCreated.length;
+        if (sessionStorage.length > 0 ) {
+            console.log("get SS")
+            this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
+            this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
+            this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
+            this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
+            this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
+            // counter
+            this.count = this.questionCreated.length;
+
+        }
+        if (localStorage.length > 0){
+            console.log("get LS")
+            this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
+            this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
+            this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
+            this.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
+            this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
+            // counter
+            this.count = this.questionCreated.length;
+        }
+
     }
 
     // crud fonction read
