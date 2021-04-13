@@ -30,6 +30,7 @@ export class View {
 
         // counter de click
         this._countClick = 0
+        this._countClickEdit = 0
         // si executed
         this._executed = false
         this.app = document.getElementById('root');
@@ -533,7 +534,7 @@ export class View {
             if (event.target.classList.contains('edit')) {
                 let that = this
                 if (this._countClick === 0) {
-                    this._guizmoSpeak("Voulez-vous modifier la ligne?", "input", "button")
+                    this._guizmoSpeak("Voulez-vous modifier la ligne?")
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
                         if (el.target.classList.contains("btn-confirm")) {
@@ -1096,20 +1097,7 @@ export class View {
                                     btn.classList.add("disabled")
                                 })
                                 document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                getArray.forEach(question=>{
-                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
-                                        if (question.type === "QCM") {
-                                            that._edited = question.table
-                                            console.log(that._edited)
-                                        }
-                                    }
-                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
-                                        if (question.type === "Réponse courte") {
-                                            that._edited = question.table
-                                            console.log(that._edited)
-                                        }
-                                    }
-                                })
+                                console.log(that._edited)
 
 
                             }
@@ -1120,57 +1108,48 @@ export class View {
                     }
 
                     if (el.target.classList.contains("edit-edited")){
-                        that.test()
-                        that._guizmoSpeak("Voulez-vous modifier la ligne?")
-                        document.getElementById("message").addEventListener("click", function confirmEdit(ele) {
+                        if (that._countClickEdit === 0 ) {
+                            that._guizmoSpeak("Voulez-vous modifier la ligne?")
+                            document.getElementById("message").addEventListener("click", function confirmEdit(ele) {
 
-                            if (ele.target.classList.contains("btn-confirm")) {
-                                that._removeguizmoSpeech()
-                                document.querySelectorAll("button.edit-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelectorAll("button.delete-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                that.editInCreated(that._edited, el)
-                                this.removeEventListener("click", confirmEdit)
-                            }
+                                if (ele.target.classList.contains("btn-confirm")) {
 
-                            if (ele.target.classList.contains("btn-cancel")) {
-                                that._removeguizmoSpeech()
-                                this.removeEventListener("click", confirmEdit)
-                                document.querySelectorAll("button.edit-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelectorAll("button.delete-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                getArray.forEach(question=>{
-                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
-                                        if (question.type === "QCM") {
-                                            that._edited = question.table
-                                            console.log(that._edited)
-                                        }
-                                    }
-                                    if(el.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
-                                        if (question.type === "Réponse courte") {
-                                            that._edited = question.table
-                                            console.log(that._edited)
-                                        }
-                                    }
-                                })
+                                    that._removeguizmoSpeech()
+                                    document.querySelectorAll("button.edit-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelectorAll("button.delete-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                    that._countClickEdit++
+                                    that.editInCreated(that._edited, el)
+                                    this.removeEventListener("click", confirmEdit)
+                                }
+
+                                if (ele.target.classList.contains("btn-cancel")) {
+                                    that._removeguizmoSpeech()
+                                    this.removeEventListener("click", confirmEdit)
+                                    console.log(that._edited)
+                                    document.querySelectorAll("button.edit-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelectorAll("button.delete-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
 
 
-                            }
-                        })
+                                }
+                            })
+                        }
 
                     }
 
                     if (el.target.id === "edit-question-confirmed") {
                         console.log("remove event")
                         console.log(that._edited)
+                        that._countClickEdit = 0
                         document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
 
 
@@ -1225,9 +1204,56 @@ export class View {
     }
 
     editInCreated = (edited, event) => {
-        console.log("edit Question")
+        console.log("edit Question");
         let that = this;
-        console.log(edited)
+        console.log(edited);
+        console.log(that._countClickEdit);
+        if (that._countClickEdit === 1){
+
+            event.target.parentElement.parentElement.classList.add("focus");
+            event.target.id = "edit-row-confirmed";
+            event.target.innerHTML = "Confirmer";
+            document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.add("disabled"));
+            document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.add("disabled"));
+            document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.add("disabled"));
+            that.getElement("#edit-row-confirmed").classList.remove("disabled");
+            that.getElement("#choice-edited-question").classList.add("disabled");
+            event.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = false
+            if (event.target.parentElement.parentElement.childElementCount > 2) {
+                that.getElement("#checkAnswer-edited-question").classList.add("disabled");
+                event.target.parentElement.parentElement.children[1].children[1].id = "check-edit"
+                that._toggleSwitch(that._executed)
+                that._executed = true;
+            }
+        }
+
+        that.getElement("#edit-row-confirmed").addEventListener("click", function confirm (el) {
+            if (el.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
+                edited[el.target.parentElement.parentElement.rowIndex - 1].choix = el.target.parentElement.parentElement.firstElementChild.firstElementChild.value
+                edited[el.target.parentElement.parentElement.rowIndex - 1].goodAnswer = el.target.parentElement.parentElement.children[1].firstElementChild.checked ? "checked" : false;
+
+
+            } else if (el.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
+                edited[el.target.parentElement.parentElement.rowIndex - 1].answer = el.target.parentElement.parentElement.firstElementChild.firstElementChild.value
+                
+            }
+
+                console.log(edited, "after edit")
+                that._countClickEdit = 0
+                event.target.parentElement.parentElement.classList.remove("focus");
+                event.target.id = "";
+                event.target.innerHTML = "Modifier";
+                document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.remove("disabled"));
+                that.getElement("#choice-edited-question").classList.remove("disabled");
+                event.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
+                if (event.target.parentElement.parentElement.childElementCount > 2) {
+                    that.getElement("#checkAnswer-edited-question").classList.remove("disabled");
+                    event.target.parentElement.parentElement.children[1].children[1].id = ""
+                }
+
+            })
     }
 
 
@@ -1255,6 +1281,5 @@ export class View {
 
     test = () => {
         console.log("( °͡‿‿°͡❛)")
-
     }
 }
