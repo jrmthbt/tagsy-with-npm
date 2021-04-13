@@ -4,7 +4,5 @@ export default {
     input: ['js/app.js'],
     output: [
         {file: "dist/js/app.js", format: "iife"},
-        {file: "dist/min/js/app.min.js", format: "iife", plugins: [terser ()]}
-
-    ],
+        {file: "dist/min/js/app.min.js", format: "iife", plugins: [terser ()]}],
 }
