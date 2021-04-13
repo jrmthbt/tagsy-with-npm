@@ -1064,7 +1064,7 @@ export class View {
                 document.querySelector("#questions").addEventListener("mousedown",  function editQuestion (el){
                     if (el.target.classList.contains("answer-add")) {
                         if (that.getElement("#choice-edited-question").value !== "") {
-                            that.addInCreated(getArray, el)
+                            that.addInCreated(that._edited, el)
                         }
                     }
 
@@ -1081,7 +1081,7 @@ export class View {
                                     btn.classList.add("disabled")
                                 })
                                 document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                that.delInCreated(getArray, el)
+                                that.delInCreated(that._edited, el)
                                 this.removeEventListener("click", confirmDel)
                             }
 
@@ -1119,7 +1119,7 @@ export class View {
 
                     }
 
-                   /* if (el.target.classList.contains("edit-edited")){
+                    if (el.target.classList.contains("edit-edited")){
                         that.test()
                         that._guizmoSpeak("Voulez-vous modifier la ligne?")
                         document.getElementById("message").addEventListener("click", function confirmEdit(ele) {
@@ -1133,7 +1133,7 @@ export class View {
                                     btn.classList.add("disabled")
                                 })
                                 document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                that.editInCreated(getArray, el)
+                                that.editInCreated(that._edited, el)
                                 this.removeEventListener("click", confirmEdit)
                             }
 
@@ -1166,11 +1166,11 @@ export class View {
                             }
                         })
 
-                    }*/
+                    }
 
                     if (el.target.id === "edit-question-confirmed") {
                         console.log("remove event")
-                        console.log(getArray)
+                        console.log(that._edited)
                         document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
 
 
@@ -1185,105 +1185,73 @@ export class View {
     addInCreated = (edited, event) => {
         let that = this
         console.log(that._edited, "that edited before add ")
-        edited.forEach(answer => {
-            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("QCM")) {
-                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id){
-                    console.log("question X")
-                    if (answer.type === "QCM") {
-                        const answerEdit = {
-                            "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
-                            "choix": document.querySelector("#choice-edited-question").value,
-                            "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
-                        }
-                        console.log(answerEdit)
-                        console.log(this._edited, "1X")
-                        console.log(answer.table ,"2X")
-                       answer.table.push(answerEdit)
-                        that.displayTableQcm(answer.table)
-                        this._edited = answer.table
-                        console.log(this._edited, "3X")
-                        console.log(answer.table ,"4X")
-                    }
-                }
+        console.log(edited)
+
+        if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM"))
+        {
+            const answerEdit = {
+                "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
+                "choix": document.querySelector("#choice-edited-question").value,
+                "goodAnswer": document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked ? "checked" : false
             }
 
-            if(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].classList.contains("courte")) {
-                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
-                    if (answer.type === "Réponse courte") {
-                        const answerEdit = {
-                            "id": answer.table.length > 0 ? answer.table[answer.table.length - 1].id + 1 : 1,
-                            "answer": document.querySelector("#choice-edited-question").value,
 
-                        }
-                        answer.table.push(answerEdit)
-                        that.displayTableShort(answer.table)
-                        this._edited = answer.table
-
-                    }
-                }
+            console.log(answerEdit)
+            console.log(edited, "before push")
+            edited.push(answerEdit)
+            that.displayTableQcm(edited)
+            console.log(this._edited, "after push")
+        }
+        if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort"))
+        {
+            const answerEdit = {
+                "id": edited.length > 0 ? edited[edited.length - 1].id + 1 : 1,
+                "answer": document.querySelector("#choice-edited-question").value,
             }
 
-        })
+
+            console.log(answerEdit)
+            console.log(edited, "before push")
+            edited.push(answerEdit)
+            that.displayTableShort(edited)
+            console.log(this._edited, "after push")
+        }
+
+
         document.querySelector("#choice-edited-question").value = "";
         if (document.querySelector("#checkAnswer-edited-question")){
             document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
 
     }
 
-   /* editInCreated = (edited, event) => {
+    editInCreated = (edited, event) => {
         console.log("edit Question")
         let that = this;
-        edited.forEach(answer => {
-            console.log(answer)
-        })
+        console.log(edited)
     }
 
-    */
+
 
     delInCreated = (edited, event) => {
         let that = this
-        that._edited =[]
-        let getAnswer;
+        console.log(that._edited, "that edited before add ")
+        console.log(edited)
         console.log("delete row")
-        if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
-            edited.forEach(answer => {
-                console.log(answer.id)
-                //console.log(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id)
-                if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
-                    if (answer.type === "QCM") {
-                        console.log("QCM")
-                        console.log(event.target.parentElement.parentElement.rowIndex)
-                        answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
-                        console.log(answer.table, "qcm delete")
-                        getAnswer = answer.table
-                    }
-                }
-            })
-            console.log(getAnswer)
-             that.displayTableQcm(getAnswer)
-             this._edited = getAnswer
-             console.log(this._edited)
+
+        edited.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
+        console.log(edited, "qcm delete")
+
+        if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
+            that.displayTableQcm(edited)
+        }
+        else if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
+            that.displayTableShort(edited)
+
         }
 
-        else if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
-                edited.forEach(answer => {
-                    if (answer.id === event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id) {
-                        if (answer.type === "Réponse courte") {
-                            console.log("Short")
-                            console.log(event.target.parentElement.parentElement.parentElement.parentElement)
-                            console.log(event.target.parentElement.parentElement.rowIndex)
-                            answer.table.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
-                            console.log(answer.table)
-                            that.displayTableShort(answer.table)
-                            this._edited = answer.table
-                            console.log(this._edited)
-                        }
-                    }
+    }
 
-                })
-            }
 
-}
 
     test = () => {
         console.log("( °͡‿‿°͡❛)")
