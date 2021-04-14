@@ -1,5 +1,6 @@
 //MVC - controller
-import {callLS} from "./API/Storage.mjs";
+import {callSS, stopSS} from "./API/sessionStorage.mjs";
+import {callLS, stopLS} from "./API/localStorage.mjs";
 
 export class Controller {
     constructor(model, view) {
@@ -7,8 +8,17 @@ export class Controller {
         this.view = view;
         window.onload =()=> {
             if (!that.view.getElement("#save-info").checked){
-                callLS()
+                callSS()
+                console.log("session")
+
             }
+            else{
+                console.log("local")
+                callLS()
+
+                document.getElementById("save-info").checked = this.model.tagsy.autoSave
+            }
+
         }
         document.querySelector("body").addEventListener("change", event =>{
             if (event.target.id === this.view.exercice[0]){
@@ -32,6 +42,52 @@ export class Controller {
                 this.clearTableQcm();
             }
 
+            if (event.target.id === "save-info"){
+                if (event.target.checked){
+                    console.log("local actif")
+                    const tagsy = JSON.parse(sessionStorage.getItem("tagsy")) || []
+                    const question = JSON.parse(sessionStorage.getItem("questionCreated")) || []
+                    const qcm = JSON.parse(sessionStorage.getItem("qcmAnswers")) || []
+                    const short = JSON.parse(sessionStorage.getItem("shortAnswer")) || []
+                    const editor = JSON.parse(sessionStorage.getItem("tagsyEditor")) || []
+                    localStorage.setItem("tagsy", JSON.stringify( tagsy))
+                    localStorage.setItem("qcmAnswers", JSON.stringify(qcm))
+                    localStorage.setItem("shortAnswers", JSON.stringify(short))
+                    localStorage.setItem("tagsyEditor", JSON.stringify(editor))
+                    localStorage.setItem("questionCreated", JSON.stringify(question))
+                    sessionStorage.clear()
+                    this.model.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
+                    this.model.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
+                    this.model.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
+                    this.model.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
+                    console.log(this.model.questionCreated)
+                    this.model.tagsy = localStorage.getItem('tagsy') || [];
+                    stopSS()
+                    callLS()
+                }
+                else{
+                    /*const tagsy = localStorage.getItem("tagsy") || []
+                    const question = localStorage.getItem("questionCreated") || []
+                    const qcm = localStorage.getItem("qcmAnswers") || []
+                    const short = localStorage.getItem("shortAnswer") || []
+                    const editor = localStorage.getItem("tagsyEditor") || []
+                    sessionStorage.setItem("tagsy", tagsy)
+                    sessionStorage.setItem("questionCreated", question)
+                    sessionStorage.setItem("qcmAnswers", qcm)
+                    sessionStorage.setItem("shortAnswers", short)
+                    sessionStorage.setItem("tagsyEditor", editor)
+                    localStorage.clear()
+                    this.model.qcmAnswers = sessionStorage.getItem('qcmAnswers') || [];
+                    this.model.shortAnswers = sessionStorage.getItem('shortAnswers') || [];
+                    this.model.tagsyEditor = sessionStorage.getItem('tagsyEditor') || [];
+                    this.model.questionCreated = sessionStorage.getItem("questionCreated") || [];
+                    this.model.tagsy =sessionStorage.getItem('tagsy') || [];
+                     */
+                    stopLS()
+                    callSS()
+                }
+            }
+
 
         })
 
@@ -43,10 +99,7 @@ export class Controller {
                 document.querySelectorAll("input[name=exercice]").forEach(radio =>{
                     if(radio.checked){
                         that.addQuestion()
-                        let dirty;
                         document.querySelectorAll("input[type=text]").forEach(input =>{
-                            dirty = input
-                            DOMPurify.sanitize(dirty)
                         })
 
                     }
@@ -100,6 +153,7 @@ export class Controller {
 
     displayQuestion =() => {
         this.model.bindChangeQuestion(this.onChangeQuestion)
+        console.log(this.model.questionCreated)
         this.onChangeQuestion(this.model.questionCreated)
         this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
         this.onChangeQuestionTableShort(this.model.questionCreated.slice())
@@ -131,7 +185,6 @@ export class Controller {
 
     handleAddQuestion = () => {
         this.model.addQuestion()
-        console.table(this.model.questionCreated)
     }
     // controller qui edit le model
     handleEditAnswer = (id, answerText, answerCheck) => {
@@ -162,13 +215,11 @@ export class Controller {
     clearTableQcm = () => {
         this.model.qcmAnswers = [];
         localStorage.removeItem("qcmAnswers")
-        console.table(this.model.qcmAnswers)
 
     }
     clearTableShort = () => {
         this.model.shortAnswers = [];
        localStorage.removeItem("shortAnswers")
-        console.table(this.model.shortAnswers);
     }
 
     clearEditor = () => {
@@ -176,30 +227,4 @@ export class Controller {
         this.view.getElement("#explication").checked = false;
         this.view.getElement("#explication-text").value= "";
     }
-
-    _getDataSaved = () => {
-        document.getElementById("save-info").checked = this.model.tagsy.autoSave;
-        document.getElementById("qcm").checked = this.model.tagsyEditor.qcm;
-        document.getElementById("identification").checked = this.model.tagsyEditor.identification;
-        document.getElementById("short-answer").checked = this.model.tagsyEditor.shortAnswer;
-        document.getElementById("explication").checked = this.model.tagsyEditor.explanationCheck;
-        if (document.getElementById("explication").checked){
-            document.getElementById("explication-text").classList.remove("display-none")
-        }
-        if (this.model.tagsyEditor.questionName){
-            document.getElementById("question-name").value = this.model.tagsyEditor.questionName;
-        }
-        if (this.model.tagsyEditor.explanation){
-            document.getElementById("explication-text").value = this.model.tagsyEditor.explanation;
-        }
-
-
-    }
-
-
-
-
-
-
-
 }

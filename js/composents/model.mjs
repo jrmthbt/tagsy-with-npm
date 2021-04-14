@@ -14,16 +14,8 @@ export class Model {
             // counter
             this.count = this.questionCreated.length;
 
-        if (localStorage.length > 0){
-            console.log("get LS")
-            this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
-            this.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
-            this.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
-            this.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
-            this.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
-            // counter
-            this.count = this.questionCreated.length;
-        }
+
+
 
     }
 
@@ -47,8 +39,10 @@ export class Model {
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
         if (localStorage.length > 0){
+            console.log("local model")
             localStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
         }else {
+            console.log("session storage")
             sessionStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
         }
     }
@@ -97,7 +91,8 @@ export class Model {
     }
 // Questions
     addQuestion(){
-        let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor"))
+        let getEditor = JSON.parse(sessionStorage.getItem("tagsyEditor")) || JSON.parse(localStorage.getItem("tagsyEditor"))
+        console.log(getEditor, "model get editor")
         let that = this
         if (getEditor !== null) {
             that.count++
@@ -110,6 +105,7 @@ export class Model {
                 "explication": getEditor.explanationCheck ? getEditor.explanation : "",
             }
             console.log(question)
+            console.log(this.questionCreated, "model add question")
             this.questionCreated.push(question)
             this._commitQuestion(this.questionCreated)
             if (localStorage.length > 0){

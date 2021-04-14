@@ -12,7 +12,7 @@ export const tagsyEditor = {
     "questionName" : document.getElementById("question-name"),
     "explanationCheck" : document.getElementById("explication"),
     "explanation" : document.getElementById("explication-text"),
-    "table" : JSON.parse(sessionStorage.getItem("qcmAnswers"))|| JSON.parse(sessionStorage.getItem("shotAnswers ")),
+    "table" : localStorage.getItem("qcmAnswers")|| localStorage.getItem("shotAnswers "),
 
 }
 
@@ -36,10 +36,10 @@ export const tagsyEditor = {
 
     }
     let store = JSON.stringify(tagsyData);
-    sessionStorage.setItem("tagsy", store);
+    localStorage.setItem("tagsy", store);
 
     let editor = JSON.stringify(tagsyEditorData)
-     sessionStorage.setItem("tagsyEditor", editor)
+     localStorage.setItem("tagsyEditor", editor)
 
 
 }
@@ -47,32 +47,33 @@ export const tagsyEditor = {
 
 export let callLS =() => {
     document.querySelectorAll("input").forEach(input => {
-        input.addEventListener("keyup", save)
+        input.addEventListener("keyup", saveLS)
     })
 
     document.querySelectorAll("input[type=checkbox]").forEach(check => {
-        check.addEventListener("change", save)
+        check.addEventListener("change", saveLS)
     })
     document.querySelectorAll("button").forEach(btn=>{
-        btn.addEventListener("click", save)
+        btn.addEventListener("click", saveLS)
     })
 }
 
-export let stopLS = ()=>{
-    document.querySelectorAll("input").forEach(input => {
-        input.removeEventListener("keyup", save);
+ export let stopLS = ()=>{
+     document.querySelectorAll("input").forEach(input => {
+         input.removeEventListener("keyup", saveLS);
 
-    })
-    document.querySelectorAll("input[type=checkbox]").forEach(check => {
-        check.removeEventListener("change", save)
-    })
+     })
+     document.querySelectorAll("input[type=checkbox]").forEach(check => {
+         check.removeEventListener("change", saveLS)
+     })
 
-    document.querySelectorAll("button").forEach(btn=>{
-        btn.removeEventListener("click", save)
-    })
-}
+     document.querySelectorAll("button").forEach(btn=>{
+         btn.removeEventListener("click", saveLS)
+     })
+ }
 
-let save = () => {
+
+let saveLS = () => {
      saveTagsy(tagsy, tagsyEditor);
 
 }
