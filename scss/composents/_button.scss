@@ -1,5 +1,6 @@
 @import "variables";
 @import "color";
+@import "responsive_mixins";
 
 // style of button
 
@@ -12,6 +13,13 @@
 
     @include responsive_laptop{
       font-size: 15px !important;
+    }
+    @include responsive_computer{
+      font-size: 20px !important;
+    }
+
+    #id-form{
+      margin-top: 20px;
     }
   }
 
@@ -62,5 +70,10 @@
     @include responsive_laptop{
       top: 35px;
       left: -465px;
+    }
+    @include responsive_computer{
+      top: 50px;
+      left: -740px;
+      margin-bottom: 55px;
     }
   }

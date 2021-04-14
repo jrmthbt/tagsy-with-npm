@@ -8,4 +8,7 @@
   @include responsive_laptop{
     width: 100px;
   }
+  @include responsive_computer{
+    width: 125px;
+  }
 }

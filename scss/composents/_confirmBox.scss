@@ -56,4 +56,27 @@
         left: 10px;
       }
     }
+    @include responsive_computer{
+      right: 80px;
+      font-size: 25px !important;
+    }
+    .fa-comment-alt{
+      right: 40px;
+      bottom: 150px;
+      font-size: 250px;
+      width: auto;
+    }
+
+    p#caution{
+      top: -120px!important;
+      left: -50px !important;
+      font-size: 20px !important;
+      font-weight: 200 !important;
+      width: 225px;
+    }
+
+    button{
+      top: -50px;
+      left: 15px;
+    }
   }

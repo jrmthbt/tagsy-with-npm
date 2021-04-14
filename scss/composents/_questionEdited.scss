@@ -12,6 +12,10 @@ div#questions{
   @include responsive_laptop{
     width: $container_laptop_800;
   }
+  @include responsive_computer{
+    width: $container_computer_1200;
+    margin-top: 25px;
+  }
 
   button.delete-question{
     position: absolute;
@@ -20,6 +24,9 @@ div#questions{
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       content: "\f1f8";
+    }
+    @include responsive_computer{
+      font-size: 28px !important;
     }
   }
   button.edit-question{
@@ -31,8 +38,12 @@ div#questions{
       content: "\f044";
     }
     @include responsive_laptop{
-
       right: 30px;
+    }
+
+    @include responsive_computer{
+      font-size: 28px !important;
+      right: 50px;
     }
   }
 
@@ -54,6 +65,9 @@ div#questions{
    @include responsive_laptop{
      font-size: 20px !important;
    }
+     @include responsive_computer{
+       font-size: 25px !important;
+     }
  }
   input.question-name, input.explication-edited{
     border: 1px solid $blue;
@@ -63,18 +77,31 @@ div#questions{
       width: 785px;
       margin-top: 20px;
     }
+    @include responsive_computer{
+      width: 1185px;
+      margin-top: 25px;
+    }
   }
 
   P.explication-name{
     width: auto;
     position: absolute;
     left: 0;
+
+    @include responsive_computer {
+      font-size: 25px !important;
+    }
+
   }
 
   label.explication-edited-label{
     position: relative;
     left: 115px;
     top: 3px;
+
+    @include responsive_computer{
+      left: 190px;
+    }
   }
 
   hr{

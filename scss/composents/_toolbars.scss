@@ -1,5 +1,6 @@
 @import "color";
 @import "variables";
+@import "responsive_mixins";
 
 /* ------ toolsbar ------- */
 
@@ -20,6 +21,12 @@
     top: 75px;
   }
 
+  @include responsive_computer{
+    width: $container_computer_1200;
+    top: 125px;
+    height: 75px;
+  }
+
   .tools {
     width: 50px;
     height: 50px;
@@ -30,6 +37,12 @@
     border-radius: $border_radius_5;
     transition: $trans_3;
 
+    @include responsive_computer {
+      width: 75px;
+      height: 75px;
+      font-size: 25px !important;
+    }
+
     &:hover {
       color: #fff;
       background-color: #6468da;
@@ -37,10 +50,16 @@
 
     #undo, #redo, {
       margin-top: 17px;
+      @include responsive_computer {
+        margin-top: 25px;
+      }
     }
 
     .tags {
       margin-top: 15px;
+      @include responsive_computer{
+        margin-top: 23px;
+      }
     }
   }
 
@@ -51,6 +70,11 @@
     background-color: $purple;
     float: left;
     margin: 12px 0 0 -10px;
+
+    @include responsive_computer{
+      height: 50px;
+      width: 2px;
+    }
   }
 
 
@@ -61,6 +85,15 @@
       margin: 16px 0 0 0;
       text-align: left;
     }
+    @include responsive_computer{
+      margin: 24px 0 0 0;
+      font-size: 25px !important;
+      label{
+        margin-top: -11px;
+        margin-left: 205px;
+      }
+    }
+
 
   }
 }

@@ -5,8 +5,7 @@ export class Model {
 
     // get in sessionStorage
     constructor() {
-        if (sessionStorage.length > 0 ) {
-            console.log("get SS")
+
             this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
             this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
             this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
@@ -15,7 +14,6 @@ export class Model {
             // counter
             this.count = this.questionCreated.length;
 
-        }
         if (localStorage.length > 0){
             console.log("get LS")
             this.qcmAnswers = JSON.parse(localStorage.getItem('qcmAnswers')) || [];
@@ -48,17 +46,30 @@ export class Model {
     // array QCM
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
-        sessionStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
+        if (localStorage.length > 0){
+            localStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
+        }else {
+            sessionStorage.setItem('qcmAnswers', JSON.stringify(qcmAnswers))
+        }
     }
 // array ShortAnswer
     _commitShort(shortAnswers){
         this.onChangeShort(shortAnswers)
-        sessionStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
+        if (localStorage.length > 0){
+            localStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
+        }else {
+            sessionStorage.setItem("shortAnswers", JSON.stringify(shortAnswers))
+        }
+
     }
 // Questions
     _commitQuestion (questionCreated){
         this.onChangeQuestion(questionCreated)
-        sessionStorage.setItem("questionCreated", JSON.stringify(questionCreated))
+        if (localStorage.length > 0){
+            localStorage.setItem("questionCreated", JSON.stringify(questionCreated))
+        }else {
+            sessionStorage.setItem("questionCreated", JSON.stringify(questionCreated))
+        }
     }
 
 
@@ -101,9 +112,16 @@ export class Model {
             console.log(question)
             this.questionCreated.push(question)
             this._commitQuestion(this.questionCreated)
-            sessionStorage.removeItem("qcmAnswers")
-            sessionStorage.removeItem("shortAnswers")
-            sessionStorage.removeItem("tagsyEditor")
+            if (localStorage.length > 0){
+                localStorage.removeItem("qcmAnswers")
+                localStorage.removeItem("shortAnswers")
+                localStorage.removeItem("tagsyEditor")
+            }
+        else {
+                sessionStorage.removeItem("qcmAnswers")
+                sessionStorage.removeItem("shortAnswers")
+                sessionStorage.removeItem("tagsyEditor")
+            }
         }
     }
 

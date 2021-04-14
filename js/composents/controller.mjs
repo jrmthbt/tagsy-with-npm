@@ -5,9 +5,11 @@ export class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
-        document.body.addEventListener("load", function (){
-            localStorage.clear();
-        })
+        window.onload =()=> {
+            if (!that.view.getElement("#save-info").checked){
+                callLS()
+            }
+        }
         document.querySelector("body").addEventListener("change", event =>{
             if (event.target.id === this.view.exercice[0]){
                 this.model.bindChangeQcmAnswer(this.onChange)
@@ -29,22 +31,6 @@ export class Controller {
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
             }
-            if (event.target.id === "save-info"){
-                if (event.target.checked){
-                    console.log("ls")
-                    let save = { "saveLS" : event.target.checked}
-                    let store = JSON.stringify(save)
-                    sessionStorage.clear()
-                    localStorage.setItem("tagsy", store)
-                }
-                else {
-                    console.log("SS")
-                localStorage.clear()
-                    let save = {"saveLS": event.target.checked}
-                    let store = JSON.stringify(save)
-                    sessionStorage.setItem("tagsy", store)
-                }
-            }
 
 
         })
@@ -57,6 +43,12 @@ export class Controller {
                 document.querySelectorAll("input[name=exercice]").forEach(radio =>{
                     if(radio.checked){
                         that.addQuestion()
+                        let dirty;
+                        document.querySelectorAll("input[type=text]").forEach(input =>{
+                            dirty = input
+                            DOMPurify.sanitize(dirty)
+                        })
+
                     }
                 })
             }

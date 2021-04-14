@@ -14,6 +14,10 @@ form{
       font-size: 20px !important;
       margin-right: 10px;
     }
+    @include responsive_computer{
+      font-size: 30px !important;
+      margin-right: 15px;
+    }
   }
 
   #nbr-question{
@@ -21,6 +25,9 @@ form{
     color: $blue;
     @include responsive_laptop{
       font-size: 15px !important;
+    }
+    @include responsive_computer{
+      font-size: 25px !important;
     }
   }
 
@@ -36,6 +43,13 @@ form{
       height: 40px;
       font-size: 15px !important;
     }
+    @include responsive_computer{
+      width: 1178px;
+      height: 50px;
+      font-size: 20px !important;
+      padding: 10px;
+      margin-top: 15px;
+    }
   }
 
   input[type="radio"]{
@@ -45,6 +59,11 @@ form{
     @include responsive_laptop{
       margin: 0 10px 0 -5px;
     }
+    @include responsive_computer{
+      width: 25px;
+      height: 25px;
+      margin: 3px 10px 0 -5px;
+    }
   }
 
   .type-exercice{
@@ -53,6 +72,9 @@ form{
     left: 0;
     @include responsive_laptop{
       font-size: 15px !important;
+    }
+    @include responsive_computer{
+      font-size: 25px !important;
     }
   }
 
@@ -66,9 +88,16 @@ form{
       width: $container_laptop_800;
     }
 
+    @include responsive_computer{
+      width: $container_computer_1200;
+    }
+
     thead{
       background-color: $light_gray;
       height: 25px;
+      @include responsive_computer{
+        height: 50px;
+      }
       tr{
 
         text-align: $text_center;
@@ -77,6 +106,10 @@ form{
           border-radius: $border-radius_5;
           @include responsive_laptop{
             width: ($container_laptop_800)/3;
+          }
+          @include responsive_computer{
+            width: ($container_computer_1200)/3;
+            font-size: 30px !important;
           }
         }
       }
@@ -105,12 +138,18 @@ form{
               width: ($container_laptop_800/3)-25;
               height: $choices_height*2;
             }
+            @include responsive_computer{
+              width: ($container_computer_1200/3)-25;
+            }
           }
           .good-answer-choice{
             top: -10px;
             left: 55px;
             @include responsive_laptop{
               left: 90px;
+            }
+            @include responsive_computer{
+              left: 140px;
             }
           }
         }
@@ -135,6 +174,10 @@ form{
               width: ($container_laptop_800/3)-25;
               height: $choices_height*2;
             }
+            @include responsive_computer{
+              width: ($container_computer_1200/3)-25;
+              height: $choices_height*2;
+            }
           }
 
           .good-answer{
@@ -142,6 +185,9 @@ form{
             left: 55px;
             @include responsive_laptop {
               left: 90px;
+            }
+            @include responsive_computer {
+              left: 140px;
             }
           }
         }
@@ -158,6 +204,10 @@ form{
     @include responsive_laptop{
       top: 25px !important;
       left: 160px !important;
+    }
+    @include responsive_computer{
+      top: 35px !important;
+      left: 225px !important;
     }
   }
 }

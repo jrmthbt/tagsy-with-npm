@@ -13,6 +13,10 @@ header {
     height: 75px;
   }
 
+  @include responsive_computer{
+    height: 125px;
+  }
+
   #logo {
     width: 35px;
     position: absolute;
@@ -20,6 +24,10 @@ header {
     @include responsive_laptop {
       width: 60px;
       top: 14px;
+    }
+    @include responsive_computer {
+      width: 95px;
+      top: 20px;
     }
 
   }
@@ -33,9 +41,13 @@ header {
     border-bottom: solid 0 $purple;
     transition: $trans_3;
     @include responsive_laptop{
-      font-size: 25px;
+      font-size: 25px !important;
       margin-top: 10px;
+    }
 
+    @include responsive_computer{
+      font-size: 40px !important;
+      margin-top: 20px;
     }
 
     &:hover{
@@ -66,6 +78,19 @@ header {
     .saveInfo{
       top: 30px !important;
       left: 480px !important;
+    }
+  }
+
+  @include responsive_computer{
+    #time-save {
+      top: 50px;
+      margin-left: 400px;
+      font-size: 20px !important;
+    }
+
+    .saveInfo{
+      top: 50px !important;
+      left: 650px !important;
     }
   }
 
