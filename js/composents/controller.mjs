@@ -11,16 +11,12 @@ export class Controller {
                 console.log("session")
                 callSS()
                 this.getStorage()
-
-
             }
             else{
                 console.log("local")
                 callLS()
                 this.getStorage()
-
             }
-
         }
 
         document.querySelector("body").addEventListener("change", event =>{
@@ -73,26 +69,38 @@ export class Controller {
                     callLS()
                 }
                 else{
-                    const tagsy = JSON.parse(localStorage.getItem("tagsy")) || []
-                    const question = JSON.parse(localStorage.getItem("questionCreated")) || []
-                    const qcm = JSON.parse(localStorage.getItem("qcmAnswers")) || []
-                    const short = JSON.parse(localStorage.getItem("shortAnswer")) || []
-                    const editor = JSON.parse(localStorage.getItem("tagsyEditor") )|| []
-                    sessionStorage.setItem("tagsy", JSON.stringify(tagsy))
-                    sessionStorage.setItem("questionCreated", JSON.stringify(question))
-                    sessionStorage.setItem("qcmAnswers", JSON.stringify(qcm))
-                    sessionStorage.setItem("shortAnswers", JSON.stringify(short))
-                    sessionStorage.setItem("tagsyEditor", JSON.stringify(editor))
-                    localStorage.clear()
-                    this.model.qcmAnswers =  JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
-                    this.model.shortAnswers =  JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
-                    this.model.tagsyEditor =  JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
-                    this.model.questionCreated =  JSON.parse(sessionStorage.getItem("questionCreated")) || [];
-                    this.model.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
-                    document.getElementById("save-info").checked
+                    this.view._guizmoSpeak("Voulez-vous supprimer la sauvegarde automatique?")
+                    document.getElementById("message").addEventListener("click", function confirmEditQuestion(el) {
+                        if (el.target.classList.contains("btn-confirm")){
+                            that.view._removeguizmoSpeech()
+                            const tagsy = JSON.parse(localStorage.getItem("tagsy")) || []
+                            const question = JSON.parse(localStorage.getItem("questionCreated")) || []
+                            const qcm = JSON.parse(localStorage.getItem("qcmAnswers")) || []
+                            const short = JSON.parse(localStorage.getItem("shortAnswer")) || []
+                            const editor = JSON.parse(localStorage.getItem("tagsyEditor") )|| []
+                            sessionStorage.setItem("tagsy", JSON.stringify(tagsy))
+                            sessionStorage.setItem("questionCreated", JSON.stringify(question))
+                            sessionStorage.setItem("qcmAnswers", JSON.stringify(qcm))
+                            sessionStorage.setItem("shortAnswers", JSON.stringify(short))
+                            sessionStorage.setItem("tagsyEditor", JSON.stringify(editor))
+                            localStorage.clear()
+                            that.model.qcmAnswers =  JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
+                            that.model.shortAnswers =  JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
+                            that.model.tagsyEditor =  JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
+                            that.model.questionCreated =  JSON.parse(sessionStorage.getItem("questionCreated")) || [];
+                            that.model.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
+                            document.getElementById("save-info").checked
 
-                    stopLS()
-                    callSS()
+                            stopLS()
+                            callSS()
+                        }
+
+                        if (el.target.classList.contains("btn-cancel")) {
+                            that.view._removeguizmoSpeech()
+                            that.view.getElement("#save-info").checked = "checked"
+                        }
+                    })
+
                 }
             }
 
