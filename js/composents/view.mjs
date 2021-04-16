@@ -507,6 +507,7 @@ export class View {
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
     bindAddQcm(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
+            event.preventDefault()
             if (this._answerText) {
                 handler(this._answerText, this._checkValue);
                 this._resetInput()
@@ -962,6 +963,8 @@ export class View {
         this.getElement("#explication").disabled = true;
         this.getElement("#form-add").classList.add("disabled");
         this.getElement("#name-exercise").classList.add("disabled")
+        this.getElement(".saveInfo").classList.add("disabled")
+        this.getElement("#counter-auto").classList.add("disabled")
 
 
     }
@@ -975,6 +978,8 @@ export class View {
         this.getElement("#explication").disabled = false;
         this.getElement("#form-add").classList.remove("disabled");
         this.getElement("#name-exercise").classList.remove("disabled")
+        this.getElement(".saveInfo").classList.remove("disabled")
+        this.getElement("#counter-auto").classList.remove("disabled")
 
 
     }

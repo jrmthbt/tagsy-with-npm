@@ -10,14 +10,19 @@ export class Controller {
             if (!that.view.getElement("#save-info").checked){
                 callSS()
                 console.log("session")
-                if (this.model.tagsyEditor != []) {
+                if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
                     let getSession = this.model.tagsyEditor
+                    let getTagsy = this.model.tagsy
                     this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
                     this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
                     this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
                     this.view.getElement("#question-name").value = getSession.questionName ? getSession.questionName : ""
                     this.view.getElement("#explication").checked = getSession.explanationCheck ? "checked" : false
                     this.view.getElement("#explication-text").value = getSession.explanation
+
+                    this.view.getElement("#save-info").checked = getTagsy.autoSave ? "checked" : false
+                    this.view.getElement("#counter").checked = getTagsy.counterAuto ? "checked" : false
+                    this.view.getElement("#name-exercise").value = getTagsy.exerciseName ? getTagsy.exerciseName : ""
 
 
                     if (this.view.getElement("#qcm").checked ){
@@ -102,29 +107,33 @@ export class Controller {
                     this.model.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
                     this.model.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
                     this.model.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
-                    console.log(this.model.questionCreated)
                     this.model.tagsy = localStorage.getItem('tagsy') || [];
+                    console.log(this.model.qcmAnswers, "qcm")
+                    console.log(this.model.shortAnswers, "short")
+                    console.log(this.model.tagsyEditor, "editor")
+                    console.log(this.model.questionCreated, "question")
+                    console.log(this.model.tagsy, "tagsy")
                     stopSS()
                     callLS()
                 }
                 else{
-                    /*const tagsy = localStorage.getItem("tagsy") || []
-                    const question = localStorage.getItem("questionCreated") || []
-                    const qcm = localStorage.getItem("qcmAnswers") || []
-                    const short = localStorage.getItem("shortAnswer") || []
-                    const editor = localStorage.getItem("tagsyEditor") || []
-                    sessionStorage.setItem("tagsy", tagsy)
-                    sessionStorage.setItem("questionCreated", question)
-                    sessionStorage.setItem("qcmAnswers", qcm)
-                    sessionStorage.setItem("shortAnswers", short)
-                    sessionStorage.setItem("tagsyEditor", editor)
+                    const tagsy = JSON.parse(localStorage.getItem("tagsy")) || []
+                    const question = JSON.parse(localStorage.getItem("questionCreated")) || []
+                    const qcm = JSON.parse(localStorage.getItem("qcmAnswers")) || []
+                    const short = JSON.parse(localStorage.getItem("shortAnswer")) || []
+                    const editor = JSON.parse(localStorage.getItem("tagsyEditor") )|| []
+                    sessionStorage.setItem("tagsy", JSON.stringify(tagsy))
+                    sessionStorage.setItem("questionCreated", JSON.stringify(question))
+                    sessionStorage.setItem("qcmAnswers", JSON.stringify(qcm))
+                    sessionStorage.setItem("shortAnswers", JSON.stringify(short))
+                    sessionStorage.setItem("tagsyEditor", JSON.stringify(editor))
                     localStorage.clear()
-                    this.model.qcmAnswers = sessionStorage.getItem('qcmAnswers') || [];
-                    this.model.shortAnswers = sessionStorage.getItem('shortAnswers') || [];
-                    this.model.tagsyEditor = sessionStorage.getItem('tagsyEditor') || [];
-                    this.model.questionCreated = sessionStorage.getItem("questionCreated") || [];
-                    this.model.tagsy =sessionStorage.getItem('tagsy') || [];
-                     */
+                    this.model.qcmAnswers =  JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
+                    this.model.shortAnswers =  JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
+                    this.model.tagsyEditor =  JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
+                    this.model.questionCreated =  JSON.parse(sessionStorage.getItem("questionCreated")) || [];
+                    this.model.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
+
                     stopLS()
                     callSS()
                 }
