@@ -7,62 +7,18 @@ export class Controller {
         this.model = model;
         this.view = view;
         window.onload =()=> {
-            if (!that.view.getElement("#save-info").checked){
-                callSS()
+            if (!that.model.tagsy.autoSave){
                 console.log("session")
-                if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
-                    let getSession = this.model.tagsyEditor
-                    let getTagsy = this.model.tagsy
-                    this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
-                    this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
-                    this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
-                    this.view.getElement("#question-name").value = getSession.questionName ? getSession.questionName : ""
-                    this.view.getElement("#explication").checked = getSession.explanationCheck ? "checked" : false
-                    this.view.getElement("#explication-text").value = getSession.explanation
+                callSS()
+                this.getStorage()
 
-                    this.view.getElement("#save-info").checked = getTagsy.autoSave ? "checked" : false
-                    this.view.getElement("#counter").checked = getTagsy.counterAuto ? "checked" : false
-                    this.view.getElement("#name-exercise").value = getTagsy.exerciseName ? getTagsy.exerciseName : ""
-
-
-                    if (this.view.getElement("#qcm").checked ){
-                        this.view.qcmTable(document.getElementById("root").id)
-                        this.view._lockExercice();
-                        this.view.displayTableQcm(this.model.qcmAnswers)
-                        this.model.bindChangeQcmAnswer(this.onChange)
-                        this.view.bindAddQcm(this.handleAddAnswer)
-                        this.view.binDelete(this.handleDeleteAnswer)
-                        this.view.binEditQcm(this.handleEditAnswer)
-                        this.onChange(this.model.qcmAnswers)
-
-                    }
-                    if (this.view.getElement("#identification").checked ){
-                        this.view._lockExercice();
-                    }
-                    if (this.view.getElement("#short-answer").checked ){
-                        this.view.answerTable(document.getElementById("root").id)
-                        this.view._lockExercice();
-                        this.view.displayTableShort(this.model.shortAnswers)
-                        this.model.bindChangeShortAnswer(this.onChangeShort)
-                        this.view.bindAddShort(this.handleAddShort)
-                        this.view.binDelete(this.handleDeleteShort)
-                        this.view.binEditShort(this.handleEditShort)
-                        this.onChangeShort(this.model.shortAnswers)
-                    }
-
-                    this.view.getElement("#explication").checked ?
-                        this.view._showDisplay(this.view.getElement("#explication-text")) :
-                        this.view._hideDisplay(this.view.getElement("#explication-text"))
-
-
-                }
 
             }
             else{
                 console.log("local")
                 callLS()
+                this.getStorage()
 
-                document.getElementById("save-info").checked = this.model.tagsy.autoSave
             }
 
         }
@@ -107,7 +63,7 @@ export class Controller {
                     this.model.shortAnswers = JSON.parse(localStorage.getItem('shortAnswers')) || [];
                     this.model.tagsyEditor = JSON.parse(localStorage.getItem('tagsyEditor')) || [];
                     this.model.questionCreated = JSON.parse(localStorage.getItem("questionCreated")) || [];
-                    this.model.tagsy = localStorage.getItem('tagsy') || [];
+                    this.model.tagsy = JSON.parse(localStorage.getItem('tagsy')) || [];
                     console.log(this.model.qcmAnswers, "qcm")
                     console.log(this.model.shortAnswers, "short")
                     console.log(this.model.tagsyEditor, "editor")
@@ -133,6 +89,7 @@ export class Controller {
                     this.model.tagsyEditor =  JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
                     this.model.questionCreated =  JSON.parse(sessionStorage.getItem("questionCreated")) || [];
                     this.model.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
+                    document.getElementById("save-info").checked
 
                     stopLS()
                     callSS()
@@ -207,7 +164,6 @@ export class Controller {
 
     displayQuestion =() => {
         this.model.bindChangeQuestion(this.onChangeQuestion)
-        console.log(this.model.questionCreated)
         this.onChangeQuestion(this.model.questionCreated)
         this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
         this.onChangeQuestionTableShort(this.model.questionCreated.slice())
@@ -280,5 +236,54 @@ export class Controller {
         this.view._unlockExercice()
         this.view.getElement("#explication").checked = false;
         this.view.getElement("#explication-text").value= "";
+    }
+
+    getStorage = () => {
+        if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
+            let getSession = this.model.tagsyEditor
+            let getTagsy = this.model.tagsy
+            this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
+            this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
+            this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
+            this.view.getElement("#question-name").value = getSession.questionName ? getSession.questionName : ""
+            this.view.getElement("#explication").checked = getSession.explanationCheck ? "checked" : false
+            this.view.getElement("#explication-text").value = getSession.explanation
+
+            this.view.getElement("#save-info").checked = getTagsy.autoSave ? "checked" : false
+            this.view.getElement("#counter").checked = getTagsy.counterAuto ? "checked" : false
+            this.view.getElement("#name-exercise").value = getTagsy.exerciseName ? getTagsy.exerciseName : ""
+
+
+            if (this.view.getElement("#qcm").checked ){
+                this.view.qcmTable(document.getElementById("root").id)
+                this.view._lockExercice();
+                this.view.displayTableQcm(this.model.qcmAnswers)
+                this.model.bindChangeQcmAnswer(this.onChange)
+                this.view.bindAddQcm(this.handleAddAnswer)
+                this.view.binDelete(this.handleDeleteAnswer)
+                this.view.binEditQcm(this.handleEditAnswer)
+                this.onChange(this.model.qcmAnswers)
+
+            }
+            if (this.view.getElement("#identification").checked ){
+                this.view._lockExercice();
+            }
+            if (this.view.getElement("#short-answer").checked ){
+                this.view.answerTable(document.getElementById("root").id)
+                this.view._lockExercice();
+                this.view.displayTableShort(this.model.shortAnswers)
+                this.model.bindChangeShortAnswer(this.onChangeShort)
+                this.view.bindAddShort(this.handleAddShort)
+                this.view.binDelete(this.handleDeleteShort)
+                this.view.binEditShort(this.handleEditShort)
+                this.onChangeShort(this.model.shortAnswers)
+            }
+
+            this.view.getElement("#explication").checked ?
+                this.view._showDisplay(this.view.getElement("#explication-text")) :
+                this.view._hideDisplay(this.view.getElement("#explication-text"))
+
+
+        }
     }
 }
