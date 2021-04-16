@@ -10,6 +10,47 @@ export class Controller {
             if (!that.view.getElement("#save-info").checked){
                 callSS()
                 console.log("session")
+                if (this.model.tagsyEditor != []) {
+                    let getSession = this.model.tagsyEditor
+                    this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
+                    this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
+                    this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
+                    this.view.getElement("#question-name").value = getSession.questionName ? getSession.questionName : ""
+                    this.view.getElement("#explication").checked = getSession.explanationCheck ? "checked" : false
+                    this.view.getElement("#explication-text").value = getSession.explanation
+
+
+                    if (this.view.getElement("#qcm").checked ){
+                        this.view.qcmTable(document.getElementById("root").id)
+                        this.view._lockExercice();
+                        this.view.displayTableQcm(this.model.qcmAnswers)
+                        this.model.bindChangeQcmAnswer(this.onChange)
+                        this.view.bindAddQcm(this.handleAddAnswer)
+                        this.view.binDelete(this.handleDeleteAnswer)
+                        this.view.binEditQcm(this.handleEditAnswer)
+                        this.onChange(this.model.qcmAnswers)
+
+                    }
+                    if (this.view.getElement("#identification").checked ){
+                        this.view._lockExercice();
+                    }
+                    if (this.view.getElement("#short-answer").checked ){
+                        this.view.answerTable(document.getElementById("root").id)
+                        this.view._lockExercice();
+                        this.view.displayTableShort(this.model.shortAnswers)
+                        this.model.bindChangeShortAnswer(this.onChangeShort)
+                        this.view.bindAddShort(this.handleAddShort)
+                        this.view.binDelete(this.handleDeleteShort)
+                        this.view.binEditShort(this.handleEditShort)
+                        this.onChangeShort(this.model.shortAnswers)
+                    }
+
+                    this.view.getElement("#explication").checked ?
+                        this.view._showDisplay(this.view.getElement("#explication-text")) :
+                        this.view._hideDisplay(this.view.getElement("#explication-text"))
+
+
+                }
 
             }
             else{
@@ -20,6 +61,7 @@ export class Controller {
             }
 
         }
+
         document.querySelector("body").addEventListener("change", event =>{
             if (event.target.id === this.view.exercice[0]){
                 this.model.bindChangeQcmAnswer(this.onChange)
@@ -94,6 +136,9 @@ export class Controller {
 
 
         document.querySelector("body").addEventListener("mousedown", function (event) {
+            if (event.target.id === "answer-add"){
+
+            }
 
             if (event.target.id === "form-add") {
                 document.querySelectorAll("input[name=exercice]").forEach(radio =>{

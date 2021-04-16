@@ -3,15 +3,34 @@
 
 export class Model {
 
-    // get in sessionStorage
+    // get in sessionStorage/Localstorage
     constructor() {
 
-            this.qcmAnswers = JSON.parse(sessionStorage.getItem('qcmAnswers')) || [];
-            this.shortAnswers = JSON.parse(sessionStorage.getItem('shortAnswers')) || [];
-            this.tagsyEditor = JSON.parse(sessionStorage.getItem('tagsyEditor')) || [];
-            this.questionCreated = JSON.parse(sessionStorage.getItem("questionCreated")) || [];
-            this.tagsy = JSON.parse(sessionStorage.getItem('tagsy')) || [];
-            // counter
+            this.qcmAnswers =
+                JSON.parse(sessionStorage.getItem('qcmAnswers')) ||
+                JSON.parse(localStorage.getItem('qcmAnswers')) ||
+                [];
+
+            this.shortAnswers =
+                JSON.parse(sessionStorage.getItem('shortAnswers')) ||
+                JSON.parse(localStorage.getItem('shortAnswers')) ||
+                [];
+
+            this.tagsyEditor =
+                JSON.parse(sessionStorage.getItem('tagsyEditor')) ||
+                JSON.parse(localStorage.getItem('tagsyEditor')) ||
+                [];
+
+            this.questionCreated =
+                JSON.parse(sessionStorage.getItem("questionCreated")) ||
+                JSON.parse(localStorage.getItem("questionCreated")) ||
+                [];
+
+            this.tagsy =
+                JSON.parse(sessionStorage.getItem('tagsy')) ||
+                JSON.parse(localStorage.getItem('tagsy')) ||
+                [];
+
             this.count = this.questionCreated.length;
 
 

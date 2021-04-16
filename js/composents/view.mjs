@@ -507,8 +507,6 @@ export class View {
     // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
     bindAddQcm(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
-            event.preventDefault()
-
             if (this._answerText) {
                 handler(this._answerText, this._checkValue);
                 this._resetInput()
