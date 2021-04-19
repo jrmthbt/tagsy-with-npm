@@ -1,28 +1,40 @@
-//MVC - controller
+/********************/
+/* MVC - CONTROLLER*/
+/*******************/
+
+// IMPORT FUNCTION TO SAVE IN SESSION OR LOCAL STORGE
 import {callSS, stopSS} from "./API/sessionStorage.mjs";
 import {callLS, stopLS} from "./API/localStorage.mjs";
 
 export class Controller {
     constructor(model, view) {
+        // CALL MODEL
         this.model = model;
+        //CALL VIEW
         this.view = view;
+        //COUNTER FOR TAG R
         this.countR = 1
+        //COUNTER FOR TAG G
         this.countG = 1
+        //COUNTER FOR TAG I
         this.countI = 1
 
-
+        // WHEN WINDOW RELOAD
         window.onload = () => {
+            // CHECK IF AUTO SAVE IS ON OR NOT
             if (!that.model.tagsy.autoSave) {
+                // IF NOT CALL SESSION STORAGE
                 console.log("session")
                 callSS()
                 this.getStorage()
             } else {
+                //ELSE CALL LOCAL STORAGE
                 console.log("local")
                 callLS()
                 this.getStorage()
             }
         }
-
+// EVENT LISTENER CHANGE
         document.querySelector("body").addEventListener("change", event => {
             if (event.target.id === this.view.exercice[0]) {
                 this.model.bindChangeQcmAnswer(this.onChange)
@@ -49,6 +61,7 @@ export class Controller {
             }
 
             if (event.target.id === "save-info") {
+                //CHANGE FROM SESSION TO LOCAL STORAGE
                 if (event.target.checked) {
                     console.log("local actif")
                     const tagsy = JSON.parse(sessionStorage.getItem("tagsy")) || []
@@ -75,6 +88,7 @@ export class Controller {
                     stopSS()
                     callLS()
                 } else {
+                 //   CHANGE FROM LOCAL TO SESSION STORAGE WITH A CONFIRMATION
                     this.view._guizmoSpeak("Voulez-vous supprimer la sauvegarde automatique?")
                     document.getElementById("message").addEventListener("click", function confirmEditQuestion(el) {
                         if (el.target.classList.contains("btn-confirm")) {
@@ -115,7 +129,7 @@ export class Controller {
 
 
         document.querySelector("body").addEventListener("mousedown", function (event) {
-
+// ADD A QUESTION
             if (event.target.id === "form-add") {
                 that.initCounter()
                 document.querySelectorAll("input[name=exercice]").forEach(radio => {
@@ -127,7 +141,7 @@ export class Controller {
                     }
                 })
             }
-
+// DELETE A QUESTION
             if (event.target.classList.contains("delete-question")) {
                 that.view.binDeleteQuestion(that.handleDeleteQuestion, event)
                 that.view.getElement("#message").addEventListener("click", function confirmDel(el) {
@@ -138,7 +152,7 @@ export class Controller {
                 })
 
             }
-
+// EDIT A QUESTION
             if (event.target.classList.contains("edit-question")) {
                 that.view.binEditQuestion(that.handleEditQuestion, event, that.model.questionCreated.slice(), that.displayQuestion)
                 if (that.view._countClick > 2) {
@@ -150,10 +164,10 @@ export class Controller {
 
 
         })
-
         document.querySelector("#toolbars").addEventListener("click", function (event) {
             if (event.target.classList.contains("tools")) {
                 if (event.target.id === "tool-undo") {
+                    //CALL TO UNDO
                     console.log("undo")
                     let target = "question-name"
                     if (document.getElementById("question-name-edit")){
@@ -164,6 +178,7 @@ export class Controller {
                 }
                 if (event.target.id === "tool-redo") {
                     console.log("redo")
+                    // CALL TO REDO
                     let target = "question-name"
                     if (document.getElementById("question-name-edit")){
                         target = "question-name-edit"
@@ -172,6 +187,7 @@ export class Controller {
 
                 }
                 if (event.target.id === "tool-tag-r") {
+                   // CALL TO TAG R
                     let RO = `[%R${that.countR}]`;
                     let RE = `[/%R${that.countR}]`;
                     let target = "question-name"
@@ -184,6 +200,7 @@ export class Controller {
                     }
                 }
                 if (event.target.id === "tool-tag-g") {
+                    // CALL TO TAG G
                     console.log("tag-g")
                     let GO = `[%G${that.countG}]`;
                     let GE = `[/%G${that.countG}]`;
@@ -198,6 +215,7 @@ export class Controller {
                 }
                 if (event.target.id === "tool-tag-i") {
                     console.log("tag-i")
+                    // CALL TO TAG I
                     let IO = `[%I${that.countI}]`;
                     let IE = `[/%I${that.countI}]`;
                     let target = "question-name"
@@ -210,6 +228,7 @@ export class Controller {
                     }
                 }
                 if (event.target.id === "tool-nothing") {
+                    // CALL FOR SPAN AUCUN
                     console.log("nothing")
                     if (document.getElementById("identification").checked) {
                         that.view.nothing("question-name")
@@ -218,13 +237,14 @@ export class Controller {
             }
         })
 
+        // DISPLAY THE QUESTION CREATED
         this.displayQuestion()
 
 
         let that = this;
 
     }
-
+// DISPLAY WHEN ADD QUESTION
     addQuestion = () => {
         this.handleAddQuestion()
         this.clearEditor()
@@ -242,7 +262,7 @@ export class Controller {
         this.onChangeQuestionTableQcm(this.model.questionCreated.slice())
         this.onChangeQuestionTableShort(this.model.questionCreated.slice())
     }
-    // function pour afficher le tableau quand model est modifier
+    // function DISPLAY WHEN MODEL HAS BEEN CHANGE
     onChange = (qcmAnswer) => {
         this.view.displayTableQcm(qcmAnswer);
     }
@@ -259,7 +279,7 @@ export class Controller {
     onChangeQuestionTableShort = questionTableShort => {
         this.view.displayTableShortCreated(questionTableShort)
     }
-    // controller qui ajoute au model
+    // ADD IN MODEL
     handleAddAnswer = (answerText, answerCheck) => {
         this.model.addAnswerQcm(answerText, answerCheck)
     }
@@ -270,7 +290,7 @@ export class Controller {
     handleAddQuestion = () => {
         this.model.addQuestion()
     }
-    // controller qui edit le model
+    // EDIT IN MODEL
     handleEditAnswer = (id, answerText, answerCheck) => {
         this.model.editAnswerQcm(id, answerText, answerCheck)
 
@@ -282,7 +302,7 @@ export class Controller {
     handleEditQuestion = (id, questionName, array, explanationCheck, explanation) => {
         this.model.editQuestion(id, questionName, array, explanationCheck, explanation)
     }
-    // controller qui supprime dans le model
+    // DEL IN MODEL
     handleDeleteAnswer = (id) => {
         this.model.deleteAnswerQcm(id)
     }
@@ -295,7 +315,7 @@ export class Controller {
         this.model.deleteQuestion(id)
     }
 
-
+// INIT TABLE AND EDITOR
     clearTableQcm = () => {
         this.model.qcmAnswers = [];
         localStorage.removeItem("qcmAnswers")
@@ -312,6 +332,7 @@ export class Controller {
         this.view.getElement("#explication-text").value = "";
     }
 
+    // GET FROM STORAGE
     getStorage = () => {
         if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
             let getSession = this.model.tagsyEditor
@@ -361,6 +382,7 @@ export class Controller {
         }
     }
 
+    // INIT COUNTER TAG
     initCounter = () => {
         this.countR = 1
         this.countG = 1
