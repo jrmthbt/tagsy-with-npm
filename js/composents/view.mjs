@@ -39,6 +39,7 @@ export class View {
         this._history = [];
         this._redo = [];
 
+
     }
 
     // display table when qcm is check
@@ -754,6 +755,8 @@ export class View {
 
                     handler(id, questionName, array, explanationCheck, explanation)
                     this._countClick++
+                    that._history = []
+                    that._redo = []
                     that._unlockEditor();
                     that._lockQuestionEditing(event)
                     that._unlockButton("button.edit-question");
@@ -1339,7 +1342,7 @@ export class View {
         let selection = string.slice(boundaries.selectStart, boundaries.selectEnd)
 
         let pieces = selection.split(/\s+/);
-        console.log(pieces)
+        //console.log(pieces)
 
         let output = pieces.map(function (piece){
             let punctuation = /[;:!?]/
@@ -1359,29 +1362,46 @@ export class View {
         })
 
         this._history.push(textContainer.value);
-        console.log(this._history)
+        if (this._history.length === 10){
+            this._history.shift()
+        }
+        console.table(this._history, "history")
 
         textContainer.value = string.slice(0, boundaries.selectStart) + output.join(" ") + string.slice(boundaries.selectEnd)
 
         textContainer.selectionStart = boundaries.selectStart
         textContainer.selectionEnd = boundaries.selectStart + output.join(" ").length
-        this._redo.push(textContainer.value)
 
 
 
     }
 
-    undoAddTags ( text) {
+    undoAddTags (text) {
+
+             let textContainer = document.querySelector("#" + text)
+
+        if (this._history.length !== 0 ) {
+            this._redo.push(textContainer.value)
+            textContainer.value = this._history.pop()
+        }
+
+        console.log(this._history.length, "length history")
 
     }
 
     redoAddTags (text){
+        let textContainer = document.querySelector("#" + text)
+        if (this._redo.length !== 0 ) {
+            this._history.push(textContainer.value)
+            textContainer.value = this._redo.pop()
+        }
       
     }
 
     nothing (text){
          let textContainer = document.querySelector("#" + text)
         let nothing = "<span class=\"button-choice-1\">Aucun</span>"
+        this._history.push(textContainer.value)
 
         textContainer.value =  textContainer.value + nothing;
 
