@@ -218,7 +218,6 @@ export class Controller {
             }
         })
 
-
         this.displayQuestion()
 
 
