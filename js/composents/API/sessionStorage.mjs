@@ -46,28 +46,28 @@ export const tagsyEditor = {
 
 
 export let callSS =() => {
-    document.querySelectorAll("input").forEach(input => {
-        input.addEventListener("keyup", saveSS)
-    })
+    document.querySelector("body").addEventListener("keyup", saveSS)
 
     document.querySelectorAll("input[type=checkbox]").forEach(check => {
         check.addEventListener("change", saveSS)
     })
-    document.querySelectorAll("button").forEach(btn=>{
+    document.querySelector("body").addEventListener("click", saveSS)
+
+    document.querySelectorAll(".tools").forEach(btn=>{
         btn.addEventListener("click", saveSS)
     })
 }
 
 export let stopSS = ()=>{
-    document.querySelectorAll("input").forEach(input => {
-        input.removeEventListener("keyup", saveSS);
+    document.querySelector("body").removeEventListener("keyup", saveSS);
 
-    })
     document.querySelectorAll("input[type=checkbox]").forEach(check => {
         check.removeEventListener("change", saveSS)
     })
 
-    document.querySelectorAll("button").forEach(btn=>{
+    document.querySelector("body").removeEventListener("click", saveSS)
+
+    document.querySelectorAll(".tools").forEach(btn=>{
         btn.removeEventListener("click", saveSS)
     })
 }

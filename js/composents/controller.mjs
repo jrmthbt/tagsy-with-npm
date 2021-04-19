@@ -6,6 +6,11 @@ export class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
+        this.countR = 1
+        this.countG = 1
+        this.countI = 1
+
+
         window.onload =()=> {
             if (!that.model.tagsy.autoSave){
                 console.log("session")
@@ -27,10 +32,12 @@ export class Controller {
                 this.view.binEditQcm(this.handleEditAnswer)
                 this.onChange(this.model.qcmAnswers)
                 this.clearTableShort()
+                this.initCounter()
             }
             if (event.target.id === this.view.exercice[1]){
                 this.clearTableQcm();
                 this.clearTableShort()
+                this.initCounter()
             }
             if (event.target.id === this.view.exercice[2]){
                 this.model.bindChangeShortAnswer(this.onChangeShort)
@@ -39,6 +46,7 @@ export class Controller {
                 this.view.binEditShort(this.handleEditShort)
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
+                this.initCounter()
             }
 
             if (event.target.id === "save-info"){
@@ -110,11 +118,9 @@ export class Controller {
 
 
         document.querySelector("body").addEventListener("mousedown", function (event) {
-            if (event.target.id === "answer-add"){
-
-            }
 
             if (event.target.id === "form-add") {
+                that.initCounter()
                 document.querySelectorAll("input[name=exercice]").forEach(radio =>{
                     if(radio.checked){
                         that.addQuestion()
@@ -146,6 +152,47 @@ export class Controller {
             }
 
 
+        })
+
+        document.querySelector("#toolbars").addEventListener("click", function (event)  {
+            if (event.target.classList.contains("tools")) {
+                if (event.target.id === "tool-undo") {
+                    console.log("undo")
+                    that.view.undoAddTags("question-name")
+
+                }
+                if (event.target.id === "tool-redo") {
+                    console.log("redo")
+                    that.view.redoAddTags("question-name")
+
+                }
+                if (event.target.id === "tool-tag-r") {
+                    let RO = `[%R${that.countR}]` ;
+                    let RE = `[/%R${that.countR}]` ;
+                    console.log(that.countR)
+                    that.view.addTagsToText("question-name", RO, RE)
+                    that.countR++
+                    console.log(that.countR)
+                }
+                if (event.target.id === "tool-tag-g") {
+                    console.log("tag-g")
+                    let GO = `[%G${that.countG}]` ;
+                    let GE = `[/%G${that.countG}]` ;
+                    that.view.addTagsToText("question-name", GO, GE)
+                    that.countG++
+                }
+                if (event.target.id === "tool-tag-i") {
+                    console.log("tag-i")
+                     let IO = `[%I${that.countI}]` ;
+                     let IE = `[/%I${that.countI}]` ;
+                    that.view.addTagsToText("question-name", IO, IE)
+                    that.countI++
+                }
+                if (event.target.id === "tool-nothing") {
+                    console.log("nothing")
+                    that.view.nothing("question-name")
+                }
+            }
         })
 
 
@@ -294,4 +341,10 @@ export class Controller {
 
         }
     }
+
+    initCounter =  () => {
+    this.countR = 1
+    this.countG = 1
+    this.countI = 1
+}
 }

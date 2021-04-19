@@ -36,6 +36,8 @@ export class View {
         this.app = document.getElementById('root');
         this.exercice = ["qcm", "identification", "short-answer"];
         this._edited = [];
+        this._history = [];
+        this._redo = [];
 
     }
 
@@ -1277,6 +1279,111 @@ export class View {
             that.displayTableShort(edited)
 
         }
+
+    }
+
+    /*********************/
+    /* toolbar and tag */
+    /*********************/
+
+     _checkCharacterIsBoundary = (position, text, previous) => {
+         let testedCharacterPosition = previous ? position - 1 : position
+         console.log("Testing" , testedCharacterPosition, "=" , text[testedCharacterPosition])
+
+         if ( -1 === testedCharacterPosition){
+             return true;
+         }
+
+         if (text.length === testedCharacterPosition){
+             return true
+         }
+
+         let delimiter = /[â€“â€”â€²â€™â€œâ€â€³â€ž\"()Â«Â»,;:.â€¦Â¡Â¿!?\s]/;
+         if (delimiter.test(text[testedCharacterPosition])){
+             return true;
+         }
+
+         return false;
+    }
+
+    _getTextAeraSelection = (text) => {
+         let textContainer = document.querySelector("#" + text)
+        let selectStart = textContainer.selectionStart
+        let selectEnd = textContainer.selectionEnd
+        let length = textContainer.value.length
+        return {
+             "selectStart" : selectStart,
+             "selectEnd" : selectEnd,
+            "lenght" : length
+         }
+    }
+
+    addTagsToText (text, openingTag, closingTag){
+        let textContainer = document .querySelector("#"+text)
+        let string = textContainer.value.trim()
+        let boundaries = this._getTextAeraSelection (text)
+
+        if (boundaries.selectEnd === 0 || boundaries.selectStart === boundaries.lenght){
+            if(textContainer.value === ""){
+              textContainer.value  = openingTag + closingTag
+            }
+            return ;
+        }
+
+        if (boundaries.selectEnd < boundaries.lenght){
+            while (!this._checkCharacterIsBoundary(boundaries.selectStart, string, true)){
+                boundaries.selectStart--
+            }
+        }
+
+        let selection = string.slice(boundaries.selectStart, boundaries.selectEnd)
+
+        let pieces = selection.split(/\s+/);
+        console.log(pieces)
+
+        let output = pieces.map(function (piece){
+            let punctuation = /[;:!?]/
+            if (punctuation.test(piece)){
+                return piece
+            }
+
+            if (piece.length > 0){
+                let delimiter = /[â€“â€”â€²â€™â€œâ€â€³â€ž\"()Â«Â»,;:.â€¦Â¡Â¿!?\s]/;
+                if (delimiter.test(piece[piece.length -1 ])){
+                    return openingTag + piece.slice(0, piece.length-1) + closingTag + piece[piece.length - 1]
+                }
+
+                piece = piece.replace( 'â€™', closingTag +  'â€™' + openingTag);
+                return openingTag + piece + closingTag;
+            }
+        })
+
+        this._history.push(textContainer.value);
+        console.log(this._history)
+
+        textContainer.value = string.slice(0, boundaries.selectStart) + output.join(" ") + string.slice(boundaries.selectEnd)
+
+        textContainer.selectionStart = boundaries.selectStart
+        textContainer.selectionEnd = boundaries.selectStart + output.join(" ").length
+        this._redo.push(textContainer.value)
+
+
+
+    }
+
+    undoAddTags ( text) {
+
+    }
+
+    redoAddTags (text){
+      
+    }
+
+    nothing (text){
+         let textContainer = document.querySelector("#" + text)
+        let nothing = "<span class=\"button-choice-1\">Aucun</span>"
+
+        textContainer.value =  textContainer.value + nothing;
 
     }
 

@@ -56,6 +56,9 @@ export let callLS =() => {
     document.querySelectorAll("button").forEach(btn=>{
         btn.addEventListener("click", saveLS)
     })
+    document.querySelectorAll(".tools").forEach(btn=>{
+        btn.addEventListener("click", saveLS)
+    })
 }
 
  export let stopLS = ()=>{
@@ -68,6 +71,10 @@ export let callLS =() => {
      })
 
      document.querySelectorAll("button").forEach(btn=>{
+         btn.removeEventListener("click", saveLS)
+     })
+
+     document.querySelectorAll(".tools").forEach(btn=>{
          btn.removeEventListener("click", saveLS)
      })
  }

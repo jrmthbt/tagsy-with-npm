@@ -1,6 +1,7 @@
 @import "color";
 @import "variables";
 @import "responsive_mixins";
+@import "fonts";
 
 /* ------ toolsbar ------- */
 
@@ -37,6 +38,8 @@
     border-radius: $border_radius_5;
     transition: $trans_3;
 
+
+
     @include responsive_computer {
       width: 75px;
       height: 75px;
@@ -48,7 +51,7 @@
       background-color: #6468da;
     }
 
-    #undo, #redo, {
+    #undo, #redo,#nothing {
       margin-top: 17px;
       @include responsive_computer {
         margin-top: 25px;
@@ -80,20 +83,77 @@
 
   .counter {
     color: $purple;
-    margin: 16px 65px 0 0;
+    margin: 5px 65px 0 0;
+    label{
+      margin-top: -8px;
+    }
     @include responsive_laptop{
       margin: 16px 0 0 0;
       text-align: left;
+      label{
+        margin-top: -4px;
+        margin-left: 60px;
+      }
     }
     @include responsive_computer{
       margin: 24px 0 0 0;
       font-size: 25px !important;
       label{
         margin-top: -11px;
-        margin-left: 205px;
+        margin-left: 305px;
       }
     }
 
 
   }
-}
+
+  #tool-undo {
+    &:after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f0e2";
+      line-height: 3;
+    }
+  }
+  #tool-redo {
+    &:after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f01e";
+      line-height: 3;
+    }
+  }
+  #tool-nothing {
+    &:after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f87d";
+      line-height: 3;
+    }
+  }
+  #tool-tag-r {
+    &:after {
+      font-family: latobold, sans-serif;
+      font-weight: 900;
+      content: "[%R]";
+      line-height: 3;
+    }
+  }
+  #tool-tag-g {
+    &:after {
+      font-family: latobold, sans-serif;
+      font-weight: 900;
+      content: "[%G]";
+      line-height: 3;
+    }
+  }
+  #tool-tag-i {
+    &:after {
+      font-family: latobold, sans-serif;
+      font-weight: 900;
+      content: "[%I]";
+      line-height: 3;
+    }
+  }
+
+  }
