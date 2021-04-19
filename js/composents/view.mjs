@@ -1362,7 +1362,7 @@ export class View {
         })
 
         this._history.push(textContainer.value);
-        if (this._history.length === 10){
+        if (this._history.length > 10){
             this._history.shift()
         }
         console.table(this._history, "history")
@@ -1382,6 +1382,9 @@ export class View {
 
         if (this._history.length !== 0 ) {
             this._redo.push(textContainer.value)
+            if (this._redo.lenght > 10){
+                this._redo.shift()
+            }
             textContainer.value = this._history.pop()
         }
 
@@ -1393,6 +1396,9 @@ export class View {
         let textContainer = document.querySelector("#" + text)
         if (this._redo.length !== 0 ) {
             this._history.push(textContainer.value)
+            if (this._history.length > 10){
+                this._history.shift()
+            }
             textContainer.value = this._redo.pop()
         }
       
