@@ -1,31 +1,33 @@
 
-// MVC - model
+/***************/
+/* MVC - MODEL */
+/***************/
 
 export class Model {
 
-    // get in sessionStorage/Localstorage
+    // GET FROM LOCAL OR SESSION STORAGE
     constructor() {
-
+    // FOR QCM ANSWERS
             this.qcmAnswers =
                 JSON.parse(sessionStorage.getItem('qcmAnswers')) ||
                 JSON.parse(localStorage.getItem('qcmAnswers')) ||
                 [];
-
+        // FOR SHORT ANSWERS
             this.shortAnswers =
                 JSON.parse(sessionStorage.getItem('shortAnswers')) ||
                 JSON.parse(localStorage.getItem('shortAnswers')) ||
                 [];
-
+// FOR EDITOR
             this.tagsyEditor =
                 JSON.parse(sessionStorage.getItem('tagsyEditor')) ||
                 JSON.parse(localStorage.getItem('tagsyEditor')) ||
                 [];
-
+// FOR QUESTION CREATED
             this.questionCreated =
                 JSON.parse(sessionStorage.getItem("questionCreated")) ||
                 JSON.parse(localStorage.getItem("questionCreated")) ||
                 [];
-
+// FOR TAGSY
             this.tagsy =
                 JSON.parse(sessionStorage.getItem('tagsy')) ||
                 JSON.parse(localStorage.getItem('tagsy')) ||
@@ -53,7 +55,7 @@ export class Model {
         this.onChangeQuestion = callback;
     }
 
-    // ajoute dans le sessionstorage
+    // ADD IN SESSION OR LOCAL STORAGE
     // array QCM
     _commit(qcmAnswers) {
         this.onChangeQcm(qcmAnswers)
