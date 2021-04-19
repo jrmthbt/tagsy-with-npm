@@ -1,21 +1,28 @@
-// MVC - view
+/**************/
+/* MCV - VIEW*/
+/*************/
 
 export class View {
     constructor() {
 
-        // check exercice
+        // check the IF CHECKED
         document.querySelector("body").addEventListener("click", event => {
+            //QCM
             if (event.target.id === this.exercice[0]) {
                 this.qcmTable(document.getElementById("root").id);
                 this._lockExercice();
             }
+            // IDENTIFICATION
             if (event.target.id === this.exercice[1]) {
                 this._lockExercice();
             }
+            // SHORT ANSWER
             if (event.target.id === this.exercice[2]) {
                 this.answerTable(document.getElementById("root").id);
                 this._lockExercice();
             }
+
+            // EXPLANATION
             if (event.target.id === "explication") {
                 if (!event.target.checked) {
                     this._hideDisplay(document.getElementById("explication-text"));
@@ -28,15 +35,20 @@ export class View {
         })
 
 
-        // counter de click
+        // COUNTER CLICK FOR EDIT ARRAY IN EDITOR OR IN QUESTION CREATED
         this._countClick = 0
         this._countClickEdit = 0
-        // si executed
+        // IF EXECUTED
         this._executed = false
+        // VARIABLE FOR ARRAY IN EDITOR
         this.app = document.getElementById('root');
+        // DIFFERENT TYPES OF EXERCISES
         this.exercice = ["qcm", "identification", "short-answer"];
+        // ARRAY FOR EDIT ARRAY IN QUESTION CREATED
         this._edited = [];
+        // ARRAY OF HISTORY FOR UNDO (LIMIT = 10 ELEMENTS)
         this._history = [];
+        // ARRAY FOR REDO (LIMIT = 10 ELEMENTS
         this._redo = [];
 
 
@@ -45,7 +57,7 @@ export class View {
     // display table when qcm is check
 
     qcmTable = (id) => {
-        // affiche le tableau Qcm
+        //DISPLAY ARRAY QCM
         if (id === "root") {
             this.app.innerHTML = ` <thead id="thead-root">
                <tr id="tr-thead-root">
@@ -72,6 +84,7 @@ export class View {
                     </tr>
                     </tfoot>`
         }
+        //DISPLAY ARRAY QCM AFTER EDIT IN A QUESTION CREATED
         if (id === "tableQCM") {
             document.querySelectorAll(".tableQCM").forEach(table => {
                 table.innerHTML = ` <thead class="thead-app">
@@ -102,7 +115,7 @@ export class View {
     }
 
     answerTable = (id) => {
-
+    // DISPLAY ARRAY SHORT ANSWERS
         if (id === "root") {
             this.app.innerHTML = ` <thead id="thead-root">
                <tr id="tr-thead-root">
@@ -124,7 +137,7 @@ export class View {
                     </tr>
                     </tfoot>`
         }
-
+// DISPLAY SHORT ANSWER ARRAY AFTER EDIT IN A QUESTION CREATED
         if (id === "tableShort") {
             document.querySelectorAll(".tableShort").forEach(table => {
                 table.innerHTML = ` <thead class="thead-app">
@@ -196,6 +209,7 @@ export class View {
     // affiche le tableau qcm
     displayTableQcm(qcmAnswers) {
 
+        // IF CHILD REMOVE ALL BEFORE DISPLAY AGAIN
         if (this.getElement('#tableEditing')) {
 
             while (this.getElement('#tableEditing').firstChild) {
@@ -263,6 +277,7 @@ export class View {
         })
     }
 
+    // DISPLAY IN QUESTION CREATED
     displayTableQcmCreated(qcmTable) {
 
 
@@ -314,7 +329,10 @@ export class View {
         }
     }
 
+    // DISPLAY SHORT IN EDITOR
     displayTableShort(shortAnswer) {
+
+        // IF CHILD REMOVE ALL BEFORE DISPLAY AGAIN
 
         if (this.getElement('#tableEditing')) {
 
@@ -374,6 +392,7 @@ export class View {
         })
     }
 
+    // DISPLAY SHORT IN A QUESTION CREATED
     displayTableShortCreated(shortAnswer) {
 
 
@@ -412,6 +431,7 @@ export class View {
         }
     }
 
+    // DISPLAY NEW QUESTION CREATED
     _displayQuestions(questions) {
         if (this.getElement('#questions')) {
 
@@ -507,7 +527,7 @@ export class View {
         document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
     }
 
-    // recupere les infos qcm ajouté par l'utilisateur pour diffuser au controller
+    // GET INFOS FROM USER
     bindAddQcm(handler) {
         this.getElement("#answer-add").addEventListener('click', event => {
             event.preventDefault()
@@ -530,7 +550,7 @@ export class View {
     }
 
 
-// recuper les infos qcm éditées par l'utilisateur pour diffuser au controller
+// GET EDITED INPUT FROM USER
     binEditQcm = (handler) => {
         this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains('edit')) {
@@ -770,7 +790,7 @@ export class View {
             }
     }
 
-// recupere les infos supprimer par l'utilisateur pour diffuser au controller
+// GET INFOS TO DEL FROM USER
     binDelete = handler => {
         this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains("delete")) {
@@ -816,7 +836,7 @@ export class View {
         }
     }
 
-    // fonction qui permet l'edition du checkbox en mode modification
+    // FUNCTION TO SWITCH THE TOGGLE
     _toggleSwitch = (executed) => {
         let that = this
         this.getElement('form').addEventListener("click", (event) => {
@@ -860,7 +880,7 @@ export class View {
         })
     }
 
-    // function pour faire apparaitre la validation pour l'édition ou suppression
+    // FUNCTION TO CONFIRM A DELETE, A EDIT OR A CHANGEMENT OF EXERCISE
     _guizmoSpeak = (message) => {
 
         document.body.style.overflow = "hidden";
@@ -882,7 +902,7 @@ export class View {
 
     }
 
-
+// REMOVE THE DIALOG TO CONFRIM AND UNLOCK
     _removeguizmoSpeech = () => {
         document.getElementById("caution").innerHTML = "";
         document.getElementById("message").classList.add("display-none");
@@ -899,6 +919,8 @@ export class View {
         document.querySelector("#counter").disabled = false;
         document.querySelector("#explication").disabled = false;
     }
+
+    // LOCK THE EXERCISE
 
     _lockExercice = () => {
         document.querySelectorAll("input[type=radio]").forEach(radio => {
@@ -931,6 +953,7 @@ export class View {
 
     }
 
+    // UNLOCK TH EXERCISE
     _unlockExercice = () => {
 
         document.querySelectorAll("input[type=radio]").forEach(radio => {
@@ -949,16 +972,19 @@ export class View {
         this._hideDisplay(document.getElementById("explication-text"))
     }
 
+    // HIDE IS UNCHECKED
     _hideDisplay(el) {
         el.classList.add("display-none");
         el.value = "";
         el.placeholder = "Entrez votre explication ici"
     }
 
+    // SHOW IF CHECKED
     _showDisplay(el) {
         el.classList.remove("display-none");
     }
 
+    // LOCK EDITOR WHEN EDIT QUESTION
     _lockEditor(){
         document.querySelectorAll("input[type=radio]").forEach(radio => {
             radio.classList.add("disabled");
@@ -973,7 +999,7 @@ export class View {
 
 
     }
-
+    // UNLOCK WHEN IS FINISH
     _unlockEditor(){
         document.querySelectorAll("input[type=radio]").forEach(radio => {
             radio.classList.remove("disabled");
@@ -989,19 +1015,21 @@ export class View {
 
     }
 
+    // LOCK ALL BUTTONS
     _lockButton(el){
         document.querySelectorAll(el).forEach( button =>{
             button.classList.add("disabled")
         })
     }
 
+    //UNLOCK ALL BUTTONS
     _unlockButton(el){
         document.querySelectorAll(el).forEach( button =>{
             button.classList.remove("disabled")
         })
     }
 
-
+// UNLOCK THE QUESTION IN EDTITION
     _unlockQuestionEditing(event){
 
         event.target.parentElement.children[3].id = "question-name-edit"
@@ -1034,7 +1062,7 @@ export class View {
 
 
     }
-
+// LOCK THE QUESTION IN EDITION
     _lockQuestionEditing(event){
         event.target.parentElement.children[3].id = ""
         event.target.parentElement.children[3].disabled = true;
@@ -1063,6 +1091,7 @@ export class View {
 
     }
 
+    // GET ARRAY TO ADD - DEL - EDIT IN A QUESTION CREATED
     _getArray (getArray, event){
         let that = this
         getArray.forEach(question => {
@@ -1071,12 +1100,13 @@ export class View {
                 that._edited = question.table
                 console.log(that._edited)
                 document.querySelector("#questions").addEventListener("mousedown",  function editQuestion (el){
+                   // ADD IN A ARRAY FROM A QUESTION CREATED
                     if (el.target.classList.contains("answer-add")) {
                         if (that.getElement("#choice-edited-question").value !== "") {
                             that.addInCreated(that._edited, el)
                         }
                     }
-
+//DEL IN A ARRAY FROM A QUESTION CREATED
                    if (el.target.classList.contains("delete-edited")){
                         that._guizmoSpeak("Voulez-vous supprimer la ligne?")
                         document.getElementById("message").addEventListener("click", function confirmDel(ele) {
@@ -1114,7 +1144,7 @@ export class View {
 
 
                     }
-
+// EDIT IN A ARRAY FROM A QUESTION CREATED
                     if (el.target.classList.contains("edit-edited")){
                         if (that._countClickEdit === 0 ) {
                             that._guizmoSpeak("Voulez-vous modifier la ligne?")
@@ -1153,7 +1183,7 @@ export class View {
                         }
 
                     }
-
+// CONFIRM ALL MODIFICATION WHEN WE EDIT A QUESTION
                     if (el.target.id === "edit-question-confirmed") {
                         console.log("remove event")
                         console.log(that._edited)
@@ -1169,6 +1199,8 @@ export class View {
 
 
     }
+
+    // FUNCTION TO ADD IN CREATED
     addInCreated = (edited, event) => {
         let that = this
         console.log(that._edited, "that edited before add ")
@@ -1210,7 +1242,7 @@ export class View {
             document.querySelector("#checkAnswer-edited-question").parentElement.firstElementChild.checked = false}
 
     }
-
+// FUNCTION TO EDIT IN CREATED
     editInCreated = (edited, event) => {
         console.log("edit Question");
         let that = this;
@@ -1265,7 +1297,7 @@ export class View {
     }
 
 
-
+// FUNCTION TO DEL IN CREATED
     delInCreated = (edited, event) => {
         let that = this
         console.log(that._edited, "that edited before add ")
@@ -1286,9 +1318,10 @@ export class View {
     }
 
     /*********************/
-    /* toolbar and tag */
+    /* TOOLSBAR AND TAG */
     /*********************/
 
+    // CHECK WHERE A WORD START AND STOP
      _checkCharacterIsBoundary = (position, text, previous) => {
          let testedCharacterPosition = previous ? position - 1 : position
          console.log("Testing" , testedCharacterPosition, "=" , text[testedCharacterPosition])
@@ -1309,6 +1342,7 @@ export class View {
          return false;
     }
 
+    // GET THE SELECTION FRO A INPUT
     _getTextAeraSelection = (text) => {
          let textContainer = document.querySelector("#" + text)
         let selectStart = textContainer.selectionStart
@@ -1321,6 +1355,7 @@ export class View {
          }
     }
 
+    // ADD TAG ARROUND THE SELECTION
     addTagsToText (text, openingTag, closingTag){
         let textContainer = document .querySelector("#"+text)
         let string = textContainer.value.trim()
@@ -1371,11 +1406,8 @@ export class View {
 
         textContainer.selectionStart = boundaries.selectStart
         textContainer.selectionEnd = boundaries.selectStart + output.join(" ").length
-
-
-
     }
-
+// UNDO FUNCTION MAX 10 ELEMENTS
     undoAddTags (text) {
 
              let textContainer = document.querySelector("#" + text)
@@ -1391,7 +1423,7 @@ export class View {
         console.log(this._history.length, "length history")
 
     }
-
+// REDO FUNCTION MAX 10 ELEMENTS
     redoAddTags (text){
         let textContainer = document.querySelector("#" + text)
         if (this._redo.length !== 0 ) {
@@ -1403,7 +1435,7 @@ export class View {
         }
       
     }
-
+// ADD TAG SPAN IN IDENTIFICATION IF THERE AREN'T A GOOD CHOICE
     nothing (text){
          let textContainer = document.querySelector("#" + text)
         let nothing = "<span class=\"button-choice-1\">Aucun</span>"
@@ -1411,11 +1443,5 @@ export class View {
 
         textContainer.value =  textContainer.value + nothing;
 
-    }
-
-
-
-    test = () => {
-        console.log("( °͡‿‿°͡❛)")
     }
 }
