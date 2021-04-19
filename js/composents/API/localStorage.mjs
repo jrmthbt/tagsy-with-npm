@@ -1,3 +1,5 @@
+// config
+
  export const tagsy = {
     "autoSave" : document.getElementById("save-info"),
     "counterAuto" : document.getElementById("counter"),
