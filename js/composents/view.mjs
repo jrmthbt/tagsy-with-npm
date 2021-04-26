@@ -38,7 +38,6 @@ export class View {
                 this.getElement(".help-link").classList.toggle("current")
             }
 
-
         })
 
 
@@ -769,6 +768,7 @@ export class View {
                 if (that._countClick > 1) {
                     let id = event.target.parentElement.id;
                     let questionName = document.getElementById("question-name-edit").value
+                    console.log(questionName, "question name edit")
                     let array = that._edited
                     console.log(array, "handler")
 
@@ -781,6 +781,7 @@ export class View {
                     let explanation = document.getElementById("question-explanation-text-edit").value
 
                     handler(id, questionName, array, explanationCheck, explanation)
+
                     this._countClick++
                     that._history = []
                     that._redo = []

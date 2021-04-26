@@ -163,6 +163,7 @@ export class Controller {
             }
 
 
+
         })
         document.querySelector("#toolbars").addEventListener("click", function (event) {
             if (event.target.classList.contains("tools")) {
@@ -234,6 +235,27 @@ export class Controller {
                         that.view.nothing("question-name")
                     }
                 }
+
+            }
+        })
+
+        document.body.addEventListener("click", event => {
+            if (event.target.classList.contains("generate")){
+                this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
+                let that = this
+                document.getElementById("message").addEventListener("click", function confirmEdit(el) {
+
+                    if (el.target.classList.contains("btn-confirm")) {
+                        that.download()
+                        that.view._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmEdit)
+                    }
+                    if (el.target.classList.contains("btn-cancel")) {
+                        that.view._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmEdit)
+                    }
+
+                })
             }
         })
 
@@ -393,4 +415,54 @@ export class Controller {
         this.view._history = []
         this.view._redo = []
     }
+
+    // GENERATE A JSON FILE
+
+    download = () => {
+        let tagsy = JSON.parse(sessionStorage.getItem("tagsy")) || JSON.parse(localStorage.getItem("tagsy"))
+        console.log(tagsy)
+        console.table(this.model.questionCreated)
+
+        let QCM = {
+            "id": "",
+            "topic": "",
+            "category": "",
+            "engine": "MCQ",
+            "rules": [""],
+            "description": {
+                "long": "",
+                "medium": "",
+                "short": ""
+            },
+            "wrapper": "ul",
+            "intro": "",
+            "objective": "",
+            "debrief": "",
+            "help": "",
+            "fragments": [{
+                "id": "",
+                "text": "",
+                "questions": [{
+                    "id": "",
+                    "format": "big",
+                    "choices": [],
+                    "answers": [],
+                    "clue": ""
+                }]
+            }]
+
+        }
+
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(QCM))
+        let dlElem = this.view.getElement("a.generate");
+        dlElem.setAttribute("href", dataStr)
+        dlElem.setAttribute("download", `${QCM.engine} - ${QCM.category}.json`)
+        dlElem.click()
+        dlElem.removeAttribute("href")
+        dlElem.removeAttribute("download")
+
+
+
+    }
+
 }
