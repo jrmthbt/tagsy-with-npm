@@ -35,6 +35,7 @@ export class View {
             if (event.target.classList.contains("help-link" || "help")){
                 this.getElement(".tagsy").classList.toggle("display-none")
                 this.getElement(".tutoriel").classList.toggle("display-none")
+                this.getElement(".help-link").classList.toggle("current")
             }
 
 

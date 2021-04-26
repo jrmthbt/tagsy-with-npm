@@ -24,6 +24,9 @@
   width: auto;
   height: auto;
 }
+html{
+  scroll-behavior: smooth;
+}
 
 body {
   height: auto;
@@ -74,9 +77,10 @@ body {
   }
 }
 
-html{
-  scroll-behavior: smooth;
+.last{
+  margin-bottom: 25px;
 }
+
 
 
 

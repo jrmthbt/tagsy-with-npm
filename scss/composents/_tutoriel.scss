@@ -4,15 +4,15 @@
 @import "variables";
 
 .tutoriel{
-  p{
-    margin-top: 150px;
-  }
 
   .tuto{
     p{
-      margin-top: 10px;
+      margin-top: 25px;
       text-align: left;
       line-height: 1.5;
+      @include responsive_laptop{
+        font-size: 20px !important;
+      }
     }
     .toggle-tuto{
       margin-left: -320px;
@@ -37,6 +37,9 @@
         counter-increment: li;
         margin-bottom: 5px;
         line-height: 1.5;
+        @include responsive_laptop{
+          font-size: 20px !important;
+        }
       }
     }
 
@@ -45,6 +48,10 @@
       color: $purple;
       &:hover{
         color: $red;
+      }
+
+      @include responsive_laptop{
+        font-size: 20px !important;
       }
     }
   }

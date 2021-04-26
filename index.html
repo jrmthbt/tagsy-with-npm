@@ -37,7 +37,7 @@
 <!-- main open-->
 <main>
     <!-- container main open-->
-    <div class="container tagsy display-none">
+    <div class="container tagsy">
         <!-- title -->
         <h2 class="bold_25">Tagsy</h2>
         <h3 class="lato_light_15">L'éditeur de tags pour exercices de j'accorde.</h3>
@@ -105,16 +105,17 @@
         <!-- end form-->
         <!--btn for add question-->
         <button class="btn-primary bold_10" id="form-add">Ajouter la question</button>
+        <button class="btn-secondary bold_10" id="generate">Générer l'exercice</button>
     </div>
-    <div class="container tutoriel">
+    <div class="container tutoriel display-none">
         <h2 class="bold_25">Tutoriel de tagsy</h2>
         <h3 class="bold_15">Ce tutoriel va vous permettre d'utiliser ce nouvel interface de tagsy et à créer des exercices pour j'accorde. </h3>
-        <h5 class="bold_15">Comment créer un exercice? </h5>
+        <h5 class="bold_15">- Comment créer un exercice? </h5>
         <div class="tuto">
 
                 <p class="regular_15">Entrez le nom de l'exercice.</p>
                 <p class="regular_15">Cochez le type d'exercice que vous souhaitez : (QCM, Identificaion, réponse courte).<br> Vous avez la possibilités de changer le type d'exercice en cours d'édition avec le bouton <button class="btn-secondary-nothover"> changer le type d'exercice</button>. <br> Il n'est pas possible de changer le type d'exercice dans une question créée, il faut supprimer la question que vous voulez changer et en créer une nouvelle. </p>
-                <h5 class="bold_15">Pour un QCM : </h5>
+                <h5 class="bold_15">- Pour un QCM : </h5>
                 <ol>
                     <li class="regular_15">Entrez l'énoncé. </li>
                     <li class="regular_15">Sélectionnez le mot ou groupe de mot et ajouté les balises souhaitées.</li>
@@ -122,7 +123,7 @@
                     <li class="regular_15">Si vous souhaitez ajouter un texte explicatif, cocher la case et <br> ajoutez votre explication.</li>
                     <li class="regular_15">Ajoutez la question créée avec le bouton <button class="btn-primary-nothover">Ajouter la question</button> </li>
                 </ol>
-                <h5 class="bold_15">Pour une identification : </h5>
+                <h5 class="bold_15">- Pour une identification : </h5>
                     <ol>
                         <li class="regular_15">Entrez l'énoncé.</li>
                         <li class="regular_15">Sélectionnez le mot ou groupe de mot et ajouté les balises souhaitées.</li>
@@ -130,30 +131,30 @@
                         <li class="regular_15">Si vous souhaitez ajouter un texte explicatif, cocher la case et <br> ajoutez votre explication.</li>
                         <li class="regular_15">Ajoutez la question créée avec le bouton <button class="btn-primary-nothover">Ajouter la question</button></li>
                     </ol>
-                <h5 class="bold_15">Pour une réponse courte : </h5>
+                <h5 class="bold_15">- Pour une réponse courte : </h5>
                 <ol>
                     <li class="regular_15">Entrez l'énoncé. </li>
-                    <li class="regular_15">Sélectionnez le mot ou groupe de mot et ajouté les balises souhaitées. Attention les balises ne fonctionnes pas comme pour le QCM voir <a href="#tags" class="regular_15 link">"Les balises"</a></li>
-                    <li class="regular_15">Dans le tableau en dessous de l'énoncé, entrez vos propositions de réponses et cocher la/les bonne(s) réponse(s).</li>
-                    <li class="regular_15">Si vous souhaitez ajouter un texte explicatif, cocher la case et ajoutez votre explication.</li>
+                    <li class="regular_15">Sélectionnez le mot ou groupe de mot et ajouté les balises souhaitées. Attention les balises ne fonctionnes pas comme pour le QCM voir <a href="#tags" class="regular_15 link">"LES BALISES"</a></li>
+                    <li class="regular_15">Dans le tableau en dessous de l'énoncé, entrez vos propositions de réponses et <br>cocher la/les bonne(s) réponse(s).</li>
+                    <li class="regular_15">Si vous souhaitez ajouter un texte explicatif, cocher la case et ajoutez <br> votre explication.</li>
                     <li class="regular_15">Ajoutez la question créée avec le bouton "Ajouter la question".</li>
                 </ol>
-            <h5 class="bold_15">Générer un exercice : </h5>
-            <p class="regular_15"> Cliquez sur le button <button class="btn-primary-nothover">Générer</button> cela vous créera un fichier .CSV avec tout votre exercice</p>
+            <h5 class="bold_15">- Générer un exercice : </h5>
+            <p class="regular_15"> Cliquez sur le button <button class="btn-primary-nothover">Générer</button> cela vous créera un fichier .CSV avec tout votre exercice.</p>
 
-            <h5 class="bold_15">Une sauvegarde automatique </h5>
-            <p class="regular_15" id="tags"> Une sauvegarde automatique vous est proposée si vous souhaitez sauver votre exercice en cours d'édition. Si vous voulez stopper la création et revenir dessus plus tard, si votre navigateur se ferme,... Par défaut, il est désactivé mais vous pouvez l'activé en cochant Sauvegarde automatique en haut de la page </p>
+            <h5 class="bold_15" id="tags">- Une sauvegarde automatique </h5>
+            <p class="regular_15"> Une sauvegarde automatique vous est proposée si vous souhaitez sauver votre exercice <br> en cours d'édition. Si vous voulez stopper la création et revenir dessus plus tard, si votre navigateur se ferme,... Par défaut, il est désactivé mais vous pouvez l'activer en cochant Sauvegarde automatique en haut de la page. </p>
 
-            <h5 class="bold_15">Les balises </h5>
-            <p class="regular_15">Les balises [%R1]... [/%R1] permettent à l'algorithme d'identifier la ou les parties de l'énoncé sur lesquelles porte la question (et doivent être masqué). <br> Par défaut, le texte entre les balises est remplacé par un "?" (<a target="_blank" href="https://jaccorde.com/app/#view/exercises/topic/participes-passes/book/etre/item/participes-passes-201">Exemple</a>). <br> On peut utiliser les balises [%G1]...[/%G1] pour indiquer une partie du texte à mettre en surbrillance à la place (<a target="_blank" href="https://jaccorde.com/app/#view/exercises/topic/classes-de-mots/book/recap/item/classes-de-mots-901">Exemple</a>). <br> Tout texte mis entre les balises [%I1]...[/%I1] sera mis en surbrillance quand on cliquera sur la réponse correspondante en mode réponse (<a href="https://jaccorde.com/app/#view/exercises/topic/participes-passes/book/seul/item/participes-passes-101" target="_blank">Exemple</a>). </p>
+            <h5 class="bold_15">- Les balises </h5>
+            <p class="regular_15">Les balises [%R1]... [/%R1] permettent à l'algorithme d'identifier la ou les parties de l'énoncé sur lesquelles porte la question (et doivent être masqué). <br> Par défaut, le texte entre les balises est remplacé par un "?" (<a target="_blank" href="https://jaccorde.com/app/#view/exercises/topic/participes-passes/book/etre/item/participes-passes-201">Exemple</a>). <br> On peut utiliser les balises [%G1]...[/%G1] pour indiquer une partie du texte à mettre en surbrillance à la place (<a target="_blank" href="https://jaccorde.com/app/#view/exercises/topic/classes-de-mots/book/recap/item/classes-de-mots-901">Exemple</a>). <br> Tout texte mis entre les balises [%I1]...[/%I1] sera mis en surbrillance quand on cliquera sur <br>la réponse correspondante en mode réponse (<a href="https://jaccorde.com/app/#view/exercises/topic/participes-passes/book/seul/item/participes-passes-101" target="_blank">Exemple</a>). </p>
             <p class="regular_15">Les balises peuvent s'auto-incrémeter si on active le compteur automatique dans la barre d'outils et elles recommence à 1 pour chaque nouvelle question. <br>
             </p>
-            <h5 class="bold_15">Modification ou suppression d'une réponse en cours de création </h5>
-            <p class="regular_15"> Pour modifier une réponse en cours de création, il suffit de cliquer sur <button class="btn-secondary-nothover">Modifier</button> et ensuite de confirmer la modification. Une fois les modifications effectuées, cliquez à nouveau sur le button pour valider vos modifications.</p>
-            <p class="regular_15">Pour supprimer une réponse en cours de création, il suffit de cliquer sur <button class="btn-tertiary-nothover">Supprimer</button> et de confirmer la suppression de la réponse. ( !! ATTENTION !! une fois supprimée, il n'est pas possible de récupérer la réponse).</p>
-            <h5 class="bold_15">Modification ou suppression d'une question créée. </h5>
+            <h5 class="bold_15">- Modification ou suppression d'une réponse en cours de création </h5>
+            <p class="regular_15"> Pour modifier une réponse en cours de création, il suffit de cliquer sur <button class="btn-secondary-nothover">Modifier</button> et ensuite de confirmer la modification. Une fois les modifications effectuées, cliquez à nouveau sur <br> le button pour valider vos modifications.</p>
+            <p class="regular_15">Pour supprimer une réponse en cours de création, il suffit de cliquer sur <button class="btn-tertiary-nothover">Supprimer</button> et  <br>de confirmer la suppression de la réponse. ( !! ATTENTION !! une fois supprimée, il n'est pas possible de récupérer la réponse).</p>
+            <h5 class="bold_15">- Modification ou suppression d'une question créée. </h5>
             <p class="regular_15">Pour modifier une question créée , il suffit de cliquer sur <button class="btn-secondary-nothover"><i class="fa fa-edit"></i></button> et de confirmer la modification de la question. une fois la confirmation faite, vous pouvez modifier votre énoncé vous pouvez faire les mêmes étapes que la modification en cours d'édition pour le tableau, ajouter, modifier ou  supprimer votre explication. Une fois toutes les modications faites (énoncé, tableau de réponses, explication), vous devez confirmer les changements avec le button <button class="btn-secondary-nothover"><i class="fa fa-check"></i></button></p>
-            <p class="regular_15">Pour supprimmer une question créée, il suffit de cliquer sur <button class="btn-tertiary-nothover"><i class="fa fa-trash-alt"></i></button> et de confirmer <br>la suppression de la question. (!! ATTENTION !! une fois supprimée il n'est pas possible de récupérer la question). </p>
+            <p class="regular_15 last">Pour supprimmer une question créée, il suffit de cliquer sur <button class="btn-tertiary-nothover"><i class="fa fa-trash-alt"></i></button> et de confirmer <br>la suppression de la question. (!! ATTENTION !! une fois supprimée il n'est pas possible <br>de récupérer la question). </p>
         </div>
 
     </div>

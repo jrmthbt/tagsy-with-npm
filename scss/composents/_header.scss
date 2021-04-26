@@ -57,6 +57,10 @@ header {
 
   }
 
+  .current{
+    border-bottom: solid 5px $purple;
+  }
+
   #time-save{
     position: absolute;
     top: 18px;

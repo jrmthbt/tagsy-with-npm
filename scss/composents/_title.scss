@@ -69,4 +69,8 @@ h1 {
 
   h5{
     margin: 15px 0;
+    @include responsive_laptop {
+      margin: 30px 0;
+      font-size: 25px !important;
+    }
   }
