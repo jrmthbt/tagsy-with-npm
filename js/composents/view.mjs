@@ -31,6 +31,12 @@ export class View {
                 }
             }
 
+            // HELP
+            if (event.target.classList.contains("help-link" || "help")){
+                this.getElement(".tagsy").classList.toggle("display-none")
+                this.getElement(".tutoriel").classList.toggle("display-none")
+            }
+
 
         })
 
@@ -1444,4 +1450,5 @@ export class View {
         textContainer.value =  textContainer.value + nothing;
 
     }
+
 }

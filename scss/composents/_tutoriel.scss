@@ -1,0 +1,51 @@
+@import "fonts";
+@import "color";
+@import "responsive_mixins";
+@import "variables";
+
+.tutoriel{
+  p{
+    margin-top: 150px;
+  }
+
+  .tuto{
+    p{
+      margin-top: 10px;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .toggle-tuto{
+      margin-left: -320px;
+      top: -17px;
+    }
+
+    ol{
+      margin-top: 10px;
+      margin-left: 50px;
+      list-style: none;
+      counter-reset: li;
+      li{
+        &::before{
+          content: counter(li);
+          color: $purple;
+          width: 1em;
+          margin-left : -1.5em;
+          margin-right: 0.5em;
+          text-align: right;
+          direction: rtl;
+        }
+        counter-increment: li;
+        margin-bottom: 5px;
+        line-height: 1.5;
+      }
+    }
+
+    a{
+      text-decoration: none;
+      color: $purple;
+      &:hover{
+        color: $red;
+      }
+    }
+  }
+}

@@ -36,6 +36,13 @@
     }
   }
 
+  .btn-primary-nothover{
+    background-color: $white;
+    color: $purple;
+    border: 1px solid $purple;
+    cursor: initial;
+  }
+
   .btn-secondary {
     background-color: $white;
     color: $blue;
@@ -49,6 +56,13 @@
     }
   }
 
+  .btn-secondary-nothover{
+    background-color: $white;
+    color: $blue;
+    border: 1px solid $blue;
+    cursor: initial;
+  }
+
   .btn-tertiary {
     background-color: $white;
     color: $red;
@@ -60,6 +74,13 @@
       color: $white;
       border: 1px solid $red;
     }
+  }
+
+  .btn-tertiary-nothover {
+    background-color: $white;
+    color: $red;
+    border: 1px solid $red;
+    cursor: initial;
   }
 
   .btn-change{
