@@ -1,11 +1,13 @@
 @import "variables";
 @import "color";
+@import "responsive_mixins";
 
 footer{
   width: 100%;
   background-color: $light_gray;;
   height: 50px;
-  position: relative;
+  position: absolute;
+  bottom: 0;
   z-index: -5;
   margin-top: 20px;
 
@@ -15,6 +17,7 @@ footer{
     text-align: center;
     position: relative;
     top: 15px;
+    color : $purple;
   }
 
   @include responsive_computer{

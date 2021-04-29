@@ -419,50 +419,18 @@ export class Controller {
     // GENERATE A JSON FILE
 
     download = () => {
-        let tagsy = JSON.parse(sessionStorage.getItem("tagsy")) || JSON.parse(localStorage.getItem("tagsy"))
-        console.log(tagsy)
-        console.table(this.model.questionCreated)
-
-        let QCM = {
-            "id": "",
-            "topic": "",
-            "category": "",
-            "engine": "MCQ",
-            "rules": [""],
-            "description": {
-                "long": "",
-                "medium": "",
-                "short": ""
-            },
-            "wrapper": "ul",
-            "intro": "",
-            "objective": "",
-            "debrief": "",
-            "help": "",
-            "fragments": [{
-                "id": "",
-                "text": "",
-                "questions": [{
-                    "id": "",
-                    "format": "big",
-                    "choices": [],
-                    "answers": [],
-                    "clue": ""
-                }]
-            }]
-
-        }
-
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(QCM))
-        let dlElem = this.view.getElement("a.generate");
-        dlElem.setAttribute("href", dataStr)
-        dlElem.setAttribute("download", `${QCM.engine} - ${QCM.category}.json`)
-        dlElem.click()
-        dlElem.removeAttribute("href")
-        dlElem.removeAttribute("download")
+        let tagsy = JSON.parse(sessionStorage.getItem("questionCreated")) || JSON.parse(localStorage.getItem("questionCreated"))
 
 
+
+
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tagsy))
+            let dlElem = this.view.getElement("a.generate");
+            dlElem.setAttribute("href", dataStr)
+            dlElem.setAttribute("download", `tagsy.json`)
+            dlElem.click()
+            dlElem.removeAttribute("href")
+            dlElem.removeAttribute("download")
 
     }
-
 }
