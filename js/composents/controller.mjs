@@ -247,6 +247,7 @@ export class Controller {
 
                     if (el.target.classList.contains("btn-confirm")) {
                         that.download()
+                        that.initAll()
                         that.view._removeguizmoSpeech()
                         this.removeEventListener("click", confirmEdit)
                     }
@@ -565,7 +566,7 @@ console.log(json)
         let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
         let dlElem = this.view.getElement("a.generate");
         dlElem.setAttribute("href", dataStr)
-        dlElem.setAttribute("download", `${jsonMCQ.engine}.json`)
+        dlElem.setAttribute("download", `${json.engine}.json`)
         dlElem.click()
         dlElem.removeAttribute("href")
         dlElem.removeAttribute("download")
@@ -596,5 +597,19 @@ console.log(json)
 
 
 
+    }
+
+    initAll = () => {
+        while (document.getElementById("questions").firstChild){
+            document.getElementById("questions").removeChild(document.getElementById("questions").firstChild)
+        }
+        localStorage.clear()
+        sessionStorage.clear()
+        this.model.questionCreated = []
+        this.model.tagsyEditor = []
+        this.model.qcmAnswers = []
+        this.model.shortAnswers = []
+        this.model.tagsy = []
+        document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
     }
 }
