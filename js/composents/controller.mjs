@@ -132,16 +132,22 @@ export class Controller {
 // ADD A QUESTION
             if (event.target.id === "form-add") {
                 that.initCounter()
-                document.querySelectorAll("input[name=exercice]").forEach(radio => {
-                    if (radio.checked) {
-                        if (that.view.getElement("#question-name").value !== "" || undefined) {
-                            that.addQuestion()
-                            document.querySelectorAll("input[type=text]").forEach(input => {
-                            })
 
-                        }
+                    if (document.getElementById("identification").checked && document.getElementById("question-name").value !== "" || undefined) {
+
+                            that.addQuestion()
+
                     }
-                })
+            else if (document.getElementById("qcm").checked && document.getElementById("question-name").value !== ""  && document.getElementById("tbody-root").childElementCount > 0){
+                        that.addQuestion()
+                    }
+                    else if (document.getElementById("short-answer").checked && document.getElementById("question-name").value !== ""  && document.getElementById("tbody-root").childElementCount > 0){
+                        that.addQuestion()
+                    }
+            else {
+                        that.view.guizmoAlert("Remplissez tous les champs pour créer la question, (si QCM ou réponse courte, remplir le tableau aussi)!")
+                    }
+
             }
 // DELETE A QUESTION
             if (event.target.classList.contains("delete-question")) {
@@ -240,10 +246,10 @@ export class Controller {
 
             }
         })
-
+// GENERATE A JSON FILE
         document.body.addEventListener("click", event => {
             if (event.target.classList.contains("generate")) {
-                if (this.view.getElement("#name-exercise").value !== "") {
+                if (this.view.getElement("#name-exercise").value !== "" && document.getElementById("questions").childElementCount > 0 ) {
                     this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
                     let that = this
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
@@ -260,6 +266,9 @@ export class Controller {
                         }
 
                     })
+                }
+                else {
+                    that.view.guizmoAlert("Veuillez entrez le nom de l'exercice et créer des questions pour générer un exercice!");
                 }
             }
         })

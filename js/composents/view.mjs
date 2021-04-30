@@ -907,7 +907,25 @@ export class View {
 
         document.getElementsByClassName("btn-confirm")[0].classList.remove("disabled")
         document.getElementsByClassName("btn-cancel")[0].classList.remove("disabled")
+        document.getElementsByClassName("btn-confirm")[0].classList.remove("display-none")
+        document.getElementsByClassName("btn-cancel")[0].classList.remove("display-none")
 
+    }
+
+    guizmoAlert = message => {
+        document.getElementById("message").classList.remove("display-none")
+        document.getElementById("caution").innerHTML = message
+        document.getElementsByClassName("btn-confirm")[0].classList.add("display-none")
+        document.getElementsByClassName("btn-cancel")[0].classList.add("display-none")
+
+        setTimeout(this.removeGuizmoAlert , 5000)
+    }
+
+    removeGuizmoAlert = () =>{
+        document.getElementById("message").classList.add("display-none")
+        document.getElementById("caution").innerHTML = ""
+        document.getElementsByClassName("btn-confirm")[0].classList.remove("display-none")
+        document.getElementsByClassName("btn-cancel")[0].classList.remove("display-none")
     }
 
 // REMOVE THE DIALOG TO CONFRIM AND UNLOCK
