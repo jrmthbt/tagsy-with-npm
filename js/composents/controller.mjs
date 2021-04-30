@@ -134,10 +134,12 @@ export class Controller {
                 that.initCounter()
                 document.querySelectorAll("input[name=exercice]").forEach(radio => {
                     if (radio.checked) {
-                        that.addQuestion()
-                        document.querySelectorAll("input[type=text]").forEach(input => {
-                        })
+                        if (that.view.getElement("#question-name").value !== "" || undefined) {
+                            that.addQuestion()
+                            document.querySelectorAll("input[type=text]").forEach(input => {
+                            })
 
+                        }
                     }
                 })
             }
@@ -240,23 +242,25 @@ export class Controller {
         })
 
         document.body.addEventListener("click", event => {
-            if (event.target.classList.contains("generate")){
-                this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
-                let that = this
-                document.getElementById("message").addEventListener("click", function confirmEdit(el) {
+            if (event.target.classList.contains("generate")) {
+                if (this.view.getElement("#name-exercise").value !== "") {
+                    this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
+                    let that = this
+                    document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
-                    if (el.target.classList.contains("btn-confirm")) {
-                        that.download()
-                        that.initAll()
-                        that.view._removeguizmoSpeech()
-                        this.removeEventListener("click", confirmEdit)
-                    }
-                    if (el.target.classList.contains("btn-cancel")) {
-                        that.view._removeguizmoSpeech()
-                        this.removeEventListener("click", confirmEdit)
-                    }
+                        if (el.target.classList.contains("btn-confirm")) {
+                            that.download()
+                            that.initAll()
+                            that.view._removeguizmoSpeech()
+                            this.removeEventListener("click", confirmEdit)
+                        }
+                        if (el.target.classList.contains("btn-cancel")) {
+                            that.view._removeguizmoSpeech()
+                            this.removeEventListener("click", confirmEdit)
+                        }
 
-                })
+                    })
+                }
             }
         })
 
@@ -605,6 +609,7 @@ console.log(json)
         }
         localStorage.clear()
         sessionStorage.clear()
+        document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})
         this.model.questionCreated = []
         this.model.tagsyEditor = []
         this.model.qcmAnswers = []
