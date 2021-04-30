@@ -88,7 +88,7 @@ export class Controller {
                     stopSS()
                     callLS()
                 } else {
-                 //   CHANGE FROM LOCAL TO SESSION STORAGE WITH A CONFIRMATION
+                    //   CHANGE FROM LOCAL TO SESSION STORAGE WITH A CONFIRMATION
                     this.view._guizmoSpeak("Voulez-vous supprimer la sauvegarde automatique?")
                     document.getElementById("message").addEventListener("click", function confirmEditQuestion(el) {
                         if (el.target.classList.contains("btn-confirm")) {
@@ -188,7 +188,7 @@ export class Controller {
 
                 }
                 if (event.target.id === "tool-tag-r") {
-                   // CALL TO TAG R
+                    // CALL TO TAG R
                     let RO = `[%R${that.countR}]`;
                     let RE = `[/%R${that.countR}]`;
                     let target = "question-name"
@@ -419,18 +419,182 @@ export class Controller {
     // GENERATE A JSON FILE
 
     download = () => {
-        let tagsy = JSON.parse(sessionStorage.getItem("questionCreated")) || JSON.parse(localStorage.getItem("questionCreated"))
+        let tagsyQuestion = JSON.parse(sessionStorage.getItem("questionCreated")) || JSON.parse(localStorage.getItem("questionCreated"))
+
+        let tagsy  = JSON.parse(sessionStorage.getItem("tagsy")) || JSON.parse(localStorage.getItem("tagsy"))
+        console.log(tagsyQuestion, "question")
+
+        let json = {
+            "id": "TODO",
+            "topic": "TODO",
+            "category": "TODO",
+            "engine": "",
+            "rules": [""],
+            "description": {
+                "long": "TODO",
+                "medium": "TODO",
+                "short": "TODO"
+            },
+            "wrapper": "ul",
+            "intro": "TODO",
+            "objective": tagsy.exerciseName ,
+            "debrief": "TODO",
+            "help": "<h2>Comment gagner&nbsp;?</h2><ul><li>Cliquez sur un verbe pour afficher le formulaire de réponse puis entrez cette dernière. Cliquez à nouveau pour modifier la réponse.</li><li>Quand vous avez terminé, enfoncez joyeusement le bouton «&nbsp;J’ai fini&nbsp;!&nbsp;» pour connaître votre résultat.</li></ul><h2>Bon à savoir…</h2><ul><li>Il faut créer ou sélectionner un profil avant de commencer à faire un exercice si vous voulez sauvegarder le résultat dans votre suivi de progression.</li><li>Quitter l’exercice en cours efface les réponses déjà entrées.</li></ul>",
+            "fragments": [],
+        }
+    let i = 0
+        let k = 1
+
+
+        tagsyQuestion.forEach(answer => {
+            let choix = [];
+            let good = [];
+            let shortAnswer = [];
+            let questions = []
+            if (answer.type ==="QCM"){
+                json.engine = "MCQ"
+
+
+            answer.table.forEach(val => {
+
+                let choice = {
+                    "id" : val.id,
+                    "value" : val.choix
+                }
+                console.log(choice)
+                choix.push(choice)
+
+                if (val.goodAnswer !== false){
+                    let j = 0
+                    let ans = {
+                        "id" : (j) - good.length +(good.length +1),
+                        "value" :val.id
+
+                    }
+                    j++
+                    good.push(ans)
+                }
+
+
+            })
+
+                let quest = {
+                    "id" : k,
+                    "format" : "big",
+                    "choices" : choix,
+                    "answers" : good,
+                    "clue" : answer.explication !== "" ? answer.explication : "",
+
+                }
+                k++
+                questions.push(quest)
+
+
+            console.log(i, "avant incrément")
+            console.log(choix)
+            i++
+            let question = {
+                "id" : i.toString(),
+                "text": answer.enonce,
+                "questions" : questions,
+
+            }
+
+            json.fragments.push(question)
+                }
+            if (answer.type === "Identification"){
+                json.engine = "FIT"
+                i++
+
+                let question = {
+                    "id" : i,
+                    "text" : answer.enonce,
+                    "clue" : answer.explication
+                }
+
+                json.fragments.push(question)
+            }
+
+            if (answer.type === "Réponse courte")
+            {
+                console.log("short")
+                json.engine = "FTB"
+
+                answer.table.forEach(val => {
+
+                    let short = {
+                        "id" : val.id,
+                        "value" : val.answer
+                    }
+
+                    shortAnswer.push(short)
+
+
+                })
+
+
+                let quest = {
+                    "id" : k,
+                    "format" : "big",
+                    "answers" : shortAnswer,
+                    "clue" : answer.explication !== "" ? answer.explication : "",
+
+                }
+                questions.push(quest)
+
+                i++
+                let question = {
+                    "id" : i.toString(),
+                    "text": answer.enonce,
+                    "questions" : questions,
+
+                }
+
+                json.fragments.push(question)
+            }
+        })
 
 
 
+console.log(json)
 
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tagsy))
-            let dlElem = this.view.getElement("a.generate");
-            dlElem.setAttribute("href", dataStr)
-            dlElem.setAttribute("download", `tagsy.json`)
-            dlElem.click()
-            dlElem.removeAttribute("href")
-            dlElem.removeAttribute("download")
+
+    if (json.engine === "MCQ") {
+        console.log("generate MCQ")
+
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+        let dlElem = this.view.getElement("a.generate");
+        dlElem.setAttribute("href", dataStr)
+        dlElem.setAttribute("download", `${jsonMCQ.engine}.json`)
+        dlElem.click()
+        dlElem.removeAttribute("href")
+        dlElem.removeAttribute("download")
+    }
+
+   else if (json.engine === "FIT"){
+        console.log("generate FIT")
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+        let dlElem = this.view.getElement("a.generate");
+        dlElem.setAttribute("href", dataStr)
+        dlElem.setAttribute("download", `${json.engine}.json`)
+        dlElem.click()
+        dlElem.removeAttribute("href")
+        dlElem.removeAttribute("download")
+
+    }
+
+    else if (json.engine === "FTB"){
+        console.log("generate FTB")
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+        let dlElem = this.view.getElement("a.generate");
+        dlElem.setAttribute("href", dataStr)
+        dlElem.setAttribute("download", `${json.engine}.json`)
+        dlElem.click()
+        dlElem.removeAttribute("href")
+        dlElem.removeAttribute("download")
+        }
+
+
 
     }
 }

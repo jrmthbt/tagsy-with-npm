@@ -15,7 +15,6 @@
 @import "composents/confirmBox";
 @import "composents/questionEdited";
 @import "composents/tutoriel";
-@import "composents/footer";
 
 
 /*------- initalisation de la page ------ */
@@ -79,6 +78,11 @@ body {
 }
 
 .last{
+  margin-bottom: 25px;
+}
+
+
+.generate {
   margin-bottom: 25px;
 }
 
