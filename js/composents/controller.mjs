@@ -239,24 +239,27 @@ export class Controller {
             }
         })
 
+        // GENERATE A JSON FILES
         document.body.addEventListener("click", event => {
-            if (event.target.classList.contains("generate")){
-                this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
-                let that = this
-                document.getElementById("message").addEventListener("click", function confirmEdit(el) {
+            if (event.target.classList.contains("generate")) {
+                if (document.getElementById("questions").childElementCount > 0) {
+                    this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
+                    let that = this
+                    document.getElementById("message").addEventListener("click", function confirmEdit(el) {
 
-                    if (el.target.classList.contains("btn-confirm")) {
-                        that.download()
-                        that.initAll()
-                        that.view._removeguizmoSpeech()
-                        this.removeEventListener("click", confirmEdit)
-                    }
-                    if (el.target.classList.contains("btn-cancel")) {
-                        that.view._removeguizmoSpeech()
-                        this.removeEventListener("click", confirmEdit)
-                    }
+                        if (el.target.classList.contains("btn-confirm")) {
+                            that.download()
+                            that.initAll()
+                            that.view._removeguizmoSpeech()
+                            this.removeEventListener("click", confirmEdit)
+                        }
+                        if (el.target.classList.contains("btn-cancel")) {
+                            that.view._removeguizmoSpeech()
+                            this.removeEventListener("click", confirmEdit)
+                        }
 
-                })
+                    })
+                }
             }
         })
 
