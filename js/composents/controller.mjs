@@ -134,10 +134,12 @@ export class Controller {
                 that.initCounter()
                 document.querySelectorAll("input[name=exercice]").forEach(radio => {
                     if (radio.checked) {
-                        that.addQuestion()
-                        document.querySelectorAll("input[type=text]").forEach(input => {
-                        })
+                        if (that.view.getElement("#question-name").value !== "" || undefined) {
+                            that.addQuestion()
+                            document.querySelectorAll("input[type=text]").forEach(input => {
+                            })
 
+                        }
                     }
                 })
             }
@@ -239,10 +241,9 @@ export class Controller {
             }
         })
 
-        // GENERATE A JSON FILES
         document.body.addEventListener("click", event => {
             if (event.target.classList.contains("generate")) {
-                if (document.getElementById("questions").childElementCount > 0) {
+                if (this.view.getElement("#name-exercise").value !== "") {
                     this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
                     let that = this
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
@@ -608,6 +609,7 @@ console.log(json)
         }
         localStorage.clear()
         sessionStorage.clear()
+        document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})
         this.model.questionCreated = []
         this.model.tagsyEditor = []
         this.model.qcmAnswers = []
