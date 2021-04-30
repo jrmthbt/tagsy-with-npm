@@ -1022,6 +1022,8 @@ export class View {
         this.getElement("#name-exercise").classList.add("disabled")
         this.getElement(".saveInfo").classList.add("disabled")
         this.getElement("#counter-auto").classList.add("disabled")
+        this.getElement("button.generate").classList.add("disabled")
+        this.getElement("#generate").style.pointerEvents="none"
 
 
     }
@@ -1037,6 +1039,8 @@ export class View {
         this.getElement("#name-exercise").classList.remove("disabled")
         this.getElement(".saveInfo").classList.remove("disabled")
         this.getElement("#counter-auto").classList.remove("disabled")
+        this.getElement("button.generate").classList.remove("disabled")
+        this.getElement("#generate").style.pointerEvents="auto"
 
 
     }
@@ -1282,6 +1286,8 @@ export class View {
             document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.add("disabled"));
             document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.add("disabled"));
             document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.add("disabled"));
+            document.querySelector("button.generate").classList.add("disabled");
+            document.querySelector("button#form-add").classList.add("disabled");
             that.getElement("#edit-row-confirmed").classList.remove("disabled");
             that.getElement("#choice-edited-question").classList.add("disabled");
             event.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = false
@@ -1312,6 +1318,8 @@ export class View {
                 document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.remove("disabled"));
                 document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.remove("disabled"));
                 document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelector("button.generate").classList.remove("disabled");
+                document.querySelector("button#form-add").classList.remove("disabled");
                 that.getElement("#choice-edited-question").classList.remove("disabled");
                 event.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
                 if (event.target.parentElement.parentElement.childElementCount > 2) {

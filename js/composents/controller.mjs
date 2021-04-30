@@ -2,7 +2,7 @@
 /* MVC - CONTROLLER*/
 /*******************/
 
-// IMPORT FUNCTION TO SAVE IN SESSION OR LOCAL STORGE
+// IMPORT FUNCTION TO SAVE IN SESSION OR LOCAL STORAGE
 import {callSS, stopSS} from "./API/sessionStorage.mjs";
 import {callLS, stopLS} from "./API/localStorage.mjs";
 
@@ -572,7 +572,7 @@ export class Controller {
 
 console.log(json)
 
-
+// generate MCQ exercise
     if (json.engine === "MCQ") {
         console.log("generate MCQ")
 
@@ -584,7 +584,7 @@ console.log(json)
         dlElem.removeAttribute("href")
         dlElem.removeAttribute("download")
     }
-
+// generate FIT exercise
    else if (json.engine === "FIT"){
         console.log("generate FIT")
         let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
@@ -596,7 +596,7 @@ console.log(json)
         dlElem.removeAttribute("download")
 
     }
-
+// generate FTB exercise
     else if (json.engine === "FTB"){
         console.log("generate FTB")
         let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
@@ -612,6 +612,8 @@ console.log(json)
 
     }
 
+
+    // reinit all when exercise is generated
     initAll = () => {
         while (document.getElementById("questions").firstChild){
             document.getElementById("questions").removeChild(document.getElementById("questions").firstChild)
@@ -619,6 +621,7 @@ console.log(json)
         localStorage.clear()
         sessionStorage.clear()
         document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})
+        document.querySelectorAll("input[type=checkbox]").forEach(check=>{check.checked=false})
         this.model.questionCreated = []
         this.model.tagsyEditor = []
         this.model.qcmAnswers = []
