@@ -32,11 +32,18 @@ export class View {
             }
 
             // HELP
-            if (event.target.classList.contains("help-link" || "help")){
+            if (event.target.classList.contains("help-link")){
                 this.getElement(".tagsy").classList.toggle("display-none")
                 this.getElement(".tutoriel").classList.toggle("display-none")
                 this.getElement(".help-link").classList.toggle("current")
+                this.getElement(".help-link").innerHTML = "Aide"
             }
+
+            if (event.target.classList.contains("current")){
+                this.getElement(".help-link").innerHTML = "Retour"
+
+            }
+
 
         })
 

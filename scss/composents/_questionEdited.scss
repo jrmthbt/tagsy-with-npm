@@ -59,6 +59,10 @@ div#questions{
 
       right: 30px;
     }
+
+    @include responsive_computer{
+      right: 50px;
+    }
   }
 
    p.QCM, p.Identification, p.courte{

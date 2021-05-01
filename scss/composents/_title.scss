@@ -55,16 +55,6 @@ h1 {
       font-size: 25px !important;
     }
 
-    span{
-      border-bottom: solid 0 #6468DA;
-      transition: $trans_3;
-      cursor: pointer;
-      width: auto;
-
-      &:hover {
-        border-bottom: solid 3px #6468DA;
-      }
-    }
   }
 
   h5{
