@@ -38,17 +38,104 @@
     border-radius: $border_radius_5;
     transition: $trans_3;
 
+    .popover{
+      background-color: $purple;
+      border-radius: 5px;
+      position: absolute;
+      top: 60px;
+      width: auto;
+      z-index: 200;
+      display: none;
+      padding: 5px;
+      box-shadow: 0 0 5px $purple;
+      color: #fff;
+      opacity: 1;
+
+
+      &:before{
+        content: '';
+        display: block;
+        position: absolute;
+        border-bottom: 7px solid $purple;
+        border-right: 7px solid transparent;
+        border-left: 7px solid transparent;
+        top: -7px;
+        left: 50%;
+        margin-left: -7px;
+
+      }
+
+
+    }
+
+    .undo {
+      left: -35px;
+    }
+
+    .redo{
+      left: 40px;
+    }
+
+    .tag-r{
+      left: 105px;
+    }
+
+    .tag-g{
+      left: 175px;
+    }
+
+    .tag-i{
+      left: 255px;
+    }
+
+    .nothing{
+      left: 203px;
+    }
+
 
 
     @include responsive_computer {
       width: 75px;
       height: 75px;
       font-size: 25px !important;
+
+      .popover{
+        top: 90px;
+        font-size: 25px !important;
+        padding: 10px;
+      }
+      .undo {
+        left: -58px;
+      }
+
+      .redo{
+        left: 40px;
+      }
+
+      .tag-r{
+        left: 135px;
+      }
+
+      .tag-g{
+        left: 225px;
+      }
+
+      .tag-i{
+        left: 325px;
+      }
+
+      .nothing{
+        left: 210px;
+      }
     }
 
     &:hover {
       color: #fff;
       background-color: #6468da;
+      .popover{
+        display: block;
+        animation: fade-in .3s linear 1, move-up .3s linear 1;
+      }
     }
 
     #undo, #redo,#nothing {
@@ -114,20 +201,13 @@
       content: "\f0e2";
       line-height: 3;
     }
+
   }
   #tool-redo {
     &:after {
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       content: "\f01e";
-      line-height: 3;
-    }
-  }
-  #tool-nothing {
-    &:after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      content: "\f87d";
       line-height: 3;
     }
   }
@@ -152,6 +232,14 @@
       font-family: latobold, sans-serif;
       font-weight: 900;
       content: "[%I]";
+      line-height: 3;
+    }
+  }
+  #tool-nothing {
+    &:after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f87d";
       line-height: 3;
     }
   }
