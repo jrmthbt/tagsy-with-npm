@@ -565,88 +565,134 @@ export class View {
 
 // GET EDITED INPUT FROM USER
     binEditQcm = (handler) => {
+        let answer = ""
+        let checked = ""
         this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains('edit')) {
-                let that = this
-                if (this._countClick === 0) {
-                    this._guizmoSpeak("Voulez-vous modifier la ligne?")
-                    document.getElementById("message").addEventListener("click", function confirmEdit(el) {
-
-                        if (el.target.classList.contains("btn-confirm")) {
-                            that._countClick++;
-                            if (that._countClick === 1) {
-                                event.target.parentElement.parentElement.classList.add('focus');
-                                event.target.parentElement.parentElement.children[0].firstChild.id = "input-edit";
-                                event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "check-edit";
+                    console.log("focus to edit")
+                    event.target.parentElement.parentElement.classList.add('focus');
+                    event.target.parentElement.parentElement.children[0].firstChild.id = "input-edit";
+                    event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "check-edit";
 
 
-                                document.querySelectorAll('.edit').forEach(edit => {
-                                    edit.classList.add("disabled");
-                                })
-                                document.querySelectorAll('.delete').forEach(del => {
-                                    del.classList.add("disabled");
-                                })
-
-                                if (event.target.parentElement.parentElement.classList.contains("focus")) {
-                                    event.target.classList.remove("disabled")
-                                }
-                                document.getElementById("input-edit").disabled = false
-                                document.getElementById("check-edit").disabled = false
-                                document.getElementById("choice").disabled = true
-                                document.getElementById("good-answer").disabled = true
-                                document.getElementById("answer-add").classList.add("disabled");
-                                that._toggleSwitch(that._executed);
-                                that._countClick++
-                                that._executed = true
-
-                            }
-
-                            document.getElementById("caution").innerHTML = "";
-                            document.getElementById("message").classList.add("display-none");
-                            document.body.style.overflow = "initial"
-                            document.querySelector("form").style.opacity = "initial"
-                            document.querySelectorAll("input").forEach(input => {
-                                input.classList.remove("disabled")
-                            })
-                            document.querySelector("#explication").disabled = false
-                            if (event.target.parentElement.parentElement.classList.contains("focus")) {
-                                event.target.classList.remove("disabled")
-                            }
-                            this.removeEventListener("click", confirmEdit)
-                        }
-                        if (el.target.classList.contains("btn-cancel")) {
-                            that._removeguizmoSpeech()
-                            that._countClick = 0;
-                            this.removeEventListener("click", confirmEdit)
-                        }
-
+                    document.querySelectorAll('.edit').forEach(edit => {
+                        edit.classList.add("disabled");
                     })
-                }
+                    document.querySelectorAll('.delete').forEach(del => {
+                        del.classList.add("disabled");
+                    })
 
-                if (this._countClick > 1) {
-                    let id = parseInt(event.target.parentElement.parentElement.id)
-                    let temporaryAnswerText = document.getElementById("input-edit").value
-                    if (document.getElementById("check-edit").parentElement.firstChild.checked)
-                        var temporaryInputCheck = "checked"
-                    else {
-                        var temporaryInputCheck = false
+                    if (event.target.parentElement.parentElement.classList.contains("focus")) {
+                        event.target.classList.remove("disabled")
+                        event.target.parentElement.children[1].classList.remove("delete")
+                        event.target.parentElement.children[1].classList.remove("disabled")
+
+                        event.target.parentElement.children[1].classList.add("cancel")
+                        event.target.parentElement.children[1].innerHTML = "Annuler"
+                        event.target.innerHTML = "Confirmer"
+                        event.target.classList.remove("edit")
+                        event.target.classList.add("confirm-edit")
                     }
-                    handler(id, temporaryAnswerText, temporaryInputCheck);
-                    document.getElementById("choice").disabled = false
-                    document.getElementById("good-answer").disabled = false
-                    document.getElementById("answer-add").classList.remove("disabled");
-                    document.getElementById("form-add").classList.remove("disabled");
-                    document.getElementById("change").classList.remove("disabled");
-                    document.querySelectorAll("button.edit-question").forEach(input => {
-                        input.classList.remove("disabled")
-                    })
-                    document.querySelectorAll("button.delete-question").forEach(input => {
-                        input.classList.remove("disabled")
-                    })
-                    this._countClick = 0;
+                    document.getElementById("input-edit").disabled = false
+                    document.getElementById("check-edit").disabled = false
+                    document.getElementById("choice").disabled = true
+                    document.getElementById("good-answer").disabled = true
+                    document.getElementById("answer-add").classList.add("disabled");
+                    document.getElementById("form-add").classList.add("disabled");
+                    document.querySelector("a button.generate").classList.add("disabled");
+                    this._toggleSwitch(this._executed);
+                    this._executed = true
+                    answer =  event.target.parentElement.parentElement.children[0].firstChild.value
+                    checked = event.target.parentElement.parentElement.children[1].firstChild.checked
+                    console.log(answer)
+                    console.log(checked)
+
+            }
+
+            if (event.target.classList.contains("cancel")){
+
+
+
+                document.querySelectorAll('.edit').forEach(edit => {
+                    edit.classList.remove("disabled");
+                })
+                document.querySelectorAll('.delete').forEach(del => {
+                    del.classList.remove("disabled");
+                })
+
+                if (event.target.parentElement.parentElement.classList.contains("focus")) {
+                    event.target.classList.add("disabled")
+                    event.target.parentElement.children[1].classList.add("delete")
+                    event.target.parentElement.children[1].classList.add("disabled")
+
+                    event.target.parentElement.children[1].classList.remove("cancel")
+                    event.target.parentElement.children[0].innerHTML = "Modifier"
+                    event.target.parentElement.children[0].classList.remove("confirm-edit")
+                    event.target.parentElement.children[0].classList.add("edit")
+                    event.target.innerHTML = "Supprimer"
+                    event.target.classList.remove("disabled")
                 }
+                event.target.parentElement.parentElement.classList.remove("focus")
+                document.getElementById("input-edit").disabled = true
+                document.getElementById("check-edit").disabled = true
+                document.getElementById("choice").disabled = false
+                document.getElementById("good-answer").disabled = false
+                document.getElementById("answer-add").classList.remove("disabled");
+                document.getElementById("form-add").classList.remove("disabled");
+                document.querySelector("a button.generate").classList.remove("disabled");
+                event.target.parentElement.parentElement.children[0].firstChild.value = answer
+                event.target.parentElement.parentElement.children[1].firstChild.checked = checked ? "checked" : false
+                event.target.parentElement.parentElement.children[0].firstChild.id = "";
+                event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "";
+
+
+            }
+
+
+        })
+
+        this.getElement('#tbody-root').addEventListener('mousedown', event => {
+            if (event.target.classList.contains("confirm-edit")){
+                console.log("confirm")
+                let id = parseInt(event.target.parentElement.parentElement.id)
+                let temporaryAnswerText = document.getElementById("input-edit").value
+                if (document.getElementById("check-edit").parentElement.firstChild.checked)
+                    var temporaryInputCheck = "checked"
+                else {
+                    var temporaryInputCheck = false
+                }
+                handler(id, temporaryAnswerText, temporaryInputCheck);
+                document.querySelectorAll('.edit').forEach(edit => {
+                    edit.classList.remove("disabled");
+                })
+                document.querySelectorAll('.delete').forEach(del => {
+                    del.classList.remove("disabled");
+                })
+
+                if (event.target.parentElement.parentElement.classList.contains("focus")) {
+                    event.target.classList.add("disabled")
+                    event.target.parentElement.children[1].classList.add("delete")
+                    event.target.parentElement.children[1].classList.add("disabled")
+
+                    event.target.parentElement.children[1].classList.remove("cancel")
+                    event.target.parentElement.children[0].innerHTML = "Supprimer"
+                    event.target.parentElement.children[0].classList.remove("confirm-edit")
+                    event.target.parentElement.children[0].classList.add("edit")
+                    event.target.innerHTML = "Modifier"
+                    event.target.classList.remove("disabled")
+                }
+                event.target.parentElement.parentElement.classList.remove("focus")
+                document.getElementById("choice").disabled = false
+                document.getElementById("good-answer").disabled = false
+                document.getElementById("answer-add").classList.remove("disabled");
+                document.getElementById("form-add").classList.remove("disabled");
+                document.querySelector("a button.generate").classList.remove("disabled");
+                event.target.parentElement.parentElement.children[0].firstChild.id = "";
+                event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "";
             }
         })
+
+
 
     }
 
