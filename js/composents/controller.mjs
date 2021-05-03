@@ -256,7 +256,6 @@ export class Controller {
 
                         if (el.target.classList.contains("btn-confirm")) {
                             that.download()
-                            that.initAll()
                             that.view._removeguizmoSpeech()
                             this.removeEventListener("click", confirmEdit)
                         }
@@ -363,9 +362,18 @@ export class Controller {
     }
 
     clearEditor = () => {
-        this.view._unlockExercice()
+        this.view.getElement("#question-name").value = ""
+        this.view.getElement("#change").classList.add("display-none")
         this.view.getElement("#explication").checked = false;
         this.view.getElement("#explication-text").value = "";
+        if (this.view.getElement("#qcm").checked) {
+            this.clearTableQcm()
+            this.view.displayTableQcm(this.model.qcmAnswers)
+        }
+        if (this.view.getElement("#short-answer").checked) {
+            this.clearTableShort()
+            this.view.displayTableShort(this.model.shortAnswers)
+        }
     }
 
     // GET FROM STORAGE
@@ -388,6 +396,7 @@ export class Controller {
             if (this.view.getElement("#qcm").checked) {
                 this.view.qcmTable(document.getElementById("root").id)
                 this.view._lockExercice();
+                 this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableQcm(this.model.qcmAnswers)
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
@@ -398,10 +407,12 @@ export class Controller {
             }
             if (this.view.getElement("#identification").checked) {
                 this.view._lockExercice();
+                 this.view.getElement("#change").classList.add("display-none")
             }
             if (this.view.getElement("#short-answer").checked) {
                 this.view.answerTable(document.getElementById("root").id)
                 this.view._lockExercice();
+                 this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableShort(this.model.shortAnswers)
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
