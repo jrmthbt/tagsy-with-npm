@@ -1259,39 +1259,8 @@ export class View {
 // EDIT IN A ARRAY FROM A QUESTION CREATED
                     if (el.target.classList.contains("edit-edited")){
                         if (that._countClickEdit === 0 ) {
-                            that._guizmoSpeak("Voulez-vous modifier la ligne?")
-                            document.getElementById("message").addEventListener("click", function confirmEdit(ele) {
-
-                                if (ele.target.classList.contains("btn-confirm")) {
-
-                                    that._removeguizmoSpeech()
-                                    document.querySelectorAll("button.edit-question").forEach(btn => {
-                                        btn.classList.add("disabled")
-                                    })
-                                    document.querySelectorAll("button.delete-question").forEach(btn => {
-                                        btn.classList.add("disabled")
-                                    })
-                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                    that._countClickEdit++
                                     that.editInCreated(that._edited, el)
-                                    this.removeEventListener("click", confirmEdit)
-                                }
 
-                                if (ele.target.classList.contains("btn-cancel")) {
-                                    that._removeguizmoSpeech()
-                                    this.removeEventListener("click", confirmEdit)
-                                    console.log(that._edited)
-                                    document.querySelectorAll("button.edit-question").forEach(btn => {
-                                        btn.classList.add("disabled")
-                                    })
-                                    document.querySelectorAll("button.delete-question").forEach(btn => {
-                                        btn.classList.add("disabled")
-                                    })
-                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-
-
-                                }
-                            })
                         }
 
                     }
@@ -1360,11 +1329,17 @@ export class View {
         let that = this;
         console.log(edited);
         console.log(that._countClickEdit);
+        that._countClickEdit++
         if (that._countClickEdit === 1){
 
             event.target.parentElement.parentElement.classList.add("focus");
             event.target.id = "edit-row-confirmed";
             event.target.innerHTML = "Confirmer";
+            event.target.parentElement.children[1].classList.remove("delete-edited")
+            event.target.parentElement.children[1].classList.remove("disabled")
+
+            event.target.parentElement.children[1].classList.add("cancel")
+            event.target.parentElement.children[1].innerHTML = "Annuler"
             document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.add("disabled"));
             document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.add("disabled"));
             document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.add("disabled"));
@@ -1381,7 +1356,7 @@ export class View {
             }
         }
 
-        that.getElement("#edit-row-confirmed").addEventListener("click", function confirm (el) {
+       /* that.getElement("#edit-row-confirmed").addEventListener("click", function confirm (el) {
             if (el.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
                 edited[el.target.parentElement.parentElement.rowIndex - 1].choix = el.target.parentElement.parentElement.firstElementChild.firstElementChild.value
                 edited[el.target.parentElement.parentElement.rowIndex - 1].goodAnswer = el.target.parentElement.parentElement.children[1].firstElementChild.checked ? "checked" : false;
@@ -1410,6 +1385,8 @@ export class View {
                 }
 
             })
+
+        */
     }
 
 
