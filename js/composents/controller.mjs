@@ -175,6 +175,25 @@ export class Controller {
             }
 
 
+            // initialize TAGSY
+
+            if (event.target.classList.contains("init")){
+                that.view._guizmoSpeak("Voulez-vous réinitialiser TAGSY? Vous perdrez TOUTES vos données")
+                document.getElementById("message").addEventListener("click", function confirmInit(el) {
+
+                    if (el.target.classList.contains("btn-confirm")) {
+                        that.initAll()
+                        that.view._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmInit)
+                    }
+                    if (el.target.classList.contains("btn-cancel")) {
+                        that.view._removeguizmoSpeech()
+                        this.removeEventListener("click", confirmInit)
+                    }
+
+                })
+            }
+
 
         })
         document.querySelector("#toolbars").addEventListener("click", function (event) {
@@ -438,9 +457,6 @@ export class Controller {
         this.countR = 1
         this.countG = 1
         this.countI = 1
-        if (document.getElementById("counter").checked){
-            document.getElementById("counter").checked = false;
-        }
         this.view._history = []
         this.view._redo = []
     }
