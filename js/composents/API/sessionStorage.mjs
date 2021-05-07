@@ -2,6 +2,7 @@
     "autoSave" : document.getElementById("save-info"),
     "counterAuto" : document.getElementById("counter"),
      "exerciceName" : document.getElementById("name-exercise"),
+
 };
 
 

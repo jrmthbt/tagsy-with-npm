@@ -33,6 +33,7 @@ export class Controller {
                 callLS()
                 this.getStorage()
             }
+
         }
 // EVENT LISTENER CHANGE
         document.querySelector("body").addEventListener("change", event => {
@@ -653,11 +654,17 @@ console.log(json)
         sessionStorage.clear()
         document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})
         document.querySelectorAll("input[type=checkbox]").forEach(check=>{check.checked=false})
+        document.querySelectorAll("input[type=radio]").forEach(check=>{check.checked=false, check.disabled = false})
+        document.querySelector("#change").classList.add("display-none");
         this.model.questionCreated = []
         this.model.tagsyEditor = []
         this.model.qcmAnswers = []
         this.model.shortAnswers = []
         this.model.tagsy = []
         document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
+        this.clearEditor()
+        while (document.getElementById("root").firstChild){
+            document.getElementById("root").removeChild(document.getElementById("root").firstChild)
+        }
     }
 }
