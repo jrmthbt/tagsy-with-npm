@@ -155,6 +155,10 @@ export class Controller {
                 that.view.getElement("#message").addEventListener("click", function confirmDel(el) {
                     if (el.target.classList.contains("btn-confirm")) {
                         that.displayQuestion()
+                        if(that.view.getElement("#questions").childElementCount === 0){
+                            that.view._showDisplay(document.getElementById("change"))
+
+                        }
                     }
                     that.view.getElement("#message").removeEventListener("click", confirmDel)
                 })
