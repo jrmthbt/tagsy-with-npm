@@ -273,12 +273,14 @@ export class View {
 
             tr.append(tdinput, tdCheck, tdOption)
 
-            if(this.getElement('#tbody-root')){
+           /* if(this.getElement('#tbody-root')){
+                console.log("add a")
                 this.getElement("#tbody-root").append(tr);
                 tdOption.append(editButton, deleteButton);
-            }
+            }*/
 
             if(this.getElement('#tableEditing')){
+
                 this.getElement("#tableEditing").append(tr);
                 const editButtonEdit = this.createElement("button")
                 editButtonEdit.className = "btn-secondary edit-edited";
@@ -392,6 +394,7 @@ export class View {
                 tdOption.append(editButton, deleteButton);
             }
 
+
             if(this.getElement('#tableEditing')){
                 this.getElement("#tableEditing").append(tr);
                 const editButtonEdit = this.createElement("button")
@@ -402,6 +405,9 @@ export class View {
                 deleteButtonEdit.className = "btn-tertiary delete-edited ";
                 deleteButtonEdit.innerHTML = "Supprimer";
                 tdOption.append(editButtonEdit, deleteButtonEdit);
+                while (tdOption.childElementCount > 2){
+                    tdOption.removeChild(tdOption.firstChild)
+                }
             }
 
         })
@@ -1373,8 +1379,9 @@ export class View {
                 that.check = event.target.parentElement.parentElement.children[1].children[0].checked
                 that._toggleSwitch(that._executed)
                 that._executed = true;
-                that._countClickEdit++
+
             }
+        that._countClickEdit++
 
 
     }
