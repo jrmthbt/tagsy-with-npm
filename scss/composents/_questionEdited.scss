@@ -47,6 +47,16 @@ div#questions{
     }
   }
 
+  button.cancel-edit-question{
+    position: absolute;
+    right: 0;
+    &:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content : "\f00d"
+    }
+  }
+
   button#edit-question-confirmed{
     position: absolute;
     right: 25px;

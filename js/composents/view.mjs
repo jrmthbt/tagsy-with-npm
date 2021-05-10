@@ -273,11 +273,10 @@ export class View {
 
             tr.append(tdinput, tdCheck, tdOption)
 
-           /* if(this.getElement('#tbody-root')){
-                console.log("add a")
+            if(this.getElement('#tbody-root')){
                 this.getElement("#tbody-root").append(tr);
                 tdOption.append(editButton, deleteButton);
-            }*/
+            }
 
             if(this.getElement('#tableEditing')){
 
@@ -290,6 +289,9 @@ export class View {
                 deleteButtonEdit.className = "btn-tertiary delete-edited ";
                 deleteButtonEdit.innerHTML = "Supprimer";
                 tdOption.append(editButtonEdit, deleteButtonEdit);
+                while (tdOption.childElementCount > 2) {
+                    tdOption.removeChild(tdOption.firstChild)
+                }
             }
         })
     }
@@ -405,7 +407,7 @@ export class View {
                 deleteButtonEdit.className = "btn-tertiary delete-edited ";
                 deleteButtonEdit.innerHTML = "Supprimer";
                 tdOption.append(editButtonEdit, deleteButtonEdit);
-                while (tdOption.childElementCount > 2){
+                while (tdOption.childElementCount > 2) {
                     tdOption.removeChild(tdOption.firstChild)
                 }
             }
@@ -607,6 +609,7 @@ export class View {
                     document.getElementById("good-answer").disabled = true
                     document.getElementById("answer-add").classList.add("disabled");
                     document.getElementById("form-add").classList.add("disabled");
+                document.querySelector(".init").classList.add("disabled");
                     document.querySelector("a button.generate").classList.add("disabled");
                     this._toggleSwitch(this._executed);
                     this._executed = true
@@ -692,6 +695,7 @@ export class View {
                 document.getElementById("good-answer").disabled = false
                 document.getElementById("answer-add").classList.remove("disabled");
                 document.getElementById("form-add").classList.remove("disabled");
+                document.querySelector(".init").classList.remove("disabled");
                 document.querySelector("a button.generate").classList.remove("disabled");
                 event.target.parentElement.parentElement.children[0].firstChild.id = "";
                 event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "";
@@ -732,6 +736,7 @@ export class View {
                         document.getElementById("choice").disabled = true
                         document.getElementById("answer-add").classList.add("disabled");
                         document.getElementById("form-add").classList.add("disabled");
+                document.querySelector(".init").classList.add("disabled");
                         document.querySelector("a button.generate").classList.add("disabled");
                         answer = event.target.parentElement.parentElement.firstChild.firstChild.value
                         console.log(answer)
@@ -764,6 +769,7 @@ export class View {
                         document.getElementById("choice").disabled = false
                         document.getElementById("answer-add").classList.remove("disabled");
                         document.getElementById("form-add").classList.remove("disabled");
+                        document.querySelector(".init").classList.remove("disabled");
                         document.querySelector("a button.generate").classList.remove("disabled");
                         event.target.parentElement.parentElement.children[0].firstChild.value = answer
                         event.target.parentElement.parentElement.children[0].firstChild.id = "";
@@ -816,6 +822,7 @@ export class View {
 
     binEditQuestion = (handler, event, getArray) => {
         let that = this
+        let edit = {}
             if (event.target.classList.contains("edit-question")){
                 if (that._countClick === 0) {
                     that._guizmoSpeak("Voulez-vous modifier cette question?");
@@ -825,25 +832,80 @@ export class View {
                             that._removeguizmoSpeech()
                             that._countClick++;
 
+
                             if (that._countClick === 1){
                                 that._lockEditor();
                                 that._lockButton("button.edit-question");
                                 that._lockButton("button.delete-question");
                                 event.target.parentElement.classList.add("focus-question")
+                                event.target.parentElement.children[1].classList.remove("delete-question")
+                                event.target.parentElement.children[1].classList.add("cancel-edit-question")
+                                event.target.parentElement.children[1].classList.remove("disabled")
                                 event.target.id = "edit-question-confirmed"
                                 event.target.parentElement.classList.remove("opacity");
                                 if (event.target.parentElement.classList.contains("focus-question")){
                                     event.target.classList.remove("disabled")
                                 }
+
+
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
+                                getArray.forEach(question => {
+                                    if (question.id === event.target.parentElement.id) {
+                                        edit.array = question.table.slice()
+                                    }
+                                })
                                 that._getArray(getArray, event, that._executed)
                                 that._countClick++;
                                 that._executed = true
+                                console.log(that._edited, "to cancel")
+                                edit.id = event.target.parentElement.id
+                                edit.name = that.getElement("#question-name-edit").value
+                                edit.check = that.getElement("#question-check-explanation").checked ? "checked" : false
+                                edit.explanation = that.getElement("#question-explanation-text-edit").value
 
+
+                                that.getElement(".cancel-edit-question").addEventListener("click", function cancelEdit(e){
+                                    console.log(edit.array, 'cancel')
+                                    e.target.parentElement.id = edit.id
+                                    that.getElement("#question-name-edit").value = edit.name
+                                    that.getElement("#question-check-explanation").checked = edit.check
+                                    that.getElement("#question-explanation-text-edit").value = edit.explanation
+
+                                    if (e.target.parentElement.children[2].classList.contains("QCM")){
+                                        that.displayTableQcm(edit.array)
+                                    }
+
+                                    else if (e.target.parentElement.children[2].classList.contains("courte")){
+                                        that.displayTableShort(edit.array)
+                                    }
+
+
+
+                                    that._countClick = 0
+                                    that._history = []
+                                    that._redo = []
+                                    that._unlockEditor();
+                                    that._lockQuestionEditing(e)
+                                    that._unlockButton("button.edit-question");
+                                    that._unlockButton("button.delete-question");
+                                    that.getElement(".cancel-edit-question").removeEventListener("click", cancelEdit)
+                                    e.target.parentElement.classList.remove("focus-question")
+                                    e.target.classList.remove("cancel-edit-question")
+                                    e.target.classList.add("delete-question")
+                                    e.target.parentElement.classList.add("opacity");
+                                    e.target.parentElement.children[0].id = ""
+
+
+
+
+                                })
 
                             }
+
+
                             this.removeEventListener("click", confirmEditQuestion)
+
                         }
 
                         if (el.target.classList.contains("btn-cancel")) {
@@ -886,6 +948,9 @@ export class View {
 
                 }
             }
+
+
+
     }
 
 // GET INFOS TO DEL FROM USER
