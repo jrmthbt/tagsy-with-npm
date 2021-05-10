@@ -63,6 +63,8 @@ export class View {
         this._history = [];
         // ARRAY FOR REDO (LIMIT = 10 ELEMENTS
         this._redo = [];
+        this.editing = "";
+        this.check = "";
 
 
     }
@@ -829,7 +831,7 @@ export class View {
                                 }
                                 that._unlockQuestionEditing(event);
                                 that._toggleSwitch(that._executed);
-                                that._getArray(getArray, event)
+                                that._getArray(getArray, event, that._executed)
                                 that._countClick++;
                                 that._executed = true
 
@@ -1204,7 +1206,7 @@ export class View {
     }
 
     // GET ARRAY TO ADD - DEL - EDIT IN A QUESTION CREATED
-    _getArray (getArray, event){
+    _getArray (getArray, event, executed){
         let that = this
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
@@ -1212,72 +1214,89 @@ export class View {
                 that._edited = question.table
                 console.log(that._edited)
                 document.querySelector("#questions").addEventListener("click",  function editQuestion (el){
-                   // ADD IN A ARRAY FROM A QUESTION CREATED
-                    if (el.target.classList.contains("answer-add")) {
-                        if (that.getElement("#choice-edited-question").value !== "") {
-                            that.addInCreated(that._edited, el)
+                    if (executed === false) {
+                        console.log("je click")
+                        // ADD IN A ARRAY FROM A QUESTION CREATED
+                        if (el.target.classList.contains("answer-add")) {
+                            if (that.getElement("#choice-edited-question").value !== "") {
+                                that.addInCreated(that._edited, el)
+                            }
                         }
-                    }
 //DEL IN A ARRAY FROM A QUESTION CREATED
-                   if (el.target.classList.contains("delete-edited")){
-                        that._guizmoSpeak("Voulez-vous supprimer la ligne?")
-                        document.getElementById("message").addEventListener("click", function confirmDel(ele) {
-                            if (ele.target.classList.contains("btn-confirm")) {
-                                that._removeguizmoSpeech()
+                        if (el.target.classList.contains("delete-edited")) {
+                            that._guizmoSpeak("Voulez-vous supprimer la ligne?")
+                            document.getElementById("message").addEventListener("click", function confirmDel(ele) {
+                                if (ele.target.classList.contains("btn-confirm")) {
+                                    that._removeguizmoSpeech()
 
-                                document.querySelectorAll("button.edit-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelectorAll("button.delete-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                that.delInCreated(that._edited, el)
-                                this.removeEventListener("click", confirmDel)
-                            }
+                                    document.querySelectorAll("button.edit-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelectorAll("button.delete-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                    that.delInCreated(that._edited, el)
+                                    this.removeEventListener("click", confirmDel)
+                                }
 
-                            if (ele.target.classList.contains("btn-cancel")) {
-                                that._removeguizmoSpeech()
-                                this.removeEventListener("click", confirmDel)
+                                if (ele.target.classList.contains("btn-cancel")) {
+                                    that._removeguizmoSpeech()
+                                    this.removeEventListener("click", confirmDel)
 
-                                document.querySelectorAll("button.edit-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelectorAll("button.delete-question").forEach(btn => {
-                                    btn.classList.add("disabled")
-                                })
-                                document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                console.log(that._edited)
-
-
-                            }
-                        })
+                                    document.querySelectorAll("button.edit-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelectorAll("button.delete-question").forEach(btn => {
+                                        btn.classList.add("disabled")
+                                    })
+                                    document.querySelector("#edit-question-confirmed").classList.remove("disabled")
+                                    console.log(that._edited)
 
 
+                                }
+                            })
 
-                    }
+
+                        }
 // EDIT IN A ARRAY FROM A QUESTION CREATED
-                    if (el.target.classList.contains("edit-edited")){
-                                    that.editInCreated(that._edited)
-                        el.stopPropagation()
+                        if (el.target.classList.contains("edit-edited")) {
+                            console.log(that._countClickEdit, "edit")
+                            if (that._countClickEdit === 0) {
 
-                    }
+                                that.editInCreated(that._edited, el)
+                            }
+
+                        } else if (el.target.classList.contains("confirmed")) {
+                            console.log(that._countClickEdit, "confrim")
+                            if (that._countClickEdit === 1) {
+                                that.confirmEditArrayCreated(el)
+                                el.stopPropagation()
+                                that._countClickEdit = 0
+                            }
 
 
+                        }
 
-
+                        if (el.target.classList.contains("cancel")) {
+                            that.cancelEditArrayCreated(el)
+                            el.stopPropagation()
+                        }
 
 
 // CONFIRM ALL MODIFICATION WHEN WE EDIT A QUESTION
-                    if (el.target.id === "edit-question-confirmed") {
-                        console.log("remove event")
-                        console.log(that._edited)
-                        that._countClickEdit = 0
-                        document.querySelector("#questions").removeEventListener("mousedown", editQuestion)
+                        if (el.target.id === "edit-question-confirmed") {
+                            console.log("remove event")
+                            console.log(that._edited)
+                            that._countClickEdit = 0
+                            document.querySelector("#questions").removeEventListener("click", editQuestion)
 
+                        }
                     }
 
                 })
+
+
             }
         })
 
@@ -1327,22 +1346,17 @@ export class View {
 
     }
 // FUNCTION TO EDIT IN CREATED
-    editInCreated = (edited) => {
-        let editing = "";
-        let check = "";
-        console.log("edit Question");
+    editInCreated = (edited, event) => {
         let that = this;
 
         console.log(edited);
-        console.log(that._countClickEdit);
-        that.getElement(".edit-edited").addEventListener("click", function editArray (event) {
             event.target.parentElement.parentElement.classList.add("focus");
-            event.target.classList.add("confirmed");
-            event.target.classList.remove("edit-edited")
-            event.target.innerHTML = "Confirmer";
+        event.target.classList.add("confirmed");
+        event.target.innerHTML = "Confirmer";
+        event.target.classList.remove("edit-edited")
+       event.target.classList.remove("disabled")
             event.target.parentElement.children[1].classList.remove("delete-edited")
             event.target.parentElement.children[1].classList.remove("disabled")
-
             event.target.parentElement.children[1].classList.add("cancel")
             event.target.parentElement.children[1].innerHTML = "Annuler"
             document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.add("disabled"));
@@ -1352,91 +1366,82 @@ export class View {
             document.querySelector("button#form-add").classList.add("disabled");
             that.getElement("#choice-edited-question").classList.add("disabled");
             event.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = false
-            editing = event.target.parentElement.parentElement.firstElementChild.firstElementChild.value
+            that.editing = event.target.parentElement.parentElement.firstElementChild.firstElementChild.value
             if (event.target.parentElement.parentElement.childElementCount > 2) {
                 that.getElement("#checkAnswer-edited-question").classList.add("disabled");
                 event.target.parentElement.parentElement.children[1].children[1].id = "check-edit"
-                check = event.target.parentElement.parentElement.children[1].children[0].checked
+                that.check = event.target.parentElement.parentElement.children[1].children[0].checked
                 that._toggleSwitch(that._executed)
                 that._executed = true;
                 that._countClickEdit++
             }
-            console.log(editing)
-            console.log(check)
-        })
-
-        if (that.getElement(".cancel")) {
-            that.getElement(".cancel").addEventListener("click", function cancel(el) {
-                console.log("cancel edit")
-                el.target.parentElement.parentElement.classList.remove("focus");
-                el.target.classList.remove("cancel")
-                el.target.classList.add("delete-edit")
-                el.target.innerHTML = "Supprimer";
-                el.target.parentElement.parentElement.children[0].classList.remove("confirmed")
-                el.target.parentElement.children[0].classList.remove("disabled")
-                el.target.parentElement.children[0].innerHTML = "Modifier"
-
-                document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.remove("disabled"));
-                document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.remove("disabled"));
-                document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.remove("disabled"));
-                document.querySelector("button.generate").classList.remove("disabled");
-                document.querySelector("button#form-add").classList.remove("disabled");
-                that.getElement("#choice-edited-question").classList.remove("disabled");
-                el.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
-                el.target.parentElement.parentElement.firstElementChild.firstElementChild.value = editing
-                console.log(editing)
-                if (el.target.parentElement.parentElement.childElementCount > 2) {
-                    that.getElement("#checkAnswer-edited-question").classList.remove("disabled");
-                    el.target.parentElement.parentElement.children[1].children[1].classList.remove("confirmed")
-                    el.target.parentElement.parentElement.children[1].children[0].checked = check ? "checked" : false
-                }
-            })
-        }
 
 
-        that.getElement(".confirmed").addEventListener("mousedown", e => {
-        if (e.target.classList.contains("confirmed")){
-            console.log("coucou", that._countClickEdit)
-            if (e.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
-                that._edited[e.target.parentElement.parentElement.rowIndex - 1].choix = e.target.parentElement.parentElement.firstElementChild.firstElementChild.value
-                that._edited[e.target.parentElement.parentElement.rowIndex - 1].goodAnswer = e.target.parentElement.parentElement.children[1].firstElementChild.checked ? "checked" : false;
+    }
 
+    cancelEditArrayCreated = (el) => {
+        let that = this
+            console.log("cancel edit")
+            el.target.parentElement.parentElement.classList.remove("focus");
+            el.target.classList.remove("cancel")
+            el.target.classList.add("delete-edit")
+            el.target.innerHTML = "Supprimer";
+            el.target.parentElement.children[0].classList.remove("confirmed")
+            el.target.parentElement.children[0].classList.add("edit-edited")
+            el.target.parentElement.children[0].classList.remove("disabled")
+            el.target.parentElement.children[0].innerHTML = "Modifier"
 
-            } else if (e.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
-                that._edited[e.target.parentElement.parentElement.rowIndex - 1].answer = e.target.parentElement.parentElement.firstElementChild.firstElementChild.value
-
-            }
-
-            console.log(that._edited, "after edit")
-            e.target.parentElement.parentElement.classList.remove("focus");
-            e.target.classList.remove("confirmed");
-            e.target.innerHTML = "Modifier";
-            e.target.parentElement.children[1].classList.add("delete-edited")
-            e.target.parentElement.children[1].classList.remove("cancel")
-            e.target.parentElement.children[1].innerHTML = "Supprimer"
             document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.remove("disabled"));
             document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.remove("disabled"));
             document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.remove("disabled"));
             document.querySelector("button.generate").classList.remove("disabled");
             document.querySelector("button#form-add").classList.remove("disabled");
             that.getElement("#choice-edited-question").classList.remove("disabled");
-            e.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
-            if (e.target.parentElement.parentElement.childElementCount > 2) {
+            el.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
+            el.target.parentElement.parentElement.firstElementChild.firstElementChild.value = that.editing
+            if (el.target.parentElement.parentElement.childElementCount > 2) {
                 that.getElement("#checkAnswer-edited-question").classList.remove("disabled");
-                e.target.parentElement.parentElement.children[1].children[1].id = ""
-                e.target.classList.add("edit-edited");
+                el.target.parentElement.parentElement.children[1].children[1].classList.remove("confirmed")
+                el.target.parentElement.parentElement.children[1].children[0].checked = that.check ? "checked" : false
             }
 
-            console.log(that._countClickEdit, "end confirm")
+    }
 
-        }
-        })
-
-
+    confirmEditArrayCreated = (e) => {
+let that = this
 
 
+            if (e.target.classList.contains("confirmed")) {
+                if (e.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
+                    that._edited[e.target.parentElement.parentElement.rowIndex - 1].choix = e.target.parentElement.parentElement.firstElementChild.firstElementChild.value
+                    that._edited[e.target.parentElement.parentElement.rowIndex - 1].goodAnswer = e.target.parentElement.parentElement.children[1].firstElementChild.checked ? "checked" : false;
 
 
+                } else if (e.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort")) {
+                    that._edited[e.target.parentElement.parentElement.rowIndex - 1].answer = e.target.parentElement.parentElement.firstElementChild.firstElementChild.value
+
+                }
+
+                e.target.parentElement.parentElement.classList.remove("focus");
+                e.target.parentElement.children[1].classList.add("delete-edited")
+                e.target.parentElement.children[1].classList.remove("cancel")
+                e.target.parentElement.children[1].innerHTML = "Supprimer"
+                e.target.innerHTML = "Modifier";
+                e.target.classList.add("edit-edited")
+                e.target.classList.remove("confirmed")
+                document.querySelectorAll("button.edit-edited").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelectorAll("button.delete-edited").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelectorAll("button.answer-add").forEach(btn => btn.classList.remove("disabled"));
+                document.querySelector("button.generate").classList.remove("disabled");
+                document.querySelector("button#form-add").classList.remove("disabled");
+                that.getElement("#choice-edited-question").classList.remove("disabled");
+                e.target.parentElement.parentElement.firstElementChild.firstElementChild.disabled = true
+                if (e.target.parentElement.parentElement.childElementCount > 2) {
+                    that.getElement("#checkAnswer-edited-question").classList.remove("disabled");
+                    e.target.parentElement.parentElement.children[1].children[1].id = ""
+                }
+
+            }
     }
 
 
