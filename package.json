@@ -9,12 +9,14 @@
   "scripts": {
     "sass": "sass --watch scss/main.scss dist/css/main.css",
     "sassMin": "sass --watch --style=compressed scss/main.scss dist/min/css/main.min.css",
-    "scss": "npm run sass && npm run sassMin",
+    "scss": "npm run sass",
     "build": "rollup --config",
     "reload": "reload -b",
     "serv": " npm run reload",
     "gulp": "gulp",
     "commit": "git commit -a -m",
+    "fetch" : " npm run gulp && npm run build && npm run scss",
+    "min" : "npm run build && npm run sassMin",
     "push": "git push origin main"
   },
   "dependencies": {

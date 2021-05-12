@@ -8,6 +8,7 @@ import {callLS, stopLS} from "./API/localStorage.mjs";
 
 export class Controller {
     constructor(model, view) {
+
         // CALL MODEL
         this.model = model;
         //CALL VIEW
@@ -18,6 +19,7 @@ export class Controller {
         this.countG = 1
         //COUNTER FOR TAG I
         this.countI = 1
+
 
         // WHEN WINDOW RELOAD
         window.onload = () => {
@@ -59,6 +61,17 @@ export class Controller {
                 this.onChangeShort(this.model.shortAnswers)
                 this.clearTableQcm();
                 this.initCounter()
+            }
+
+            if(event.target.id === "counter"){
+                if (! event.target.checked) {
+                    this.countR = 1
+                    this.countG = 1
+                    this.countI = 1
+                    document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
+                    document.getElementById("g").innerHTML = `Ajout [%G${that.countG}][/%G${that.countG}]`
+                    document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
+                }
             }
 
             if (event.target.id === "save-info") {
@@ -227,9 +240,24 @@ export class Controller {
                     if (document.getElementById("question-name-edit")){
                         target = "question-name-edit"
                     }
-                    that.view.addTagsToText(target, RO, RE)
+                    let elem = document.querySelector("#question-name");
+                    console.log(elem.value, elem.value.length)
+                    if (elem.value.length === 0) {
+                        that.view.addTagsToText(target, RO, RE)
+                        elem.selectionStart = RO.length + 1
+                        elem.selectionEnd = RE.length - 1
+                        elem.focus()
+                    }
+                    else{
+                        that.view.addTagsToText(target, RO, RE)
+                    }
+
                     if (document.querySelector("#counter").checked){
                         that.countR++;
+                        document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
+                    }else{
+                        that.countR = 1;
+                        document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
                     }
                 }
                 if (event.target.id === "tool-tag-g") {
@@ -241,9 +269,24 @@ export class Controller {
                     if (document.getElementById("question-name-edit")){
                         target = "question-name-edit"
                     }
-                    that.view.addTagsToText(target, GO, GE)
+                    let elem = document.querySelector("#question-name");
+                    console.log(elem.value, elem.value.length)
+                    if (elem.value.length === 0) {
+                        that.view.addTagsToText(target, GO, GE)
+                        elem.selectionStart = GO.length + 1
+                        elem.selectionEnd = GE.length - 1
+                        elem.focus()
+                    }
+                    else{
+                        that.view.addTagsToText(target, GO, GE)
+                    }
                     if (document.querySelector("#counter").checked){
                         that.countG++;
+                        document.getElementById("g").innerHTML = `Ajout [%G${that.countG}][/%G${that.countG}]`
+                    }
+                    else{
+                        that.countG = 1
+                        document.getElementById("g").innerHTML = `Ajout [%G${that.countG}][/%G${that.countG}]`
                     }
                 }
                 if (event.target.id === "tool-tag-i") {
@@ -255,9 +298,24 @@ export class Controller {
                     if (document.getElementById("question-name-edit")){
                         target = "question-name-edit"
                     }
-                    that.view.addTagsToText(target, IO, IE)
+                    let elem = document.querySelector("#question-name");
+                    console.log(elem.value, elem.value.length)
+                    if (elem.value.length === 0) {
+                        that.view.addTagsToText(target, IO, IE)
+                        elem.selectionStart = IO.length + 1
+                        elem.selectionEnd = IE.length - 1
+                        elem.focus()
+                    }
+                    else{
+                        that.view.addTagsToText(target, IO, IE)
+                    }
                     if (document.querySelector("#counter").checked){
                         that.countI++;
+                        document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
+                    }
+                    else{
+                        that.countI = 1
+                        document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
                     }
                 }
                 if (event.target.id === "tool-nothing") {
@@ -650,6 +708,9 @@ console.log(json)
         while (document.getElementById("questions").firstChild){
             document.getElementById("questions").removeChild(document.getElementById("questions").firstChild)
         }
+        this.countR = 1;
+        this.countG = 1;
+        this.countI = 1;
         localStorage.clear()
         sessionStorage.clear()
         document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})

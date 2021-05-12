@@ -10,9 +10,5 @@ exports.default = function fontawesome(){
 
 }
 
-exports.default = function dompurify(){
-    return src (["node_modules/dompurify/dist/purify.min.js"])
-        .pipe(dest ('dist/dompurify'))
-}
 
 

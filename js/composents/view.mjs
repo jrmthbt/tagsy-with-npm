@@ -1582,9 +1582,8 @@ let that = this
         let boundaries = this._getTextAeraSelection (text)
 
         if (boundaries.selectEnd === 0 || boundaries.selectStart === boundaries.lenght){
-            if(textContainer.value === ""){
-              textContainer.value  = openingTag + closingTag
-            }
+            let text = textContainer.value
+              textContainer.value  = text + openingTag + closingTag
             return ;
         }
 
@@ -1597,7 +1596,7 @@ let that = this
         let selection = string.slice(boundaries.selectStart, boundaries.selectEnd)
 
         let pieces = selection.split(/\s+/);
-        //console.log(pieces)
+
 
         let output = pieces.map(function (piece){
             let punctuation = /[;:!?]/
@@ -1605,7 +1604,9 @@ let that = this
                 return piece
             }
 
-            if (piece.length > 0){
+            console.log(piece)
+
+            if (piece.length >0){
                 let delimiter = /[â€“â€”â€²â€™â€œâ€â€³â€ž\"()Â«Â»,;:.â€¦Â¡Â¿!?\s]/;
                 if (delimiter.test(piece[piece.length -1 ])){
                     return openingTag + piece.slice(0, piece.length-1) + closingTag + piece[piece.length - 1]
@@ -1614,13 +1615,17 @@ let that = this
                 piece = piece.replace( 'â€™', closingTag +  'â€™' + openingTag);
                 return openingTag + piece + closingTag;
             }
+
+
         })
 
+        console.log(textContainer.value, "push undo")
         this._history.push(textContainer.value);
         if (this._history.length > 10){
             this._history.shift()
         }
-        console.table(this._history, "history")
+
+        console.log(this._history, "history")
 
         textContainer.value = string.slice(0, boundaries.selectStart) + output.join(" ") + string.slice(boundaries.selectEnd)
 
@@ -1631,6 +1636,7 @@ let that = this
     undoAddTags (text) {
 
              let textContainer = document.querySelector("#" + text)
+        console.log(textContainer.value)
 
         if (this._history.length !== 0 ) {
             this._redo.push(textContainer.value)
@@ -1646,6 +1652,7 @@ let that = this
 // REDO FUNCTION MAX 10 ELEMENTS
     redoAddTags (text){
         let textContainer = document.querySelector("#" + text)
+        console.log(textContainer.value)
         if (this._redo.length !== 0 ) {
             this._history.push(textContainer.value)
             if (this._history.length > 10){
