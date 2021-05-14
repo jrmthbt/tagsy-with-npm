@@ -579,7 +579,6 @@ export class View {
         let checked = ""
         this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains('edit')) {
-                    console.log("focus to edit")
                     event.target.parentElement.parentElement.classList.add('focus');
                     event.target.parentElement.parentElement.children[0].firstChild.id = "input-edit";
                     event.target.parentElement.parentElement.children[1].children[0].nextSibling.id = "check-edit";
@@ -615,8 +614,7 @@ export class View {
                     this._executed = true
                     answer =  event.target.parentElement.parentElement.children[0].firstChild.value
                     checked = event.target.parentElement.parentElement.children[1].firstChild.checked
-                    console.log(answer)
-                    console.log(checked)
+
 
             }
 
@@ -662,7 +660,6 @@ export class View {
 
         this.getElement('#tbody-root').addEventListener('mousedown', event => {
             if (event.target.classList.contains("confirm-edit")){
-                console.log("confirm")
                 let id = parseInt(event.target.parentElement.parentElement.id)
                 let temporaryAnswerText = document.getElementById("input-edit").value
                 if (document.getElementById("check-edit").parentElement.firstChild.checked)
@@ -710,7 +707,6 @@ export class View {
         let answer = ""
         this.getElement('#tbody-root').addEventListener('click', event => {
             if (event.target.classList.contains('edit')) {
-                        console.log("focus to edit")
                         event.target.parentElement.parentElement.classList.add('focus');
                         event.target.parentElement.parentElement.children[0].firstChild.id = "input-edit";
 
@@ -739,7 +735,7 @@ export class View {
                 document.querySelector(".init").classList.add("disabled");
                         document.querySelector("a button.generate").classList.add("disabled");
                         answer = event.target.parentElement.parentElement.firstChild.firstChild.value
-                        console.log(answer)
+
 
                     }
 
@@ -782,7 +778,6 @@ export class View {
 
                 this.getElement('#tbody-root').addEventListener('mousedown', event => {
                     if (event.target.classList.contains("confirm-edit")) {
-                        console.log("confirm")
                         let id = parseInt(event.target.parentElement.parentElement.id)
                         let temporaryAnswerText = document.getElementById("input-edit").value
                         handler(id, temporaryAnswerText);
@@ -858,7 +853,6 @@ export class View {
                                 that._getArray(getArray, event, that._executed)
                                 that._countClick++;
                                 that._executed = true
-                                console.log(that._edited, "to cancel")
                                 edit.id = event.target.parentElement.id
                                 edit.name = that.getElement("#question-name-edit").value
                                 edit.check = that.getElement("#question-check-explanation").checked ? "checked" : false
@@ -866,7 +860,6 @@ export class View {
 
 
                                 that.getElement(".cancel-edit-question").addEventListener("click", function cancelEdit(e){
-                                    console.log(edit.array, 'cancel')
                                     e.target.parentElement.id = edit.id
                                     that.getElement("#question-name-edit").value = edit.name
                                     that.getElement("#question-check-explanation").checked = edit.check
@@ -920,9 +913,7 @@ export class View {
                 if (that._countClick > 1) {
                     let id = event.target.parentElement.id;
                     let questionName = document.getElementById("question-name-edit").value
-                    console.log(questionName, "question name edit")
                     let array = that._edited
-                    console.log(array, "handler")
 
                     if (document.getElementById("question-check-explanation").checked){
                         var explanationCheck = "checked"
@@ -1281,12 +1272,9 @@ export class View {
         let that = this
         getArray.forEach(question => {
             if (question.id === event.target.parentElement.id){
-                console.log(question.id, event.target.parentElement.id)
                 that._edited = question.table
-                console.log(that._edited)
                 document.querySelector("#questions").addEventListener("click",  function editQuestion (el){
                     if (executed === false) {
-                        console.log("je click")
                         // ADD IN A ARRAY FROM A QUESTION CREATED
                         if (el.target.classList.contains("answer-add")) {
                             if (that.getElement("#choice-edited-question").value !== "") {
@@ -1322,8 +1310,6 @@ export class View {
                                         btn.classList.add("disabled")
                                     })
                                     document.querySelector("#edit-question-confirmed").classList.remove("disabled")
-                                    console.log(that._edited)
-
 
                                 }
                             })
@@ -1332,14 +1318,12 @@ export class View {
                         }
 // EDIT IN A ARRAY FROM A QUESTION CREATED
                         if (el.target.classList.contains("edit-edited")) {
-                            console.log(that._countClickEdit, "edit")
                             if (that._countClickEdit === 0) {
 
                                 that.editInCreated(that._edited, el)
                             }
 
                         } else if (el.target.classList.contains("confirmed")) {
-                            console.log(that._countClickEdit, "confrim")
                             if (that._countClickEdit === 1) {
                                 that.confirmEditArrayCreated(el)
                                 el.stopPropagation()
@@ -1357,8 +1341,6 @@ export class View {
 
 // CONFIRM ALL MODIFICATION WHEN WE EDIT A QUESTION
                         if (el.target.id === "edit-question-confirmed") {
-                            console.log("remove event")
-                            console.log(that._edited)
                             that._countClickEdit = 0
                             document.querySelector("#questions").removeEventListener("click", editQuestion)
 
@@ -1377,9 +1359,6 @@ export class View {
     // FUNCTION TO ADD IN CREATED
     addInCreated = (edited, event) => {
         let that = this
-        console.log(that._edited, "that edited before add ")
-        console.log(edited)
-
         if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM"))
         {
             const answerEdit = {
@@ -1389,11 +1368,9 @@ export class View {
             }
 
 
-            console.log(answerEdit)
-            console.log(edited, "before push")
+
             edited.push(answerEdit)
             that.displayTableQcm(edited)
-            console.log(this._edited, "after push")
         }
         if(event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableShort"))
         {
@@ -1403,11 +1380,11 @@ export class View {
             }
 
 
-            console.log(answerEdit)
-            console.log(edited, "before push")
+
+
             edited.push(answerEdit)
             that.displayTableShort(edited)
-            console.log(this._edited, "after push")
+
         }
 
 
@@ -1420,7 +1397,6 @@ export class View {
     editInCreated = (edited, event) => {
         let that = this;
 
-        console.log(edited);
             event.target.parentElement.parentElement.classList.add("focus");
         event.target.classList.add("confirmed");
         event.target.innerHTML = "Confirmer";
@@ -1453,7 +1429,7 @@ export class View {
 
     cancelEditArrayCreated = (el) => {
         let that = this
-            console.log("cancel edit")
+
             el.target.parentElement.parentElement.classList.remove("focus");
             el.target.classList.remove("cancel")
             el.target.classList.add("delete-edit")
@@ -1520,12 +1496,8 @@ let that = this
 // FUNCTION TO DEL IN CREATED
     delInCreated = (edited, event) => {
         let that = this
-        console.log(that._edited, "that edited before add ")
-        console.log(edited)
-        console.log("delete row")
 
         edited.splice(event.target.parentElement.parentElement.rowIndex - 1, 1)
-        console.log(edited, "qcm delete")
 
         if (event.target.parentElement.parentElement.parentElement.parentElement.classList.contains("tableQCM")) {
             that.displayTableQcm(edited)
@@ -1544,7 +1516,6 @@ let that = this
     // CHECK WHERE A WORD START AND STOP
      _checkCharacterIsBoundary = (position, text, previous) => {
          let testedCharacterPosition = previous ? position - 1 : position
-         console.log("Testing" , testedCharacterPosition, "=" , text[testedCharacterPosition])
 
          if ( -1 === testedCharacterPosition){
              return true;
@@ -1604,7 +1575,6 @@ let that = this
                 return piece
             }
 
-            console.log(piece)
 
             if (piece.length >0){
                 let delimiter = /[â€“â€”â€²â€™â€œâ€â€³â€ž\"()Â«Â»,;:.â€¦Â¡Â¿!?\s]/;
@@ -1619,13 +1589,8 @@ let that = this
 
         })
 
-        console.log(textContainer.value, "push undo")
-        this._history.push(textContainer.value);
-        if (this._history.length > 10){
-            this._history.shift()
-        }
 
-        console.log(this._history, "history")
+
 
         textContainer.value = string.slice(0, boundaries.selectStart) + output.join(" ") + string.slice(boundaries.selectEnd)
 
@@ -1636,23 +1601,24 @@ let that = this
     undoAddTags (text) {
 
              let textContainer = document.querySelector("#" + text)
-        console.log(textContainer.value)
 
         if (this._history.length !== 0 ) {
             this._redo.push(textContainer.value)
+
             if (this._redo.lenght > 10){
                 this._redo.shift()
             }
+
             textContainer.value = this._history.pop()
         }
 
-        console.log(this._history.length, "length history")
+
+
 
     }
 // REDO FUNCTION MAX 10 ELEMENTS
     redoAddTags (text){
         let textContainer = document.querySelector("#" + text)
-        console.log(textContainer.value)
         if (this._redo.length !== 0 ) {
             this._history.push(textContainer.value)
             if (this._history.length > 10){

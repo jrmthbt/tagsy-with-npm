@@ -5,6 +5,7 @@ exports.default = function fontawesome(){
         "node_modules/@fortawesome/fontawesome-free/js/solid.js",
         "node_modules/@fortawesome/fontawesome-free/js/brands.js",
         "node_modules/@fortawesome/fontawesome-free/js/fontawesome.js",
+        "node_modules/@fortawesome/fontawesome-free/webfonts/*"
     ])
 .pipe(dest('dist/font-awesome'))
 

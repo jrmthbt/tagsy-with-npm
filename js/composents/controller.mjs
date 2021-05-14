@@ -20,6 +20,12 @@ export class Controller {
         //COUNTER FOR TAG I
         this.countI = 1
 
+        this.clickR = 1
+        this.clickG = 2
+        this.clickI = 3
+        this.historyClick = []
+        this.redoClick = []
+
 
         // WHEN WINDOW RELOAD
         window.onload = () => {
@@ -63,8 +69,8 @@ export class Controller {
                 this.initCounter()
             }
 
-            if(event.target.id === "counter"){
-                if (! event.target.checked) {
+            if (event.target.id === "counter") {
+                if (!event.target.checked) {
                     this.countR = 1
                     this.countG = 1
                     this.countI = 1
@@ -147,20 +153,17 @@ export class Controller {
             if (event.target.id === "form-add") {
                 that.initCounter()
 
-                    if (document.getElementById("identification").checked && document.getElementById("question-name").value !== "" || undefined) {
+                if (document.getElementById("identification").checked && document.getElementById("question-name").value !== "" || undefined) {
 
-                            that.addQuestion()
+                    that.addQuestion()
 
-                    }
-            else if (document.getElementById("qcm").checked && document.getElementById("question-name").value !== ""  && document.getElementById("tbody-root").childElementCount > 0){
-                        that.addQuestion()
-                    }
-                    else if (document.getElementById("short-answer").checked && document.getElementById("question-name").value !== ""  && document.getElementById("tbody-root").childElementCount > 0){
-                        that.addQuestion()
-                    }
-            else {
-                        that.view.guizmoAlert("Remplissez tous les champs pour créer la question, (si QCM ou réponse courte, remplir le tableau aussi)!")
-                    }
+                } else if (document.getElementById("qcm").checked && document.getElementById("question-name").value !== "" && document.getElementById("tbody-root").childElementCount > 0) {
+                    that.addQuestion()
+                } else if (document.getElementById("short-answer").checked && document.getElementById("question-name").value !== "" && document.getElementById("tbody-root").childElementCount > 0) {
+                    that.addQuestion()
+                } else {
+                    that.view.guizmoAlert("Remplissez tous les champs pour créer la question, (si QCM ou réponse courte, remplir le tableau aussi)!")
+                }
 
             }
 // DELETE A QUESTION
@@ -169,7 +172,7 @@ export class Controller {
                 that.view.getElement("#message").addEventListener("click", function confirmDel(el) {
                     if (el.target.classList.contains("btn-confirm")) {
                         that.displayQuestion()
-                        if(that.view.getElement("#questions").childElementCount === 0){
+                        if (that.view.getElement("#questions").childElementCount === 0) {
                             that.view._showDisplay(document.getElementById("change"))
 
                         }
@@ -191,7 +194,7 @@ export class Controller {
 
             // initialize TAGSY
 
-            if (event.target.classList.contains("init")){
+            if (event.target.classList.contains("init")) {
                 that.view._guizmoSpeak("Voulez-vous réinitialiser TAGSY? Vous perdrez TOUTES vos données")
                 document.getElementById("message").addEventListener("click", function confirmInit(el) {
 
@@ -216,107 +219,168 @@ export class Controller {
                     //CALL TO UNDO
                     console.log("undo")
                     let target = "question-name"
-                    if (document.getElementById("question-name-edit")){
+                    if (document.getElementById("question-name-edit")) {
                         target = "question-name-edit"
                     }
                     that.view.undoAddTags(target)
+                    that.undoTags()
+                    console.log(that.view._history)
+                    //console.log(that.historyClick)
 
                 }
                 if (event.target.id === "tool-redo") {
                     console.log("redo")
                     // CALL TO REDO
                     let target = "question-name"
-                    if (document.getElementById("question-name-edit")){
+                    if (document.getElementById("question-name-edit")) {
                         target = "question-name-edit"
                     }
-                    that.view.redoAddTags(target)
 
+                    that.view.redoAddTags(target)
+                    that.redoTags()
+                    if (that.view.getElement("#counter").checked) {
+                        if (that.view._redo.length > 0) {
+                            document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
+                        }
+                    }
+                    console.log(that.view._history)
+                    console.log(that.historyClick)
                 }
                 if (event.target.id === "tool-tag-r") {
+                    that.historyClick.push(that.clickR)
+                    if (that.historyClick.length > 10) {
+                        that.historyClick.shift()
+                    }
+
                     // CALL TO TAG R
                     let RO = `[%R${that.countR}]`;
                     let RE = `[/%R${that.countR}]`;
                     let target = "question-name"
-                    if (document.getElementById("question-name-edit")){
+                    if (document.getElementById("question-name-edit")) {
                         target = "question-name-edit"
                     }
                     let elem = document.querySelector("#question-name");
-                    console.log(elem.value, elem.value.length)
                     if (elem.value.length === 0) {
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
                         that.view.addTagsToText(target, RO, RE)
                         elem.selectionStart = RO.length + 1
                         elem.selectionEnd = RE.length - 1
                         elem.focus()
-                    }
-                    else{
+                    } else {
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
                         that.view.addTagsToText(target, RO, RE)
+                        elem.selectionStart = elem.value.length + RE.length
+                        elem.selectionEnd = elem.value.length - RE.length
+                        elem.focus()
                     }
 
-                    if (document.querySelector("#counter").checked){
+                    if (document.querySelector("#counter").checked) {
                         that.countR++;
                         document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
-                    }else{
+                    } else {
                         that.countR = 1;
                         document.getElementById("r").innerHTML = `Ajout [%R${that.countR}][/%R${that.countR}]`
                     }
+                    console.log(that.historyClick)
+                    console.log(that.view._history)
                 }
                 if (event.target.id === "tool-tag-g") {
+                    that.historyClick.push(that.clickG)
+                    if (that.historyClick.length > 10) {
+                        that.historyClick.shift()
+                    }
+
                     // CALL TO TAG G
                     console.log("tag-g")
                     let GO = `[%G${that.countG}]`;
                     let GE = `[/%G${that.countG}]`;
                     let target = "question-name"
-                    if (document.getElementById("question-name-edit")){
+                    if (document.getElementById("question-name-edit")) {
                         target = "question-name-edit"
                     }
                     let elem = document.querySelector("#question-name");
-                    console.log(elem.value, elem.value.length)
                     if (elem.value.length === 0) {
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
                         that.view.addTagsToText(target, GO, GE)
                         elem.selectionStart = GO.length + 1
                         elem.selectionEnd = GE.length - 1
                         elem.focus()
-                    }
-                    else{
+                    } else {
+
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
                         that.view.addTagsToText(target, GO, GE)
+                        elem.selectionStart = elem.value.length + GE.length
+                        elem.selectionEnd = elem.value.length - GE.length
+                        elem.focus()
                     }
-                    if (document.querySelector("#counter").checked){
+                    if (document.querySelector("#counter").checked) {
                         that.countG++;
                         document.getElementById("g").innerHTML = `Ajout [%G${that.countG}][/%G${that.countG}]`
-                    }
-                    else{
+                    } else {
                         that.countG = 1
                         document.getElementById("g").innerHTML = `Ajout [%G${that.countG}][/%G${that.countG}]`
                     }
+                    console.log(that.historyClick)
+                    console.log(that.view._history)
                 }
                 if (event.target.id === "tool-tag-i") {
+                    that.historyClick.push(that.clickI)
+                    console.log(that.view._history)
+                    if (that.historyClick.length > 10) {
+                        that.historyClick.shift()
+                    }
+                    console.log(that.historyClick)
                     console.log("tag-i")
                     // CALL TO TAG I
                     let IO = `[%I${that.countI}]`;
                     let IE = `[/%I${that.countI}]`;
                     let target = "question-name"
-                    if (document.getElementById("question-name-edit")){
+                    if (document.getElementById("question-name-edit")) {
                         target = "question-name-edit"
                     }
                     let elem = document.querySelector("#question-name");
-                    console.log(elem.value, elem.value.length)
                     if (elem.value.length === 0) {
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
                         that.view.addTagsToText(target, IO, IE)
-                        elem.selectionStart = IO.length + 1
-                        elem.selectionEnd = IE.length - 1
+                        elem.selectionStart = elem.value.length + IE.length
+                        elem.selectionEnd = elem.value.length - IE.length
+                        elem.focus()
+                    } else {
+
+                        that.view._history.push(elem.value.length === 0 ? "" : elem.value)
+                        if (that.view._history.length > 10) {
+                            that.view._history.shift()
+                        }
+
+                        that.view.addTagsToText(target, IO, IE)
+                        elem.selectionStart = elem.value.length
+                        elem.selectionEnd = elem.value.length
                         elem.focus()
                     }
-                    else{
-                        that.view.addTagsToText(target, IO, IE)
-                    }
-                    if (document.querySelector("#counter").checked){
+                    if (document.querySelector("#counter").checked) {
                         that.countI++;
                         document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
-                    }
-                    else{
+                    } else {
                         that.countI = 1
                         document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
                     }
+                    console.log(that.historyClick)
+                    console.log(that.view._history)
                 }
                 if (event.target.id === "tool-nothing") {
                     // CALL FOR SPAN AUCUN
@@ -331,7 +395,7 @@ export class Controller {
 // GENERATE A JSON FILE
         document.body.addEventListener("click", event => {
             if (event.target.classList.contains("generate")) {
-                if (this.view.getElement("#name-exercise").value !== "" && document.getElementById("questions").childElementCount > 0 ) {
+                if (this.view.getElement("#name-exercise").value !== "" && document.getElementById("questions").childElementCount > 0) {
                     this.view._guizmoSpeak("Voulez-vous générer votre exercice ?")
                     let that = this
                     document.getElementById("message").addEventListener("click", function confirmEdit(el) {
@@ -347,8 +411,7 @@ export class Controller {
                         }
 
                     })
-                }
-                else {
+                } else {
                     that.view.guizmoAlert("Veuillez entrez le nom de l'exercice et créer des questions pour générer un exercice!");
                 }
             }
@@ -361,6 +424,7 @@ export class Controller {
         let that = this;
 
     }
+
 // DISPLAY WHEN ADD QUESTION
     addQuestion = () => {
         this.handleAddQuestion()
@@ -463,6 +527,11 @@ export class Controller {
         if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
             let getSession = this.model.tagsyEditor
             let getTagsy = this.model.tagsy
+            if (this.model.questionCreated === []) {
+                this.view._showDisplay(this.view.getElement("#change"))
+            } else {
+                this.view._hideDisplay(this.view.getElement("#change"))
+            }
             this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
             this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
             this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
@@ -478,7 +547,7 @@ export class Controller {
             if (this.view.getElement("#qcm").checked) {
                 this.view.qcmTable(document.getElementById("root").id)
                 this.view._lockExercice();
-                 this.view.getElement("#change").classList.add("display-none")
+                this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableQcm(this.model.qcmAnswers)
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
@@ -489,12 +558,12 @@ export class Controller {
             }
             if (this.view.getElement("#identification").checked) {
                 this.view._lockExercice();
-                 this.view.getElement("#change").classList.add("display-none")
+                this.view.getElement("#change").classList.add("display-none")
             }
             if (this.view.getElement("#short-answer").checked) {
                 this.view.answerTable(document.getElementById("root").id)
                 this.view._lockExercice();
-                 this.view.getElement("#change").classList.add("display-none")
+                this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableShort(this.model.shortAnswers)
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
@@ -525,7 +594,7 @@ export class Controller {
     download = () => {
         let tagsyQuestion = JSON.parse(sessionStorage.getItem("questionCreated")) || JSON.parse(localStorage.getItem("questionCreated"))
 
-        let tagsy  = JSON.parse(sessionStorage.getItem("tagsy")) || JSON.parse(localStorage.getItem("tagsy"))
+        let tagsy = JSON.parse(sessionStorage.getItem("tagsy")) || JSON.parse(localStorage.getItem("tagsy"))
         console.log(tagsyQuestion, "question")
 
         let json = {
@@ -541,12 +610,12 @@ export class Controller {
             },
             "wrapper": "ul",
             "intro": "TODO",
-            "objective": tagsy.exerciseName ,
+            "objective": tagsy.exerciseName,
             "debrief": "TODO",
             "help": "<h2>Comment gagner&nbsp;?</h2><ul><li>Cliquez sur un verbe pour afficher le formulaire de réponse puis entrez cette dernière. Cliquez à nouveau pour modifier la réponse.</li><li>Quand vous avez terminé, enfoncez joyeusement le bouton «&nbsp;J’ai fini&nbsp;!&nbsp;» pour connaître votre résultat.</li></ul><h2>Bon à savoir…</h2><ul><li>Il faut créer ou sélectionner un profil avant de commencer à faire un exercice si vous voulez sauvegarder le résultat dans votre suivi de progression.</li><li>Quitter l’exercice en cours efface les réponses déjà entrées.</li></ul>",
             "fragments": [],
         }
-    let i = 0
+        let i = 0
         let k = 1
 
 
@@ -555,80 +624,79 @@ export class Controller {
             let good = [];
             let shortAnswer = [];
             let questions = []
-            if (answer.type ==="QCM"){
+            if (answer.type === "QCM") {
                 json.engine = "MCQ"
 
 
-            answer.table.forEach(val => {
+                answer.table.forEach(val => {
 
-                let choice = {
-                    "id" : val.id,
-                    "value" : val.choix
-                }
-                console.log(choice)
-                choix.push(choice)
-
-                if (val.goodAnswer !== false){
-                    let j = 0
-                    let ans = {
-                        "id" : (j) - good.length +(good.length +1),
-                        "value" :val.id
-
+                    let choice = {
+                        "id": val.id,
+                        "value": val.choix
                     }
-                    j++
-                    good.push(ans)
-                }
+                    console.log(choice)
+                    choix.push(choice)
+
+                    if (val.goodAnswer !== false) {
+                        let j = 0
+                        let ans = {
+                            "id": (j) - good.length + (good.length + 1),
+                            "value": val.id
+
+                        }
+                        j++
+                        good.push(ans)
+                    }
 
 
-            })
+                })
 
                 let quest = {
-                    "id" : k,
-                    "format" : "big",
-                    "choices" : choix,
-                    "answers" : good,
-                    "clue" : answer.explication !== "" ? answer.explication : "",
+                    "id": k,
+                    "format": "big",
+                    "choices": choix,
+                    "answers": good,
+                    "clue": answer.explication !== "" ? answer.explication : "",
 
                 }
                 k++
                 questions.push(quest)
 
 
-            console.log(i, "avant incrément")
-            console.log(choix)
-            i++
-            let question = {
-                "id" : i.toString(),
-                "text": answer.enonce,
-                "questions" : questions,
+                console.log(i, "avant incrément")
+                console.log(choix)
+                i++
+                let question = {
+                    "id": i.toString(),
+                    "text": answer.enonce,
+                    "questions": questions,
 
-            }
-
-            json.fragments.push(question)
                 }
-            if (answer.type === "Identification"){
+
+                json.fragments.push(question)
+            }
+            if (answer.type === "Identification") {
                 json.engine = "FIT"
                 i++
 
                 let question = {
-                    "id" : i,
-                    "text" : answer.enonce,
-                    "clue" : answer.explication
+                    "id": i,
+                    "text": answer.enonce,
+                    "clue": answer.explication
                 }
 
                 json.fragments.push(question)
             }
 
-            if (answer.type === "Réponse courte")
-            {
+            if (answer.type === "Réponse courte") {
                 console.log("short")
                 json.engine = "FTB"
 
                 answer.table.forEach(val => {
 
                     let short = {
-                        "id" : val.id,
-                        "value" : val.answer
+                        "id": val.id,
+                        "value": val.answer
                     }
 
                     shortAnswer.push(short)
@@ -638,19 +706,19 @@ export class Controller {
 
 
                 let quest = {
-                    "id" : k,
-                    "format" : "big",
-                    "answers" : shortAnswer,
-                    "clue" : answer.explication !== "" ? answer.explication : "",
+                    "id": k,
+                    "format": "big",
+                    "answers": shortAnswer,
+                    "clue": answer.explication !== "" ? answer.explication : "",
 
                 }
                 questions.push(quest)
 
                 i++
                 let question = {
-                    "id" : i.toString(),
+                    "id": i.toString(),
                     "text": answer.enonce,
-                    "questions" : questions,
+                    "questions": questions,
 
                 }
 
@@ -659,45 +727,43 @@ export class Controller {
         })
 
 
-
-console.log(json)
+        console.log(json)
 
 // generate MCQ exercise
-    if (json.engine === "MCQ") {
-        console.log("generate MCQ")
+        if (json.engine === "MCQ") {
+            console.log("generate MCQ")
 
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
-        let dlElem = this.view.getElement("a.generate");
-        dlElem.setAttribute("href", dataStr)
-        dlElem.setAttribute("download", `${json.engine}.json`)
-        dlElem.click()
-        dlElem.removeAttribute("href")
-        dlElem.removeAttribute("download")
-    }
-// generate FIT exercise
-   else if (json.engine === "FIT"){
-        console.log("generate FIT")
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
-        let dlElem = this.view.getElement("a.generate");
-        dlElem.setAttribute("href", dataStr)
-        dlElem.setAttribute("download", `${json.engine}.json`)
-        dlElem.click()
-        dlElem.removeAttribute("href")
-        dlElem.removeAttribute("download")
-
-    }
-// generate FTB exercise
-    else if (json.engine === "FTB"){
-        console.log("generate FTB")
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
-        let dlElem = this.view.getElement("a.generate");
-        dlElem.setAttribute("href", dataStr)
-        dlElem.setAttribute("download", `${json.engine}.json`)
-        dlElem.click()
-        dlElem.removeAttribute("href")
-        dlElem.removeAttribute("download")
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+            let dlElem = this.view.getElement("a.generate");
+            dlElem.setAttribute("href", dataStr)
+            dlElem.setAttribute("download", `${json.engine}.json`)
+            dlElem.click()
+            dlElem.removeAttribute("href")
+            dlElem.removeAttribute("download")
         }
+// generate FIT exercise
+        else if (json.engine === "FIT") {
+            console.log("generate FIT")
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+            let dlElem = this.view.getElement("a.generate");
+            dlElem.setAttribute("href", dataStr)
+            dlElem.setAttribute("download", `${json.engine}.json`)
+            dlElem.click()
+            dlElem.removeAttribute("href")
+            dlElem.removeAttribute("download")
 
+        }
+// generate FTB exercise
+        else if (json.engine === "FTB") {
+            console.log("generate FTB")
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+            let dlElem = this.view.getElement("a.generate");
+            dlElem.setAttribute("href", dataStr)
+            dlElem.setAttribute("download", `${json.engine}.json`)
+            dlElem.click()
+            dlElem.removeAttribute("href")
+            dlElem.removeAttribute("download")
+        }
 
 
     }
@@ -705,7 +771,7 @@ console.log(json)
 
     // reinit all when exercise is generated
     initAll = () => {
-        while (document.getElementById("questions").firstChild){
+        while (document.getElementById("questions").firstChild) {
             document.getElementById("questions").removeChild(document.getElementById("questions").firstChild)
         }
         this.countR = 1;
@@ -713,19 +779,126 @@ console.log(json)
         this.countI = 1;
         localStorage.clear()
         sessionStorage.clear()
-        document.querySelectorAll("input[type=text]").forEach(text=>{text.value=""})
-        document.querySelectorAll("input[type=checkbox]").forEach(check=>{check.checked=false})
-        document.querySelectorAll("input[type=radio]").forEach(check=>{check.checked=false, check.disabled = false})
+        document.querySelectorAll("input[type=text]").forEach(text => {
+            text.value = ""
+        })
+        document.querySelectorAll("input[type=checkbox]").forEach(check => {
+            check.checked = false
+        })
+        document.querySelectorAll("input[type=radio]").forEach(check => {
+            check.checked = false, check.disabled = false
+        })
         document.querySelector("#change").classList.add("display-none");
         this.model.questionCreated = []
         this.model.tagsyEditor = []
         this.model.qcmAnswers = []
         this.model.shortAnswers = []
         this.model.tagsy = []
+        this.historyClick = []
+        this.redoClick = []
+        this.view._history = []
+        this.view._redo = []
         document.getElementById("nbr-question").innerHTML = `Nombre de questions : ${document.getElementById("questions").childElementCount}`
+        document.getElementById("r").innerHTML = `Ajout [%R${this.countR}][/%R${this.countR}]`
+        document.getElementById("g").innerHTML = `Ajout [%G${this.countG}][/%G${this.countG}]`
+        document.getElementById("i").innerHTML = `Ajout [%I${this.countI}][/%I${this.countI}]`
         this.clearEditor()
-        while (document.getElementById("root").firstChild){
+        while (document.getElementById("root").firstChild) {
             document.getElementById("root").removeChild(document.getElementById("root").firstChild)
         }
+    }
+
+    undoTags() {
+
+        this.deIncrementTag()
+
+
+        if (this.historyClick.length !== 0) {
+            this.redoClick.push(this.historyClick.pop())
+
+            if (this.redoClick.length > 10) {
+                this.redoClick.shift()
+            }
+
+        }
+
+
+    }
+
+// REDO FUNCTION MAX 10 ELEMENTS
+    redoTags() {
+        this.IncrementTag()
+        if (this.redoClick.length !== 0) {
+            this.historyClick.push(this.redoClick.pop())
+
+            if (this.historyClick.length > 10) {
+                this.historyClick.shift()
+            }
+            console.log(this.historyClick, "redo", 'history')
+            console.log(this.redoClick, "redo", "redo")
+        }
+    }
+
+    deIncrementTag = () => {
+        if (this.view.getElement("#counter").checked) {
+
+            if (this.historyClick[this.historyClick.length - 1] === 1) {
+                if (this.historyClick !== []) {
+                    this.countR--
+                    console.log(this.countR, "--")
+                    document.getElementById("r").innerHTML = `Ajout [%R${this.countR}][/%R${this.countR}]`
+                }
+
+            }
+
+            if (this.historyClick[this.historyClick.length-1] === 2) {
+                console.log(this.countG)
+                if (this.historyClick !== []) {
+                    this.countG--
+                    document.getElementById("g").innerHTML = `Ajout [%G${this.countG}][/%G${this.countG}]`
+                }
+            }
+
+            if (this.historyClick[this.historyClick.length-1] === 3) {
+                if (this.historyClick !== []) {
+                    this.countI--
+                    document.getElementById("i").innerHTML = `Ajout [%I${this.countI}][/%I${this.countI}]`
+                }
+            }
+
+        }
+    }
+
+    IncrementTag = () => {
+        if (this.view.getElement("#counter").checked) {
+
+            if (this.redoClick[this.redoClick.length - 1] === 1) {
+                if (this.redoClick !== []) {
+                    this.countR++
+                    console.log(this.countR, "++")
+                    document.getElementById("r").innerHTML = `Ajout [%R${this.countR}][/%R${this.countR}]`
+                }
+
+            }
+
+            if (this.redoClick[this.redoClick.length - 1] === 2) {
+                if (this.redoClick !== []) {
+                    this.countG++
+                    console.log(this.countG, "++")
+                    document.getElementById("g").innerHTML = `Ajout [%G${this.countG}][/%G${this.countG}]`
+                }
+
+            }
+
+            if (this.redoClick[this.redoClick.length - 1] === 1) {
+                if (this.redoClick !== []) {
+                    this.countI++
+                    console.log(this.countI, "++")
+                    document.getElementById("i").innerHTML = `Ajout [%I${this.countI}][/%I${this.countI}]`
+                }
+
+            }
+        }
+
     }
 }
