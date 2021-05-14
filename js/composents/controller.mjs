@@ -20,10 +20,16 @@ export class Controller {
         //COUNTER FOR TAG I
         this.countI = 1
 
+        //key tag R toolbar
         this.clickR = 1
+        //key tag G toolbar
         this.clickG = 2
+        //key tag I toolbar
         this.clickI = 3
+        //history of key
         this.historyClick = []
+
+        // redo of key
         this.redoClick = []
 
 
@@ -31,12 +37,12 @@ export class Controller {
         window.onload = () => {
             // CHECK IF AUTO SAVE IS ON OR NOT
             if (!that.model.tagsy.autoSave) {
-                // IF NOT CALL SESSION STORAGE
+                // IF NOT CALL SESSION STORAGE AND GET ELEMENT IN STORAGE
                 console.log("session")
                 callSS()
                 this.getStorage()
             } else {
-                //ELSE CALL LOCAL STORAGE
+                //ELSE CALL LOCAL STORAGE AND GET ELEMENT IN STORAGE
                 console.log("local")
                 callLS()
                 this.getStorage()
@@ -45,6 +51,7 @@ export class Controller {
         }
 // EVENT LISTENER CHANGE
         document.querySelector("body").addEventListener("change", event => {
+            // IF EXERCICE === QCM
             if (event.target.id === this.view.exercice[0]) {
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
@@ -54,11 +61,14 @@ export class Controller {
                 this.clearTableShort()
                 this.initCounter()
             }
+            // IF EXERCICE === IDENTIFICATION
             if (event.target.id === this.view.exercice[1]) {
                 this.clearTableQcm();
                 this.clearTableShort()
                 this.initCounter()
             }
+
+            // IF EXERCICE === SHORT ANSWER
             if (event.target.id === this.view.exercice[2]) {
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
@@ -69,6 +79,7 @@ export class Controller {
                 this.initCounter()
             }
 
+            // IF COUNTERAUTO IS CHECKED
             if (event.target.id === "counter") {
                 if (!event.target.checked) {
                     this.countR = 1
@@ -79,6 +90,7 @@ export class Controller {
                     document.getElementById("i").innerHTML = `Ajout [%I${that.countI}][/%I${that.countI}]`
                 }
             }
+
 
             if (event.target.id === "save-info") {
                 //CHANGE FROM SESSION TO LOCAL STORAGE
@@ -213,6 +225,8 @@ export class Controller {
 
 
         })
+
+        // IF CLICK ON A TOOL FROM THE TOOLSBAR
         document.querySelector("#toolbars").addEventListener("click", function (event) {
             if (event.target.classList.contains("tools")) {
                 if (event.target.id === "tool-undo") {
@@ -532,13 +546,12 @@ export class Controller {
             let questions = this.model.questionCreated
             console.log(questions.length)
 
-            if (questions.length>0) {
+            if (questions.length > 0) {
                 this.view.getElement("#qcm").checked = questions[0].type === "QCM" ? "checked" : false
-                this.view.getElement("#identification").checked = questions[0].type ==="Identification" ? "checked" : false
-                this.view.getElement("#short-answer").checked = questions[0].type ===" courte" ? "checked" : false
-            }
-            else{
-                this.view.getElement("#qcm").checked = getSession.qcm  ? "checked" : false
+                this.view.getElement("#identification").checked = questions[0].type === "Identification" ? "checked" : false
+                this.view.getElement("#short-answer").checked = questions[0].type === " courte" ? "checked" : false
+            } else {
+                this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
                 this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
                 this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
             }
@@ -816,6 +829,7 @@ export class Controller {
         }
     }
 
+    // push in array historyClick the key of tag MAX 10 elem
     undoTags() {
 
         this.deIncrementTag()
@@ -833,7 +847,7 @@ export class Controller {
 
     }
 
-// REDO FUNCTION MAX 10 ELEMENTS
+// push in array redoClick the key of tag MAX 10 elem
     redoTags() {
         this.IncrementTag()
         if (this.redoClick.length !== 0) {
@@ -847,6 +861,7 @@ export class Controller {
         }
     }
 
+    // DeIncrement the counter of tag if last elem from array == key of tag
     deIncrementTag = () => {
         if (this.view.getElement("#counter").checked) {
 
@@ -859,7 +874,7 @@ export class Controller {
 
             }
 
-            if (this.historyClick[this.historyClick.length-1] === 2) {
+            if (this.historyClick[this.historyClick.length - 1] === 2) {
                 console.log(this.countG)
                 if (this.historyClick !== []) {
                     this.countG--
@@ -867,7 +882,7 @@ export class Controller {
                 }
             }
 
-            if (this.historyClick[this.historyClick.length-1] === 3) {
+            if (this.historyClick[this.historyClick.length - 1] === 3) {
                 if (this.historyClick !== []) {
                     this.countI--
                     document.getElementById("i").innerHTML = `Ajout [%I${this.countI}][/%I${this.countI}]`
@@ -877,6 +892,7 @@ export class Controller {
         }
     }
 
+    //Increment the counter of tag if last elem from array == key of tag
     IncrementTag = () => {
         if (this.view.getElement("#counter").checked) {
 
