@@ -520,6 +520,8 @@ export class Controller {
             this.clearTableShort()
             this.view.displayTableShort(this.model.shortAnswers)
         }
+        this.view.getElement("#tool-nothing").classList.remove("disabled")
+
     }
 
     // GET FROM STORAGE
@@ -527,10 +529,19 @@ export class Controller {
         if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
             let getSession = this.model.tagsyEditor
             let getTagsy = this.model.tagsy
+            let questions = this.model.questionCreated
+            console.log(questions.length)
 
-            this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
-            this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
-            this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
+            if (questions.length>0) {
+                this.view.getElement("#qcm").checked = questions[0].type === "QCM" ? "checked" : false
+                this.view.getElement("#identification").checked = questions[0].type ==="Identification" ? "checked" : false
+                this.view.getElement("#short-answer").checked = questions[0].type ===" courte" ? "checked" : false
+            }
+            else{
+                this.view.getElement("#qcm").checked = getSession.qcm  ? "checked" : false
+                this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
+                this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
+            }
             this.view.getElement("#question-name").value = getSession.questionName ? getSession.questionName : ""
             this.view.getElement("#explication").checked = getSession.explanationCheck ? "checked" : false
             this.view.getElement("#explication-text").value = getSession.explanation
@@ -540,40 +551,24 @@ export class Controller {
             this.view.getElement("#name-exercise").value = getTagsy.exerciseName ? getTagsy.exerciseName : ""
 
             if (this.view.getElement("#qcm").checked) {
-                if (this.view.getElement("#questions").childElementCount === 0){
-                    this.view._showDisplay(this.view.getElement("#change"))
-                }
-                else {
-                    this.view._hideDisplay(this.view.getElement("#change"))
-                }
                 this.view.qcmTable(document.getElementById("root").id)
                 this.view._lockExercice();
+                document.querySelector("#change").classList.add("display-none")
                 this.view.displayTableQcm(this.model.qcmAnswers)
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
                 this.view.binDelete(this.handleDeleteAnswer)
                 this.view.binEditQcm(this.handleEditAnswer)
                 this.onChange(this.model.qcmAnswers)
-                this.view.getElement("#tool-nothing").disabled= true
-                this.view.getElement("#tool-nothing").style.color = "grey"
+                this.view.getElement("#tool-nothing").classList.add("disabled")
 
             }
             if (this.view.getElement("#identification").checked) {
-                if (this.view.getElement("#questions").childElementCount === 0){
-                    this.view._showDisplay(this.view.getElement("#change"))
-                }
-                else {
-                    this.view._hideDisplay(this.view.getElement("#change"))
-                }
+
                 this.view._lockExercice();
             }
             if (this.view.getElement("#short-answer").checked) {
-                if (this.view.getElement("#questions").childElementCount === 0){
-                    this.view._showDisplay(this.view.getElement("#change"))
-                }
-                else {
-                    this.view._hideDisplay(this.view.getElement("#change"))
-                }
+
                 this.view.answerTable(document.getElementById("root").id)
                 this.view._lockExercice();
                 this.view.displayTableShort(this.model.shortAnswers)
@@ -582,8 +577,7 @@ export class Controller {
                 this.view.binDelete(this.handleDeleteShort)
                 this.view.binEditShort(this.handleEditShort)
                 this.onChangeShort(this.model.shortAnswers)
-                this.view.getElement("#tool-nothing").disabled= true
-                this.view.getElement("#tool-nothing").style.color = "grey"
+                this.view.getElement("#tool-nothing").classList.add("disabled")
             }
 
             this.view.getElement("#explication").checked ?

@@ -11,8 +11,8 @@ export class View {
             if (event.target.id === this.exercice[0]) {
                 this.qcmTable(document.getElementById("root").id);
                 this._lockExercice();
-                this.getElement("#tool-nothing").disabled= true
-                this.getElement("#tool-nothing").style.color = "grey"
+                this.getElement("#tool-nothing").classList.add("disabled")
+
 
             }
             // IDENTIFICATION
@@ -23,8 +23,8 @@ export class View {
             if (event.target.id === this.exercice[2]) {
                 this.answerTable(document.getElementById("root").id);
                 this._lockExercice();
-                this.getElement("#tool-nothing").disabled= true
-                this.getElement("#tool-nothing").style.color = "grey"
+                this.getElement("#tool-nothing").classList.add("disabled")
+
             }
 
             // EXPLANATION
@@ -1142,7 +1142,7 @@ export class View {
         while (document.querySelector("#root").firstChild) {
             document.querySelector("#root").removeChild(document.querySelector("#root").firstChild)
         }
-
+    this.getElement("#tool-nothing").classList.remove("disabled")
         document.getElementById("question-name").value = "";
         document.getElementById("explication").checked = false;
         document.getElementById("explication-text").value = "";
