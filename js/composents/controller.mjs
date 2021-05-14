@@ -527,11 +527,7 @@ export class Controller {
         if (this.model.tagsyEditor !== [] && this.model.tagsy !== []) {
             let getSession = this.model.tagsyEditor
             let getTagsy = this.model.tagsy
-            if (this.model.questionCreated === []) {
-                this.view._showDisplay(this.view.getElement("#change"))
-            } else {
-                this.view._hideDisplay(this.view.getElement("#change"))
-            }
+
             this.view.getElement("#qcm").checked = getSession.qcm ? "checked" : false
             this.view.getElement("#identification").checked = getSession.identification ? "checked" : false
             this.view.getElement("#short-answer").checked = getSession.shortAnswer ? "checked" : false
@@ -543,33 +539,51 @@ export class Controller {
             this.view.getElement("#counter").checked = getTagsy.counterAuto ? "checked" : false
             this.view.getElement("#name-exercise").value = getTagsy.exerciseName ? getTagsy.exerciseName : ""
 
-
             if (this.view.getElement("#qcm").checked) {
+                if (this.view.getElement("#questions").childElementCount === 0){
+                    this.view._showDisplay(this.view.getElement("#change"))
+                }
+                else {
+                    this.view._hideDisplay(this.view.getElement("#change"))
+                }
                 this.view.qcmTable(document.getElementById("root").id)
                 this.view._lockExercice();
-                this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableQcm(this.model.qcmAnswers)
                 this.model.bindChangeQcmAnswer(this.onChange)
                 this.view.bindAddQcm(this.handleAddAnswer)
                 this.view.binDelete(this.handleDeleteAnswer)
                 this.view.binEditQcm(this.handleEditAnswer)
                 this.onChange(this.model.qcmAnswers)
+                this.view.getElement("#tool-nothing").disabled= true
+                this.view.getElement("#tool-nothing").style.color = "grey"
 
             }
             if (this.view.getElement("#identification").checked) {
+                if (this.view.getElement("#questions").childElementCount === 0){
+                    this.view._showDisplay(this.view.getElement("#change"))
+                }
+                else {
+                    this.view._hideDisplay(this.view.getElement("#change"))
+                }
                 this.view._lockExercice();
-                this.view.getElement("#change").classList.add("display-none")
             }
             if (this.view.getElement("#short-answer").checked) {
+                if (this.view.getElement("#questions").childElementCount === 0){
+                    this.view._showDisplay(this.view.getElement("#change"))
+                }
+                else {
+                    this.view._hideDisplay(this.view.getElement("#change"))
+                }
                 this.view.answerTable(document.getElementById("root").id)
                 this.view._lockExercice();
-                this.view.getElement("#change").classList.add("display-none")
                 this.view.displayTableShort(this.model.shortAnswers)
                 this.model.bindChangeShortAnswer(this.onChangeShort)
                 this.view.bindAddShort(this.handleAddShort)
                 this.view.binDelete(this.handleDeleteShort)
                 this.view.binEditShort(this.handleEditShort)
                 this.onChangeShort(this.model.shortAnswers)
+                this.view.getElement("#tool-nothing").disabled= true
+                this.view.getElement("#tool-nothing").style.color = "grey"
             }
 
             this.view.getElement("#explication").checked ?

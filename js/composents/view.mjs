@@ -11,6 +11,9 @@ export class View {
             if (event.target.id === this.exercice[0]) {
                 this.qcmTable(document.getElementById("root").id);
                 this._lockExercice();
+                this.getElement("#tool-nothing").disabled= true
+                this.getElement("#tool-nothing").style.color = "grey"
+
             }
             // IDENTIFICATION
             if (event.target.id === this.exercice[1]) {
@@ -20,6 +23,8 @@ export class View {
             if (event.target.id === this.exercice[2]) {
                 this.answerTable(document.getElementById("root").id);
                 this._lockExercice();
+                this.getElement("#tool-nothing").disabled= true
+                this.getElement("#tool-nothing").style.color = "grey"
             }
 
             // EXPLANATION
